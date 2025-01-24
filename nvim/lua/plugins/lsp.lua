@@ -9,12 +9,13 @@ return {
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/nvim-cmp",
-        "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "mlaursen/vim-react-snippets",
         "j-hui/fidget.nvim",
     },
 
     config = function()
+        require("vim-react-snippets").lazy_load()
         require("conform").setup({
             formatters_by_ft = {
             }

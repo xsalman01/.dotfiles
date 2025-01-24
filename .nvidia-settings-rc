@@ -2,7 +2,7 @@
 # /home/dopeman/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA Settings utility
-# Generated on Mon Dec 30 17:16:44 2024
+# Generated on Fri Jan 24 23:54:02 2025
 #
 
 # ConfigProperties:
@@ -29,6 +29,7 @@ Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 0/OpenGLImageSettings=1
 0/FSAAAppEnhanced=0
 0/ShowGraphicsVisualIndicator=0
+0/XVideoSyncToDisplayID=HDMI-0
 [DPY:DVI-I-0]/RedBrightness=-0.096000
 [DPY:DVI-I-0]/GreenBrightness=-0.096000
 [DPY:DVI-I-0]/BlueBrightness=-0.096000

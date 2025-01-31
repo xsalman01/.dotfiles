@@ -9,6 +9,7 @@ exec --no-startup-id nvidia-settings --load-config-only
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
+exec_always unclutter &
 
 # remove default borders
 for_window [class="^.*"] border pixel 0

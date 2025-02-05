@@ -1,6 +1,6 @@
 # i3 config file (v4)
 
-# autostarting 
+# AUTOSTARTING
 exec_always --no-startup-id picom --config ~/.config/picom.conf
 exec_always --no-startup-id xborders
 #exec --no-startup-id dunst
@@ -10,20 +10,18 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec_always unclutter &
+exec_always --no-startup-id xremap --device /dev/input/event2 ~/.config/xremap/config.yml
+exec_always --no-startup-id numlockx on
 
 # remove default borders
 for_window [class="^.*"] border pixel 0
 
 # kill polybar processes and start it again
-exec_always killall polybar
-
-# swap caps lock and escape
-exec_always --no-startup-id xmodmap -e "clear lock"
-exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
-exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+# exec_always killall polybar
 
 # Variables
 set $mod Mod1
+set $super Mod4
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -38,31 +36,42 @@ set $ws10 "10"
 font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
+# Poweroff shortcut
+bindsym $mod+$super+F10 exec --no-startup-id poweroff
+bindsym $mod+$super+F11 exec --no-startup-id reboot
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym F9 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Track Controls
-bindsym F8 exec --no-startup-id playerctl --player=spotify next
+# Track and Volume Controls in Spotify
+bindsym F1 exec --no-startup-id playerctl --player=spotify volume 0.0
+bindsym F2 exec --no-startup-id playerctl --player=spotify volume 0.05-
+bindsym F3 exec --no-startup-id playerctl --player=spotify volume 0.05+
+bindsym F4 exec --no-startup-id playerctl --player=spotify volume 1.0
 bindsym F5 exec --no-startup-id playerctl --player=spotify previous
 bindsym F6 exec --no-startup-id playerctl --player=spotify play-pause
 bindsym F7 exec --no-startup-id playerctl --player=spotify pause
+bindsym F8 exec --no-startup-id playerctl --player=spotify next
 
+# Track controls globally
+bindsym XF8AudioNext exec --no-startup-id playerctl --ignore-player=spotify next
+bindsym XF8AudioPrev exec --no-startup-id playerctl --ignore-player=spotify previous
+bindsym XF8AudioPlay exec --no-startup-id playerctl --ignore-player=spotify play-pause
+bindsym XF8AudioStop exec --no-startup-id playerctl --ignore-player=spotify pause
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+#change focus between tiling and floating windows
+bindsym $mod+space focus mode_toggle
+
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
-
-# Audio controls using pactl
-bindsym F1 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -118,13 +127,13 @@ bindsym $mod+a focus parent
 
 #default workspaces
 workspace "1" output HDMI-0
-workspace "3" output DVI-I-0
-workspace "2" output HDMI-0
+workspace "2" output DVI-I-0
+workspace "3" output HDMI-0
 workspace "4" output DVI-I-0
 
 #assign apps to workspaces
 assign [class="^discord$"] 4
-assign [class="Spotify"] 2
+assign [class="Spotify"] 3
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -185,5 +194,5 @@ bar {
 }
 
 # GAPS
-gaps inner 15px
+gaps inner 12px
 smart_gaps inverse_outer

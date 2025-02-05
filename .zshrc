@@ -1,8 +1,5 @@
 # zshrc
 
-#BLINKING CURSOR
-echo -e "\e[1 q"
-
 #COLORS
 eval "$(dircolors -b ~/.config/.dircolors)"
 

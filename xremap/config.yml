@@ -1,0 +1,13 @@
+modmap: 
+  - name: Swap Caps and Esc
+    remap:
+      CapsLock: Esc
+      Esc: CapsLock
+
+keymap:
+  - name: Arrow Key Remapping
+    remap:
+      Super-h: left
+      Super-j: down
+      Super-k: up
+      Super-l: right

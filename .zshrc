@@ -37,6 +37,7 @@ alias l='ls -CF --color=auto'
 
 # ENV VARIABLES
 export EDITOR=/usr/bin/nvim
+export RANGER_LOAD_DEFAULT_RC=false
 
 # Created by `pipx` on 2025-01-29 11:21:41
 export PATH="$PATH:/home/dopeman/.local/bin"

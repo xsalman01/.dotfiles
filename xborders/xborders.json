@@ -2,7 +2,7 @@
     "border-rgba": "0x928374",
     "border-radius": 12,
     "border-width": 3,
-    "border-mode": "outside",
+    "border-mode": "center",
     "disable-version-warning": true,
 
     "positive-x-offset": 0,

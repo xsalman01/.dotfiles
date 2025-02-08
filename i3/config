@@ -1,10 +1,12 @@
 # i3 config file (v4)
 
+# remove default borders
+for_window [class="^.*"] border pixel 0
+
 # AUTOSTARTING
 exec_always --no-startup-id picom --config ~/.config/picom.conf
-exec_always --no-startup-id xborders
 #exec --no-startup-id dunst
-exec --no-startup-id nitrogen --restore &
+exec --no-startup-id ~/.fehbg &
 exec --no-startup-id nvidia-settings --load-config-only
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -12,9 +14,7 @@ exec --no-startup-id nm-applet
 exec_always unclutter &
 exec_always --no-startup-id xremap --device /dev/input/event2 ~/.config/xremap/config.yml
 exec_always --no-startup-id numlockx on
-
-# remove default borders
-for_window [class="^.*"] border pixel 0
+exec_always --no-startup-id xborders
 
 # kill polybar processes and start it again
 # exec_always killall polybar
@@ -136,6 +136,11 @@ workspace "5" output HDMI-0
 assign [class="^discord$"] 4
 assign [class="Stremio"] 5
 assign [class="Spotify"] 3
+assign [class="polychromatic*"] 3
+assign [class="Nvidia*"] 3
+
+#make workspace 2 always float
+for_window [class="*" workspace=3] floating enable
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -197,4 +202,3 @@ bar {
 
 # GAPS
 gaps inner 12px
-smart_gaps inverse_outer

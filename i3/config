@@ -63,18 +63,6 @@ bindsym F6 exec --no-startup-id playerctl --player=spotify play-pause
 bindsym F7 exec --no-startup-id playerctl --player=spotify pause
 bindsym F8 exec --no-startup-id playerctl --player=spotify next
 
-# Volume Controls in Discord
-bindsym F1 exec --no-startup-id playerctl --player=spotify volume 0.0
-bindsym F2 exec --no-startup-id playerctl --player=spotify volume 0.05-
-bindsym F3 exec --no-startup-id playerctl --player=spotify volume 0.05+
-bindsym F4 exec --no-startup-id playerctl --player=spotify volume 1.0
-
-# Volume Controls in Discord
-bindsym F1 exec --no-startup-id playerctl --player=spotify volume 0.0
-bindsym F2 exec --no-startup-id playerctl --player=spotify volume 0.05-
-bindsym F3 exec --no-startup-id playerctl --player=spotify volume 0.05+
-bindsym F4 exec --no-startup-id playerctl --player=spotify volume 1.0
-
 # Track controls globally
 bindsym XF86AudioNext exec --no-startup-id playerctl \
 --ignore-player=spotify next

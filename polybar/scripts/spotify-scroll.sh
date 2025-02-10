@@ -2,9 +2,10 @@
 
 zscroll -l 30 \
         --delay 0.15 \
+        --before-text " " \
         --scroll-padding " | " \
         --match-command "`dirname $0`/spotify-status.sh --status" \
-        --match-text "Playing" "--scroll 1" \
-        --match-text "Paused" "--scroll 0" \
+        --match-text "Playing" "--scroll 1 --after-text ' '" \
+        --match-text "Paused" "--scroll 0 --after-text ' '" \
         --update-check true "`dirname $0`/spotify-status.sh" &
 wait

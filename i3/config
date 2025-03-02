@@ -92,6 +92,13 @@ bindsym $mod+Shift+q kill
 # start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Tab exec --no-startup-id rofi -show window
+bindsym $super+period exec --no-startup-id rofi -modi "emoji:rofimoji" -show emoji
+
+#ksnip screenshot tool
+bindsym $super+Print exec --no-startup-id ksnip -m -s
+bindsym $super+Shift+Print exec --no-startup-id ksnip -f -s
+bindsym $super+s exec --no-startup-id ksnip -a -s
+bindsym $super+Shift+s exec --no-startup-id ksnip -r -s
 
 # change focus
 bindsym $mod+h focus left
@@ -154,8 +161,9 @@ assign [class="Spotify"] 3
 assign [class="polychromatic*"] 3
 assign [class="Nvidia*"] 3
 
-#make workspace 2 always float
+#floating workspaces and windows
 for_window [class="*" workspace=3] floating enable
+for_window [class="ksnip"] floating enable
 for_window [class="pavucontrol"] floating enable, move position 1335 620
 
 # switch to workspace
@@ -211,10 +219,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # GAPS
-gaps inner 12px
-gaps bottom 35px
-workspace "2" gaps bottom 0px
-workspace "4" gaps bottom 0px
-workspace "6" gaps bottom 0px
-workspace "8" gaps bottom 0px
-workspace "10" gaps bottom 0px
+gaps inner 6px
+gaps bottom 36px
+workspace "1" gaps bottom 0px
+workspace "3" gaps bottom 0px
+workspace "5" gaps bottom 0px
+workspace "7" gaps bottom 0px
+workspace "9" gaps bottom 0px

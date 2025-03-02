@@ -6,7 +6,7 @@ live_config_reload = true
 
 [cursor]
 blink_interval = 530
-unfocused_hollow = false
+unfocused_hollow = true
 thickness = 0.15
 
 [cursor.style]
@@ -19,7 +19,7 @@ save_to_clipboard = true
 [window]
 decorations = "none"
 dynamic_title = true
-opacity = 0.7
+opacity = 0.75
 dynamic_padding = true
 
 [window.padding]

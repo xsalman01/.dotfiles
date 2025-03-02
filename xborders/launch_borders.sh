@@ -2,6 +2,9 @@
 
 pkill xborders
 
-xborders --border-radius 10 --border-width 3 --border-mode center \
-    --border-rgba \#928374DF --disable-version-warning &
+xborders --border-radius 2 \
+    --border-width 1 \
+    --border-mode center \
+    --border-rgba \#928374 \
+    --disable-version-warning &
 exit 0

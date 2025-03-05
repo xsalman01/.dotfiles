@@ -4,12 +4,12 @@
 * {
     font:   "FiraCode Nerd Font Medium 12";
 
-    bg0:     #2B3339;
-    bg1:     #323D43;
-    fg0:     #D3C6AA;
+    bg0:     #26233a;
+    bg1:     #1f1d2e;
+    fg0:     #e0def4;
 
-    accent-color:     #A7C080;
-    urgent-color:     #DBBC7F;
+    accent-color:     #ebbcba;
+    urgent-color:     #eb6f92;
 
     background-color:   transparent;
     text-color:         @fg0;

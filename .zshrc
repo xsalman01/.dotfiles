@@ -31,7 +31,7 @@ source /usr/share/nvm/init-nvm.sh
 # ALIASES
 alias sysup='sudo pacman -Syu'
 alias yayup='yay -Syu'
-alias venupd='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
+alias venup='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'

@@ -9,7 +9,7 @@ configuration {
     show-icons: true;
     icon-theme: "Papirus Dark"; 
     // cache-dir: ;
-    // dpi: ; 
+    dpi: 110; 
 
         /* Matching Settings */
     matching: "normal";

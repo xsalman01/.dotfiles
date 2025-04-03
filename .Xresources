@@ -1,3 +1,6 @@
+! DPI
+Xft.dpi:120
+
 ! special
 *.foreground:   #e0def4
 *.background:   #191724

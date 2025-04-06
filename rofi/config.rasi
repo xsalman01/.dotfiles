@@ -9,7 +9,8 @@ configuration {
     show-icons: true;
     icon-theme: "Papirus Dark"; 
     // cache-dir: ;
-    dpi: 110; 
+    // Uncomment dpi if on laptop
+    // dpi: 110; 
 
         /* Matching Settings */
     matching: "normal";

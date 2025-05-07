@@ -32,10 +32,20 @@ source /usr/share/nvm/init-nvm.sh
 alias sysup='sudo pacman -Syu'
 alias yayup='yay -Syu'
 alias venup='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
+alias spiceup='spicetify restore backup apply'
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
 alias l='ls -CF --color=auto'
+
+runc() {
+  local filename="${1%.c}"
+  shift
+  [[ -f "$filename.c" ]] || { echo "$filename.c not found"; return 1; }
+  gcc "$filename.c" -o "$filename.out" && ./"$filename.out" "$@"
+}
+
+compdef '_files -g "*.c"' runc
 
 # ENV VARIABLES
 export EDITOR=/usr/bin/nvim

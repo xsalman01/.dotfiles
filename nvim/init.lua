@@ -1,3 +1,5 @@
 require("config.lazy")
 require("config.remap")
 require("config.sets")
+require("config.diagnostics")
+require("config.status")

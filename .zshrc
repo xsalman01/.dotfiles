@@ -29,6 +29,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/share/nvm/init-nvm.sh
 
 # ALIASES
+alias vim='nvim'
 alias sysup='sudo pacman -Syu'
 alias yayup='yay -Syu'
 alias venup='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
@@ -49,7 +50,17 @@ compdef '_files -g "*.c"' runc
 
 # ENV VARIABLES
 export EDITOR=/usr/bin/nvim
+export SYSTEMD_EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
 export RANGER_LOAD_DEFAULT_RC=false
 
 # Created by `pipx` on 2025-01-29 11:21:41
 export PATH="$PATH:$HOME/.local/bin"
+
+# pnpm
+export PNPM_HOME="/home/Agnosia/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

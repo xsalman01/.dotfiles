@@ -1,27 +1,29 @@
-local function get_file_path()
-  local current_file = vim.fn.expand('%:p')
-  
-  if current_file == "" then
-    return ""
+local function find_project_root(filepath)
+  local uv = vim.loop
+
+  local function is_git_dir(path)
+    return uv.fs_stat(path .. "/.git") ~= nil
   end
-  
-  local git_dir = vim.fn.finddir('.git', vim.fn.expand('%:p:h') .. ';')
-  
-  local relative_path = ""
-  
-  if git_dir ~= "" then
-    local project_root = vim.fn.fnamemodify(git_dir, ':h')
-    relative_path = vim.fn.fnamemodify(current_file, ':s?' .. project_root .. '/??')
+
+  local dir = vim.fn.fnamemodify(filepath, ":p:h")
+  while dir ~= "/" and not is_git_dir(dir) do
+    dir = vim.fn.fnamemodify(dir, ":h")
+  end
+
+  if is_git_dir(dir) then
+    return dir
   else
-    local home_dir = vim.fn.expand('~')
-    if vim.fn.stridx(current_file, home_dir) == 0 then
-      relative_path = '~' .. current_file:sub(#home_dir + 1)
-    else
-      relative_path = current_file
-    end
+    return vim.env.HOME
   end
-  
-  return "%#Directory#%* " .. relative_path
+end
+
+function Get_path()
+  local filepath = vim.api.nvim_buf_get_name(0)
+  if filepath == "" then return "" end
+
+  local root = find_project_root(filepath)
+  local relpath = vim.fn.fnamemodify(filepath, ":p"):gsub("^" .. root .. "/", "")
+  return "%#Directory#%* " .. relpath
 end
 
 return {
@@ -30,7 +32,7 @@ return {
         layout = {
             a = section_a,
             b = section_b,
-            c = get_file_path,
+            c = function() return GetFilePath() end,
             d = section_d,
             e = section_e,
         }

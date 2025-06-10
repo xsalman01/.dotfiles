@@ -6,7 +6,7 @@ return {
         'BurntSushi/ripgrep',
         'nvim-tree/nvim-web-devicons',
     },
-
+    cmd = { "Telescope", "TelescopeFindFiles", "TelescopeBuffers", "TelescopeLiveGrep" },
     config = function()
         require('telescope').setup({})
 

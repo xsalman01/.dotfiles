@@ -10,15 +10,15 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/nvim-cmp",
         "saadparwaiz1/cmp_luasnip",
-        "mlaursen/vim-react-snippets",
         "j-hui/fidget.nvim",
     },
 
     config = function()
-        require("vim-react-snippets").lazy_load()
         require("conform").setup({
             formatters_by_ft = {
-            }
+                markdown = { "prettier" },
+                markdown_mdx = { "prettier" },
+            },
         })
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -65,7 +65,7 @@ return {
                                 workspace = {
                                     checkThirdParty = false,
                                     library = {
-                                        vim.env.VIMRUNTIME ..'/lua',
+                                        vim.env.VIMRUNTIME .. '/lua',
                                     },
                                 },
                                 diagnostics = {

@@ -64,3 +64,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# yazi auto empty trash
+function y() {
+	yazi "$@"
+	# Optional: Clean up trash after Yazi exits
+	find ~/.local/share/Trash/files/ -type f -mtime +7 -delete
+	find ~/.local/share/Trash/info/ -type f -mtime +7 -delete
+}

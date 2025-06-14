@@ -57,10 +57,3 @@ export RANGER_LOAD_DEFAULT_RC=false
 # Created by `pipx` on 2025-01-29 11:21:41
 export PATH="$PATH:$HOME/.local/bin"
 
-# pnpm
-export PNPM_HOME="/home/Agnosia/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end

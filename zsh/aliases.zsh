@@ -1,0 +1,10 @@
+# ALIASES
+alias vim='nvim'
+alias sysup='sudo pacman -Syu'
+alias yayup='yay -Syu'
+alias venup='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
+alias spiceup='spicetify restore backup apply'
+alias ls='ls --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'

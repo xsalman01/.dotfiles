@@ -1,6 +1,6 @@
 ! Uncomment DPI setting only on laptop
 ! DPI
-! Xft.dpi:120
+ Xft.dpi:120
 
 ! special
 *.foreground:   #e0def4

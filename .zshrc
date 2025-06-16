@@ -8,6 +8,9 @@ done
 #COLORS
 eval "$(dircolors -b ~/.config/.dircolors)"
 
+# Zoxide
+eval "$(zoxide init zsh)"
+
 # HISTORY
 HISTFILE=~/.histfile
 HISTSIZE=1000

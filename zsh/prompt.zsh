@@ -11,7 +11,7 @@ precmd() {
     vcs_info
     print ""
 }
-zstyle ':vcs_info:git:*' formats 'on %b'
+zstyle ':vcs_info:git:*' formats 'on %B%b'
 
 # Left prompt: breadcrumb pat
 PROMPT='${VI_PROMPT_MODE}${FG_LOVE}${BACKWARD_SEPARATOR}${BG_LOVE}${FG_SURFACE}'\

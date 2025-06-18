@@ -13,9 +13,17 @@ precmd() {
 }
 zstyle ':vcs_info:git:*' formats 'on %b'
 
-# Left prompt: breadcrumb pat
+# Get directory display component
+function get_dir_display() {
+    if [[ "$PWD" == "/" ]]; then
+        echo "%B${FOLDER_ICON}%b"
+    else
+        echo "%B${FOLDER_ICON}${${PWD/#$HOME//}//\//${PATH_SEPARATOR}}%b"
+    fi
+}
+
 PROMPT='${VI_PROMPT_MODE}${FG_LOVE}${BACKWARD_SEPARATOR}${BG_LOVE}${FG_SURFACE}'\
-' %B${FOLDER_ICON}${${PWD/#$HOME//}//\//${PATH_SEPARATOR}} %b'\
+' $(get_dir_display) '\
 '${RESET}${FG_LOVE}${FORWARD_SEPARATOR}${RESET}'\
 '${vcs_info_msg_0_:+${FG_PINE}${BACKWARD_SEPARATOR}${BG_PINE}${FG_GOLD} '\
 '${BRANCH_ICON} ${vcs_info_msg_0_} ${RESET}${FG_PINE}${FORWARD_SEPARATOR}${RESET}}

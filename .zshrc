@@ -16,7 +16,21 @@ setopt autocd
 
 zstyle :compinstall filename '$HOME/.zshrc'
 
-# Zoxide
+# TMUX symlink fix
+autoload -U add-zsh-hook
+
+function set_tmux_pwd() {
+    [[ -n "$TMUX" ]] || return 0
+    local pane_id=$(tmux display -p "#D" 2>/dev/null)
+    [[ -n "$pane_id" ]] || return 0
+    pane_id=${pane_id//\%/}
+    tmux setenv "TMUXPWD_${pane_id}" "$PWD" &>/dev/null
+}
+
+add-zsh-hook chpwd set_tmux_pwd
+set_tmux_pwd
+
+# ZOXIDE
 eval "$(zoxide init zsh)"
 
 # Created by `pipx` on 2025-01-29 11:21:41

@@ -1,0 +1,6 @@
+i3/audio.conf merge=config
+i3/workspaces.conf merge=config
+.Xresources merge=config
+rofi/config.rasi merge=config
+polybar/modules/tray.ini merge=config
+polybar/modules/volume.ini merge=config

@@ -1,36 +1,49 @@
 #!/bin/bash
 
-# Get current branch
+# Get current branch (target branch)
 TARGET_BRANCH=$(git branch --show-current)
-[ -z "$TARGET_BRANCH" ] && exit 0  # Skip if detached HEAD
 
-# Determine comment character
+# Determine action based on target branch
+if [[ "$TARGET_BRANCH" == "main" ]]; then
+    ACTION="enable_desktop"
+elif [[ "$TARGET_BRANCH" == "laptop" ]]; then
+    ACTION="enable_laptop"
+else
+    exit 0  # Skip processing if not on main/laptop
+fi
+
+# Determine comment character based on file
 case "$1" in
-    *audio.conf|*workspaces.conf|*tray.ini|*volume.ini)
-        COMMENT_CHAR="#" ;;
-    */.Xresources)
-        COMMENT_CHAR="!" ;;
-    */config.rasi)
-        COMMENT_CHAR="//" ;;
-    *)
-        COMMENT_CHAR="#" ;;  # Default
+    *.rasi)        COMMENT="//" ;;
+    *.Xresources)  COMMENT="!"  ;;
+    *)             COMMENT="#"  ;;
 esac
 
-# Process file
-awk -v target="$TARGET_BRANCH" -v comment="$COMMENT_CHAR" '
-    /### DESKTOP START ###/ { in_desktop=1; print; next }
-    /### DESKTOP END ###/   { in_desktop=0; print; next }
-    /### LAPTOP START ###/  { in_laptop=1; print; next }
-    /### LAPTOP END ###/    { in_laptop=0; print; next }
-    
+# Process the file
+awk -v action="$ACTION" -v comment="$COMMENT" '
+    /### DESKTOP START ###/ { in_desktop = 1; print; next }
+    /### DESKTOP END ###/   { in_desktop = 0; print; next }
+    /### LAPTOP START ###/  { in_laptop  = 1; print; next }
+    /### LAPTOP END ###/    { in_laptop  = 0; print; next }
+
     {
         if (in_desktop) {
-            if (target == "main") gsub("^" comment "[ ]?", "")
-            else if (target == "laptop") $0 = ($0 !~ "^" comment ? comment " " : "") $0
+            if (action == "enable_desktop") {
+                # Uncomment desktop lines
+                sub("^" comment "[ ]?", "", $0)
+            } else {
+                # Comment desktop lines
+                if ($0 !~ "^" comment) $0 = comment " " $0
+            }
         }
         else if (in_laptop) {
-            if (target == "laptop") gsub("^" comment "[ ]?", "")
-            else if (target == "main") $0 = ($0 !~ "^" comment ? comment " " : "") $0
+            if (action == "enable_laptop") {
+                # Uncomment laptop lines
+                sub("^" comment "[ ]?", "", $0)
+            } else {
+                # Comment laptop lines
+                if ($0 !~ "^" comment) $0 = comment " " $0
+            }
         }
         print
     }

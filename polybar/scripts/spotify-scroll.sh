@@ -8,6 +8,7 @@ zscroll -l 30 \
         --match-command "`dirname $0`/spotify-status.sh --status" \
         --match-text "Playing" "--scroll 1 --after-text ' %{T6 F#f6c177}%{T- F-}'" \
         --match-text "Paused" "--scroll 0 --after-text ' %{T6 F#f6c177}%{T- F-}'" \
+        --update-interval 1\
         --update-check true "`dirname $0`/spotify-status.sh" &
 wait
 

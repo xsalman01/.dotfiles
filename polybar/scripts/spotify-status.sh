@@ -15,6 +15,7 @@ if [ $EXIT_CODE -eq 0 ]; then
 else
     STATUS="No player is running"
     polybar-msg action "#spotify.module_hide" >/dev/null
+    exit 0
 fi
 
 if [ "$1" == "--status" ]; then
@@ -30,4 +31,3 @@ else
         playerctl --player=$PLAYER metadata --format "$FORMAT"
     fi
 fi
-

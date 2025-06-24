@@ -3,7 +3,7 @@
 pkill -f "zscroll.*spotify"
 
 zscroll -l 30 \
-        --delay 0.15 \
+        --delay 0.25 \
         --scroll-padding "  •  " \
         --match-command "`dirname $0`/spotify-status.sh --status" \
         --match-text "Playing" "--scroll 1 --after-text ' %{T6 F#f6c177}%{T- F-}'" \

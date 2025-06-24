@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Spotify (Polybar)
+Icon=spotify-launcher
+GenericName=Music Player
+Terminal=false
+Type=Application
+Categories=Audio;Music;Player;
+
+### LAPTOP START ###
+Exec=/home/Agnosia/.config/polybar/scripts/spotify-launcher.sh
+### LAPTOP END ###
+
+### DESKTOP START ###
+# Exec=/home/dopeman/.config/polybar/scripts/spotify-launcher.sh
+### DESKTOP END ###

@@ -3,6 +3,7 @@
 # Enable prompt substitution
 setopt PROMPT_SUBST
 
+
 ZVM_CURSOR_STYLE_ENABLED=false
 
 # Git branch info
@@ -23,7 +24,7 @@ function get_dir_display() {
 }
 
 PROMPT='${VI_PROMPT_MODE}${FG_LOVE}${BACKWARD_SEPARATOR}${BG_LOVE}${FG_SURFACE}'\
-' $(get_dir_display) '\
+'${VIRTUAL_ENV:+ %B(${ENV_ICON} ${${VIRTUAL_ENV##*/}})}%b $(get_dir_display) '\
 '${RESET}${FG_LOVE}${FORWARD_SEPARATOR}${RESET}'\
 '${vcs_info_msg_0_:+${FG_PINE}${BACKWARD_SEPARATOR}${BG_PINE}${FG_GOLD} '\
 '${BRANCH_ICON} ${vcs_info_msg_0_} ${RESET}${FG_PINE}${FORWARD_SEPARATOR}${RESET}}

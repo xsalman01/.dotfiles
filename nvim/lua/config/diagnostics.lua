@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
         -- Also ensure border is visible but subtle
         vim.api.nvim_set_hl(0, "FloatBorder", {
-            fg = "gray",
+            fg = "#26233a",
             bg = "NONE"
         })
     end,

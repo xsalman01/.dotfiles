@@ -13,5 +13,10 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "aeca767"
 hash = "d5d4f3527592da5fbe77fd6f51815f80"
 
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "2c2802d"
+hash = "6513e9224b29ac1e2b3a7326ff648e81"
+
 [flavor]
 deps = []

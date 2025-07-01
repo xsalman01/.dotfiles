@@ -34,7 +34,7 @@ ZPID=$!
 playerctl --player=$PLAYER --follow metadata | while read -r _; do
   if ! pgrep -x "$PLAYER" >/dev/null; then
     kill "$ZPID" 2>/dev/null
-    polybar-msg action "#spotify.module_hide"
+    polybar-msg action "#spotify.module_hide" || sleep 0.5 && polybar-msg action "#spotify.module_hide"
     rm -f "$FIFO"
     exit 0
   fi

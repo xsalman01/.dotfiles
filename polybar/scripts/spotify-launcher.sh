@@ -7,7 +7,7 @@ PLAYER="spotify"
 FORMAT="{{ artist }} - {{ title }}"
 
 # Launch Spotify if not already running
-pgrep -x "spotify" >/dev/null || spotify-launcher &
+pgrep -x "spotify" >/dev/null || spotify --disable-gpu
 
 # Wait for player to become available
 while ! playerctl --player="$PLAYER" status &>/dev/null; do sleep 0.2; done

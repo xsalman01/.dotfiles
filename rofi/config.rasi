@@ -11,7 +11,7 @@ configuration {
     // cache-dir: ;
     // Uncomment dpi if on laptop
     //### LAPTOP START ###
-    //dpi: 110; 
+//     //dpi: 110; 
     //### LAPTOP END ###
 
         /* Matching Settings */

@@ -1,7 +1,7 @@
 ! Uncomment DPI setting only on laptop
 ! DPI
 !### LAPTOP START ###
-Xft.dpi:120
+Xft.dpi:110
 !### LAPTOP END ###
 
 ! special

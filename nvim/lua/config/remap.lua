@@ -1,3 +1,7 @@
+-- Quickfix navigation
+vim.keymap.set("n", "[q", ":cnext<CR>zz", { silent = true })   -- next quickfix item
+vim.keymap.set("n", "]q", ":cprev<CR>zz", { silent = true })   -- prev quickfix item
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -35,5 +39,5 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover({ border = "rounded" })
+    vim.lsp.buf.hover({ border = "double" })
 end)

@@ -5,6 +5,7 @@ return {
         'nvim-lua/plenary.nvim',
         'BurntSushi/ripgrep',
         'nvim-tree/nvim-web-devicons',
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     cmd = { "Telescope", "TelescopeFindFiles", "TelescopeBuffers", "TelescopeLiveGrep" },
     config = function()
@@ -38,8 +39,12 @@ return {
                     },
                 },
             },
+            extensions = {
+                fzf = {}
+            }
         })
 
+        require('telescope').load_extension('fzf')
         local builtin = require('telescope.builtin')
 
         vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })

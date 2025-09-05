@@ -2,16 +2,13 @@
 
 killall -q polybar
 
-# Check the number of connected monitors
-connected_monitors=$(xrandr --listmonitors | grep -o '[0-9]*' | head -n 1)
-
 while pgrep -u $UID -x polybar >/dev/null; do sleep 0.2; done
 
 # Launch the appropriate bar based on the number of monitors
-if [ "$connected_monitors" -gt 1 ]; then
-  polybar myBar &    # Assuming internal laptop screen is eDP-1
+if ls /sys/class/power_supply/ | grep -q "^BAT"; then
+  polybar LaptopBar &    # if battery is present then it's a laptop
 else
-  polybar LaptopBar &
+  polybar myBar &
 fi
 
 exit 0

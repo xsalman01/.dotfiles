@@ -2,7 +2,7 @@
 
 killall -q polybar
 
-while pgrep -u $UID -x polybar >/dev/null; do sleep 0.2; done
+while pgrep -u $UID -x polybar >/dev/null; do sleep 0.5; done
 
 # Launch the appropriate bar based on the number of monitors
 if ls /sys/class/power_supply/ | grep -q "^BAT"; then

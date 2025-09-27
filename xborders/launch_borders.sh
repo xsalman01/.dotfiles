@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pkill xborders
+killall -q xborders
 
 xborders --border-radius 8 \
     --border-width 2 \

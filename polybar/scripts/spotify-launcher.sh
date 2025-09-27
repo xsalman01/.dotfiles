@@ -4,38 +4,42 @@ FIFO="/tmp/spotify-fifo"
 [ -p "$FIFO" ] || mkfifo "$FIFO"
 
 PLAYER="spotify"
-FORMAT="{{ artist }} - {{ title }}"
 
 # Launch Spotify if not already running
-pgrep -x "spotify" >/dev/null || spotify --disable-gpu
+pgrep -x "$PLAYER" >/dev/null || "$PLAYER" --disable-gpu &
 
-# Wait for player to become available
-while ! playerctl --player="$PLAYER" status &>/dev/null; do sleep 0.2; done
+# Wait for playerctl to detect Spotify
+while ! playerctl --player="$PLAYER" status &>/dev/null; do
+  sleep 0.2
+done
 
-# Show Polybar module
+# Show Polybar module immediately (give Polybar something to read)
+echo "" > "$FIFO"
 polybar-msg action "#spotify.module_show"
 
-# Kill any existing zscroll instance for Spotify
+# Kill any existing zscroll instance
 pkill -f "zscroll.*$PLAYER"
 
-# Start zscroll to write metadata to FIFO
+# Start zscroll and write metadata into FIFO
 zscroll -l 30 \
-      --delay 0.25 \
-      --scroll-padding "  •  " \
-      --match-command "playerctl --player=spotify status" \
-      --match-text "Playing" "--scroll 1 --after-text ' '" \
-      --match-text "Paused" "--scroll 0 --after-text ' '" \
-      --update-interval 1 \
-      --update-check true "playerctl --player=spotify metadata --format '{{ artist }} - {{ title }}'" \
-> "$FIFO"
+  --delay 0.25 \
+  --scroll-padding "  •  " \
+  --match-command "playerctl --player=$PLAYER status" \
+  --match-text "Playing" "--scroll 1 --after-text ' '" \
+  --match-text "Paused"  "--scroll 0 --after-text ' '" \
+  --update-interval 1 \
+  --update-check true \
+  "playerctl --player=$PLAYER metadata --format '{{ artist }} - {{ title }}'" \
+> "$FIFO" &
 ZPID=$!
 
-# Monitor Spotify and auto-clean when closed
-playerctl --player=$PLAYER --follow metadata | while read -r _; do
+# Monitor Spotify status; clean up when it exits
+playerctl --player=$PLAYER --follow status | while read -r _; do
   if ! pgrep -x "$PLAYER" >/dev/null; then
     kill "$ZPID" 2>/dev/null
-    polybar-msg action "#spotify.module_hide" || sleep 0.5 && polybar-msg action "#spotify.module_hide"
+    polybar-msg action "#spotify.module_hide"
     rm -f "$FIFO"
     exit 0
   fi
 done
+

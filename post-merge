@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# post-merge hook to automatically comment/uncomment branch-specific configurations
+
+# Get current branch (target branch)
+TARGET_BRANCH=$(git branch --show-current)
+
+# Only run if merging into 'main' or 'laptop'
+if [[ "$TARGET_BRANCH" != "main" && "$TARGET_BRANCH" != "laptop" ]]; then
+    exit 0
+fi
+
+# Determine action based on target branch
+if [[ "$TARGET_BRANCH" == "main" ]]; then
+    ACTION="enable_desktop"
+else
+    ACTION="enable_laptop"
+fi
+
+# List of files to process (same as in your .gitattributes)
+FILES=(
+    "i3/audio.conf"
+    "i3/autostart.conf"
+    "i3/workspaces.conf"
+    "hypr/hyprland.conf"
+    ".Xresources"
+    "rofi/config.rasi"
+    "rofi/applications/spotify-polybar.desktop"
+    "polybar/modules/tray.ini"
+    "polybar/modules/volume.ini"
+)
+
+# Process each file
+for file in "${FILES[@]}"; do
+    # Skip if file doesn't exist
+    [ -f "$file" ] || continue
+    
+    echo "Processing $file for branch $TARGET_BRANCH"
+    
+    # Determine comment character based on file extension
+    case "$file" in
+        *.rasi)        COMMENT="//" ;;
+        *.Xresources)  COMMENT="!"  ;;
+        *)             COMMENT="#"  ;;
+    esac
+
+    # Process the file
+    awk -v action="$ACTION" -v comment="$COMMENT" '
+        /### DESKTOP START ###/ { in_desktop = 1; print; next }
+        /### DESKTOP END ###/   { in_desktop = 0; print; next }
+        /### LAPTOP START ###/  { in_laptop  = 1; print; next }
+        /### LAPTOP END ###/    { in_laptop  = 0; print; next }
+
+        {
+            if (in_desktop) {
+                if (action == "enable_desktop") {
+                    # Uncomment desktop lines
+                    sub("^" comment "[ ]?", "", $0)
+                } else {
+                    # Comment desktop lines
+                    if ($0 !~ "^" comment) $0 = comment " " $0
+                }
+            }
+            else if (in_laptop) {
+                if (action == "enable_laptop") {
+                    # Uncomment laptop lines
+                    sub("^" comment "[ ]?", "", $0)
+                } else {
+                    # Comment laptop lines
+                    if ($0 !~ "^" comment) $0 = comment " " $0
+                }
+            }
+            print
+        }
+    ' "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+done
+
+exit 0

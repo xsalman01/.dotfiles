@@ -1,9 +1,36 @@
 -- Quickfix navigation
-vim.keymap.set("n", "[q", ":cnext<CR>zz", { silent = true })   -- next quickfix item
-vim.keymap.set("n", "]q", ":cprev<CR>zz", { silent = true })   -- prev quickfix item
+local function toggle_quickfix()
+  local qf_open = false
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_open = true
+      break
+    end
+  end
 
+  if qf_open then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end
+
+vim.keymap.set("n", "<leader>q", toggle_quickfix, { silent = true })
+vim.keymap.set("n", "[q", ":cnext<CR>zz")
+vim.keymap.set("n", "]q", ":cprev<CR>zz")
+vim.keymap.set("n", "]Q", "<cmd>clast<CR>")
+vim.keymap.set("n", "[Q", "<cmd>cfirst<CR>")
+
+-- buffer
+vim.keymap.set("n", "[b", ":bnext<CR>zz")
+vim.keymap.set("n", "]b", ":bprevious<CR>zz")
+vim.keymap.set("n", "]B", ":blast<CR>")
+vim.keymap.set("n", "[B", ":bfirst<CR>")
+
+-- general
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+vim.keymap.set("n", "gD", ":Telescope lsp_definitions<CR>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 

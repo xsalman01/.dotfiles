@@ -20,14 +20,13 @@ fi
 # List of files to process (same as in your .gitattributes)
 FILES=(
     "i3/audio.conf"
-    "i3/autostart.conf"
-    "i3/workspaces.conf"
     "hypr/hyprland.conf"
     ".Xresources"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"
     "polybar/modules/volume.ini"
+    "kitty/kitty.conf"
 )
 
 # Process each file

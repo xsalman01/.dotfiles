@@ -9,16 +9,63 @@ if [ ! -f "$WORKSPACES_FILE" ]; then
 fi
 
 # -------------------------
+# Helper: return the highest-resolution mode (by area) for a monitor
+# -------------------------
+# Usage: get_monitor_max_resolution MONITOR_NAME
+# prints: "<width> <height>"
+get_monitor_max_resolution() {
+  local mon="$1"
+  xrandr | awk -v mon="$mon" '
+    $1 == mon { inside = 1; next }
+    inside {
+      # if a non-indented line appears, it means the next monitor section started
+      if ($0 !~ /^[[:space:]]/) { if (maxw) { print maxw, maxh }; exit }
+      # mode lines typically start with "   1920x1080"
+      if ($1 ~ /^[0-9]+x[0-9]+/) {
+        split($1, res, "x")
+        w = res[1] + 0
+        h = res[2] + 0
+        area = w * h
+        if (area > maxarea) {
+          maxarea = area
+          maxw = w
+          maxh = h
+        }
+      }
+    }
+    END { if (inside && maxw) print maxw, maxh }
+  '
+}
+
+# -------------------------
 # Detect monitors + build assignments
 # -------------------------
 detect_monitors_and_generate_assignments() {
   local tmp_assign
   tmp_assign=$(mktemp)
 
-  CONNECTED_MONITORS=($(xrandr | awk '/ connected/ {print $1}'))
+  # get connected monitors in the order xrandr lists them
+  mapfile -t CONNECTED_MONITORS < <(xrandr | awk '/ connected/ {print $1}')
+
+  if [ ${#CONNECTED_MONITORS[@]} -eq 0 ]; then
+    echo "No connected monitors found." >&2
+    rm -f "$tmp_assign"
+    return 1
+  fi
 
   if [ ${#CONNECTED_MONITORS[@]} -eq 1 ]; then
     local MONITOR=${CONNECTED_MONITORS[0]}
+    # choose the highest resolution mode for the single monitor
+    read WIDTH HEIGHT < <(get_monitor_max_resolution "$MONITOR")
+
+    # fallback: if we failed to parse modes, extract current from the header line (e.g., "1024x768+...")
+    if [ -z "${WIDTH:-}" ] || [ -z "${HEIGHT:-}" ]; then
+      read WIDTH HEIGHT < <(xrandr | awk -v mon="$MONITOR" '$1==mon { if (match($0, /([0-9]+)x([0-9]+)\+/, a)) {print a[1], a[2]; exit}}')
+    fi
+
+    # ensure integers
+    WIDTH=${WIDTH%%.*}
+    HEIGHT=${HEIGHT%%.*}
     xrandr --output "$MONITOR" --primary --pos 0x0
 
     for ws in {1..10}; do
@@ -26,16 +73,32 @@ detect_monitors_and_generate_assignments() {
     done
 
   else
-    local PRIMARY_MONITOR=${CONNECTED_MONITORS[-1]}
+    # assume first is laptop/internal, last is external/primary (keeps your original intent)
     local LAPTOP_MONITOR=${CONNECTED_MONITORS[0]}
+    local PRIMARY_MONITOR=${CONNECTED_MONITORS[-1]}
 
-    # Get resolutions
-    read WIDTH HEIGHT < <(xrandr | awk -v mon="$PRIMARY_MONITOR" '
-      $1 == mon {getline; if ($2 ~ /\*/) {split($1,res,"x"); print res[1],res[2]; exit}}
-    ')
-    read LAPTOP_WIDTH LAPTOP_HEIGHT < <(xrandr | awk -v mon="$LAPTOP_MONITOR" '
-      $1 == mon {getline; if ($2 ~ /\*/) {split($1,res,"x"); print res[1],res[2]; exit}}
-    ')
+    # get highest modes (by area) for each monitor
+    read WIDTH HEIGHT < <(get_monitor_max_resolution "$PRIMARY_MONITOR")
+    if [ -z "${WIDTH:-}" ] || [ -z "${HEIGHT:-}" ]; then
+      read WIDTH HEIGHT < <(xrandr | awk -v mon="$PRIMARY_MONITOR" '$1==mon { if (match($0, /([0-9]+)x([0-9]+)\+/, a)) {print a[1], a[2]; exit}}')
+    fi
+
+    read LAPTOP_WIDTH LAPTOP_HEIGHT < <(get_monitor_max_resolution "$LAPTOP_MONITOR")
+    if [ -z "${LAPTOP_WIDTH:-}" ] || [ -z "${LAPTOP_HEIGHT:-}" ]; then
+      read LAPTOP_WIDTH LAPTOP_HEIGHT < <(xrandr | awk -v mon="$LAPTOP_MONITOR" '$1==mon { if (match($0, /([0-9]+)x([0-9]+)\+/, a)) {print a[1], a[2]; exit}}')
+    fi
+
+    # sanitize to integers (strip possible stray characters)
+    WIDTH=${WIDTH%%.*}
+    HEIGHT=${HEIGHT%%.*}
+    LAPTOP_WIDTH=${LAPTOP_WIDTH%%.*}
+    LAPTOP_HEIGHT=${LAPTOP_HEIGHT%%.*}
+
+    # if for any reason we couldn't determine widths, fall back to 0 to avoid broken xrandr syntax
+    WIDTH=${WIDTH:-0}
+    LAPTOP_WIDTH=${LAPTOP_WIDTH:-0}
+    HEIGHT=${HEIGHT:-0}
+    LAPTOP_HEIGHT=${LAPTOP_HEIGHT:-0}
 
     OFFSET_Y=$(( (HEIGHT - LAPTOP_HEIGHT) / 2 ))
     [ $OFFSET_Y -lt 0 ] && OFFSET_Y=0
@@ -43,6 +106,7 @@ detect_monitors_and_generate_assignments() {
     xrandr --output "$PRIMARY_MONITOR" --primary --pos 0x0
     xrandr --output "$LAPTOP_MONITOR" --pos ${WIDTH}x${OFFSET_Y}
 
+    # workspace assignments (keeps your original mapping)
     for ws in 10 4 6 8 2; do
       printf 'workspace "%s" output %s\n' "$ws" "$LAPTOP_MONITOR" >> "$tmp_assign"
     done
@@ -90,10 +154,16 @@ update_config_file() {
 move_workspaces() {
   local assignments_file="$1"
 
-  while read -r ws _ out; do
-    # Format is: workspace "N" output MONITOR
-    ws_num=$(echo "$ws" | tr -d '"')
-    i3-msg "workspace $ws_num; move workspace to output $out" >/dev/null
+  # Each line is: workspace "N" output MONITOR
+  # read the fields explicitly
+  while read -r field1 field2 field3 field4; do
+    [ -z "${field1:-}" ] && continue
+    ws_num=${field2//\"/}   # remove quotes from "N"
+    out=$field4
+    # sanity check
+    if [ -n "$ws_num" ] && [ -n "$out" ]; then
+      i3-msg "workspace $ws_num; move workspace to output $out" >/dev/null || true
+    fi
   done < "$assignments_file"
 }
 
@@ -125,7 +195,7 @@ xev -root -event randr | while read -r _; do
   (
     sleep 1
     tmp_assign=$(apply_layout)
-    apply_workspace_moves "$tmp_assign"
+    move_workspaces "$tmp_assign"
 
     current_ws=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name')
     i3-msg restart >/dev/null || true
@@ -136,4 +206,3 @@ xev -root -event randr | while read -r _; do
   ) &
   TIMER_PID=$!
 done
-

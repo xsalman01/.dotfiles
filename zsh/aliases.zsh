@@ -1,5 +1,6 @@
 # ALIASES
 alias vim='nvim'
+alias vi='nvim ./'
 alias sysup='sudo pacman -Syu'
 alias cleanup='sudo pacman -Rsn $(pacman -Qdtq)'
 alias venup='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'

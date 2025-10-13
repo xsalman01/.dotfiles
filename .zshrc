@@ -37,3 +37,10 @@ eval "$(zoxide init zsh)"
 export PATH="$PATH:$HOME/.local/bin"
 
 unsetopt CHASE_LINKS
+
+bindkey -s '\ef' "tmux-sessionizer\n"
+bindkey -s '\eh' "tmux-sessionizer -s 0\n"
+bindkey -s '\et' "tmux-sessionizer -s 1\n"
+bindkey -s '\en' "tmux-sessionizer -s 2\n"
+bindkey -s '\es' "tmux-sessionizer -s 3\n"
+

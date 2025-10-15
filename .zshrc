@@ -30,6 +30,14 @@ function set_tmux_pwd() {
 add-zsh-hook chpwd set_tmux_pwd
 set_tmux_pwd
 
+# TMUX sessionizer
+zvm_after_init_commands+=("bindkey -s '^f' 'tmux-sessionizer\n'")
+# for commands
+bindkey -s '\eh' "tmux-sessionizer -s 0\n"
+# bindkey -s '\et' "tmux-sessionizer -s 1\n"
+# bindkey -s '\en' "tmux-sessionizer -s 2\n"
+# bindkey -s '\es' "tmux-sessionizer -s 3\n"
+
 # ZOXIDE
 eval "$(zoxide init zsh)"
 
@@ -37,10 +45,3 @@ eval "$(zoxide init zsh)"
 export PATH="$PATH:$HOME/.local/bin"
 
 unsetopt CHASE_LINKS
-
-bindkey -s '\ef' "tmux-sessionizer\n"
-bindkey -s '\eh' "tmux-sessionizer -s 0\n"
-bindkey -s '\et' "tmux-sessionizer -s 1\n"
-bindkey -s '\en' "tmux-sessionizer -s 2\n"
-bindkey -s '\es' "tmux-sessionizer -s 3\n"
-

@@ -3,6 +3,12 @@ modmap:
     remap:
       CapsLock: Esc
       Esc: CapsLock
+  
+  - name: For tezarre
+    remap: 
+      SHIFT_R: SLASH
+    device:
+      only: ['RONGYUAN 2.4G Wireless', 'ROYUAN Gaming Keyboard']
 
 keymap:
   - name: Arrow Key Remapping

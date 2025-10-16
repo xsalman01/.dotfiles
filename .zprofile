@@ -1,6 +1,6 @@
 # Start xremap if not running
 if ! pgrep -x xremap > /dev/null; then
-    xremap ~/.config/xremap/config.yml &
+    xremap --watch ~/.config/xremap/config.yml &
 fi
 
 # Session handling

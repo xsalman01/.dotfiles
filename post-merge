@@ -19,7 +19,7 @@ fi
 
 # List of files to process (same as in your .gitattributes)
 FILES=(
-    "i3/audio.conf"
+    "i3/autostart.conf"
     "hypr/hyprland.conf"
     ".Xresources"
     "rofi/config.rasi"

@@ -107,10 +107,10 @@ detect_monitors_and_generate_assignments() {
     xrandr --output "$LAPTOP_MONITOR" --pos ${WIDTH}x${OFFSET_Y}
 
     # workspace assignments (keeps your original mapping)
-    for ws in 10 4 6 8 2; do
+    for ws in 7 8 9 10; do
       printf 'workspace "%s" output %s\n' "$ws" "$LAPTOP_MONITOR" >> "$tmp_assign"
     done
-    for ws in 9 3 5 7 1; do
+    for ws in 2 3 4 5 6 1; do
       printf 'workspace "%s" output %s\n' "$ws" "$PRIMARY_MONITOR" >> "$tmp_assign"
     done
   fi

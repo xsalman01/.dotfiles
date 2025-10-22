@@ -1,6 +1,8 @@
+@import "./rosepine.css";
+
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 13px;
 }
 
@@ -51,6 +53,12 @@ button:hover {
 /* you can set a style on hover for any module like this */
 #pulseaudio:hover {
     background-color: #a37800;
+}
+
+#workspaces {
+    font-family: Font Awesome;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 #workspaces button {

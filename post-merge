@@ -21,6 +21,7 @@ fi
 FILES=(
     "i3/autostart.conf"
     "hypr/hyprland.conf"
+    "hypr/hyprpaper.conf"
     "hypr/modules/workspaces.conf"
     ".Xresources"
     "rofi/config.rasi"

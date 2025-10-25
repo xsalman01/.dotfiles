@@ -40,13 +40,14 @@
     },
 
     "hyprland/window": {
+        "format": "{class} - {title}",
         "rewrite": {
-            "^(.*)\\s*-\\s*[A-Za-z0-9 ]+$": "$1",
-            "^(.*)\\s*—\\s*[A-Za-z0-9 ]+$": "$1"
+            " - ": "",
+            "^(?!Spotify|kitty)(.*)\\s+(-|—)\\s+[A-Za-z ]+$": "$1"
         },
-        "icon": true,
+        "icon": false,
         "separate-outputs": false,
-        "max-length": 64
+        "max-length": 48
     },
     "tray": {
         "spacing": 10

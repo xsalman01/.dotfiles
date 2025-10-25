@@ -39,7 +39,6 @@ vim.keymap.set("n", "[B", ":bfirst<CR>zz")
 -- general
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-vim.keymap.set("n", "gD", ":Telescope lsp_definitions<CR>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -53,26 +52,7 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
--- vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
-vim.keymap.set("n", "<leader>zig", function()
-  local clients = vim.lsp.get_active_clients()
-
-  -- Stop all regular LSP clients
-  for _, client in ipairs(clients) do
-    if client.name ~= "typescript-tools" then
-      vim.lsp.stop_client(client.id)
-    end
-  end
-
-  -- Restart typescript-tools gracefully
-  vim.cmd("silent! TSToolsRestart")
-
-  -- Restart other LSPs after a short delay
-  vim.defer_fn(function()
-    vim.cmd("LspStart")
-  end, 150)
-end, { desc = "Restart all LSPs (including typescript-tools)" })
-
+vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])

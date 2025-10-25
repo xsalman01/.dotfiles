@@ -21,6 +21,7 @@ fi
 FILES=(
     "i3/autostart.conf"
     "hypr/hyprland.conf"
+    "hypr/module/workspaces.conf"
     ".Xresources"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"

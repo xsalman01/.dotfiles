@@ -9,19 +9,19 @@ vim.keymap.set('n', '<Leader>5', '5gt')
 
 -- Quickfix navigation
 local function toggle_quickfix()
-  local qf_open = false
-  for _, win in ipairs(vim.fn.getwininfo()) do
-    if win["quickfix"] == 1 then
-      qf_open = true
-      break
+    local qf_open = false
+    for _, win in ipairs(vim.fn.getwininfo()) do
+        if win["quickfix"] == 1 then
+            qf_open = true
+            break
+        end
     end
-  end
 
-  if qf_open then
-    vim.cmd("cclose")
-  else
-    vim.cmd("copen")
-  end
+    if qf_open then
+        vim.cmd("cclose")
+    else
+        vim.cmd("copen")
+    end
 end
 
 vim.keymap.set("n", "<leader>q", toggle_quickfix, { silent = true })
@@ -71,7 +71,7 @@ vim.keymap.set("n", "<M-t>", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
 -- vim.keymap.set("n", "<M-n>", "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
 -- vim.keymap.set("n", "<M-s>", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
 
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>l", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>cf", function()
     require("conform").format({ async = true })
 end)

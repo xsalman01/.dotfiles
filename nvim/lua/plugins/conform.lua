@@ -6,19 +6,21 @@ return {
         local conform = require("conform")
 
         conform.setup({
+            stop_after_first = true,
+
             formatters_by_ft = {
-                markdown = { { "prettierd", "prettier" } },
-                markdown_mdx = { { "prettierd", "prettier" } },
-                javascript = { { "prettierd", "prettier" } },
-                javascriptreact = { { "prettierd", "prettier" } },
-                typescript = { { "prettierd", "prettier" } },
-                typescriptreact = { { "prettierd", "prettier" } },
+                markdown = { "prettierd", "prettier" },
+                markdown_mdx = { "prettierd", "prettier" },
+                javascript = { "prettierd", "prettier" },
+                javascriptreact = { "prettierd", "prettier" },
+                typescript = { "prettierd", "prettier" },
+                typescriptreact = { "prettierd", "prettier" },
             },
         })
 
         vim.keymap.set({ "n", "v" }, "<leader>f", function()
             conform.format({
-                lsp_fallback = true,
+                lsp_format = "fallback",
                 async = false,
                 timeout_ms = 500,
             })

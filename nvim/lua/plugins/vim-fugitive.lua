@@ -4,16 +4,13 @@ return {
     config = function()
         vim.keymap.set("n", "<leader>gs", function()
             vim.cmd("vertical Git")
-        end)
+        end, {desc = "Show git status"})
 
-        vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>")
-        vim.keymap.set("n", "<leader>gD", ":Gvdiff")
-        vim.keymap.set("n", "<leader>ga", ":Gwrite")
-        vim.keymap.set("n", "<leader>gr", ":Gread")
+        vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>", {desc = "vertical git diff split current file"})
 
         -- merge conflicts
-        vim.keymap.set("n", "<leader>ms", ":Gvdiffsplit!")
-        vim.keymap.set("n", "<leader>mg", ":diffget")
-        vim.keymap.set("n", "<leader>mp", ":diffput")
+        vim.keymap.set("n", "<leader>ms", ":Gvdiffsplit!<CR>", {desc = "three way git split"})
+        vim.keymap.set("n", "<leader>mg", ":diffget ", {desc = "get changes from selected git buffer"})
+        vim.keymap.set("n", "<leader>mp", ":diffput ", {desc = "put changes to selected git buffer"})
     end
 }

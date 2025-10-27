@@ -131,7 +131,8 @@ hover.__prepare = function ()
 
 				hover.update_quad(hover.quad, false);
 				hover.quad = nil;
-			end
+			end,
+            desc = "Quit hover window"
 		});
 	end
 
@@ -475,7 +476,8 @@ hover.setup = function (config)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		callback = function (ev)
 			vim.api.nvim_buf_set_keymap(ev.buf, "n", "K", "", {
-				callback = hover.hover
+				callback = hover.hover,
+                desc = "Hover definition"
 			});
 		end
 	});

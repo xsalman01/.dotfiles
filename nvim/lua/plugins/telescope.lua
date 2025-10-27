@@ -47,10 +47,14 @@ return {
         require('telescope').load_extension('fzf')
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+        vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Find files' })
+        vim.keymap.set('n', '<leader>pF', builtin.current_buffer_fuzzy_find, { desc = 'Current buffer fzf' })
+        vim.keymap.set('n', '<leader>ph', builtin.help_tags, { desc = 'Help Tags' })
+        vim.keymap.set('n', '<leader>ps', builtin.git_status, { desc = 'Git status in telescope' })
+        vim.keymap.set('n', '<leader>pS', builtin.git_stash, { desc = 'Stashed files in telescope' })
+        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Git files in telescope"})
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
+        end, {desc = "Fuzzy find word"})
     end
 }

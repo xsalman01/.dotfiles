@@ -15,7 +15,7 @@ done
 
 # Show Polybar module immediately (give Polybar something to read)
 echo "" > "$FIFO"
-polybar-msg action "#spotify.module_show"
+polybar-msg action "#spotify.module_show" 2>/dev/null
 
 # Kill any existing zscroll instance
 pkill -f "zscroll.*$PLAYER"
@@ -37,7 +37,7 @@ ZPID=$!
 playerctl --player=$PLAYER --follow status | while read -r _; do
   if ! pgrep -x "$PLAYER" >/dev/null; then
     kill "$ZPID" 2>/dev/null
-    polybar-msg action "#spotify.module_hide"
+    polybar-msg action "#spotify.module_hide" 2>/dev/null
     rm -f "$FIFO"
     exit 0
   fi

@@ -15,6 +15,7 @@
         "clock"
     ],
     "modules-right": [
+        "custom/spotify",
         "tray",
         "pulseaudio",
         "battery"
@@ -37,7 +38,6 @@
             "default": "◈"
         }
     },
-
     "hyprland/window": {
         "format": "{class} - {title}",
         "rewrite": {
@@ -95,5 +95,19 @@
             ]
         },
         "on-click": "pwvucontrol"
+    },
+    "custom/spotify": {
+        "format": "{icon} {}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 30, // Remove this if your script is endless and write in loop
+        "on-click": "playerctl -p spotify play-pause",
+        "on-click-right": "killall spotify",
+        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous",
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
+        "exec-if": "pgrep spotify"
     }
 }

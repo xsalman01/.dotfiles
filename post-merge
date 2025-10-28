@@ -23,7 +23,6 @@ FILES=(
     "hypr/hyprland.conf"
     "hypr/hyprpaper.conf"
     "hypr/modules/workspaces.conf"
-    ".Xresources"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"
@@ -41,7 +40,6 @@ for file in "${FILES[@]}"; do
     # Determine comment character based on file extension
     case "$file" in
         *.rasi)        COMMENT="//" ;;
-        *.Xresources)  COMMENT="!"  ;;
         *)             COMMENT="#"  ;;
     esac
 

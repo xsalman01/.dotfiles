@@ -39,7 +39,6 @@ i3lock \
 --keyhl-color=$PINE         \
 --bshl-color=$ROSE          \
 \
---screen 1                  \
 --blur 5                    \
 --clock                     \
 --indicator                 \

@@ -7,6 +7,9 @@ images = [
     { run = "loupe \"$1\"", desc = "Open image with Loupe" }
 ]
 
+[tasks]
+image_bound      = [ 15000, 15000 ]
+
 [preview]
 wrap = "yes"
 image_delay = 0

@@ -37,7 +37,7 @@ if [ -d "$xinitdir"/xinitrc.d ] ; then
 fi
 
 xset s 300 +dpms dpms 600 0 0
-xss-lock --transfer-sleep-lock -- ~/.config/i3/i3lock.sh &
+xss-lock --transfer-sleep-lock -- sh -c 'exec ~/.config/i3/i3lock.sh' &
 
 nm-applet &
 unclutter &

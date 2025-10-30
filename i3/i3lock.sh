@@ -18,8 +18,7 @@ HIGHLIGHTLOW='#21202eff'
 HIGHLIGHTMED='#403d52ff'
 HIGHLIGHTHIGH='#524f67ff'
 
-i3lock \
--n            \
+i3lock -n --composite \
 --no-modkey-text            \
 --insidever-color=$BLANK    \
 --ringver-color=$BLANK      \

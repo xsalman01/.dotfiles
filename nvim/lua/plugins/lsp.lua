@@ -14,12 +14,7 @@ return {
         local capabilities = vim.tbl_deep_extend(
             "force",
             vim.lsp.protocol.make_client_capabilities(),
-            {
-                -- offsetEncoding = { 'utf-16' },
-                -- general = {
-                --     positionEncodings = { 'utf-16' },
-                -- },
-            },
+            {},
             cmp_lsp.default_capabilities()
         )
 
@@ -34,6 +29,8 @@ return {
                 "prettierd",
                 "lua-language-server",
                 "tailwindcss-language-server",
+                "bash-language-server",
+                "vim-language-server",
                 "tsgo"
             },
         })
@@ -43,8 +40,6 @@ return {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities,
-                        -- offsetEncoding = "utf-16",
-                        -- positionEncodings = "utf-16"
                     }
                 end,
 
@@ -52,8 +47,7 @@ return {
                     local lspconfig = require("lspconfig")
                     lspconfig.tsgo.setup({
                         capabilities = capabilities,
-                        -- offsetEncoding = "utf-16",
-                        -- positionEncodings = "utf-16",
+
                         cmd = { "tsgo", "--lsp", "--stdio" },
                         filetypes = {
                             "javascript",

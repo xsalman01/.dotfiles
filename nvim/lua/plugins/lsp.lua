@@ -31,7 +31,7 @@ return {
                 "tailwindcss-language-server",
                 "bash-language-server",
                 "vim-language-server",
-                "tsgo"
+                "typescript-language-server"
             },
         })
 
@@ -41,34 +41,6 @@ return {
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities,
                     }
-                end,
-
-                ["tsgo"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.tsgo.setup({
-                        capabilities = capabilities,
-
-                        cmd = { "tsgo", "--lsp", "--stdio" },
-                        filetypes = {
-                            "javascript",
-                            "javascriptreact",
-                            "javascript.jsx",
-                            "typescript",
-                            "typescriptreact",
-                            "typescript.tsx",
-                        },
-                        root_dir = function(bufnr)
-                            local root_markers = {
-                                "package-lock.json",
-                                "yarn.lock",
-                                "pnpm-lock.yaml",
-                                "bun.lockb",
-                                "bun.lock",
-                                ".git",
-                            }
-                            return vim.fs.root(bufnr, root_markers) or vim.fn.getcwd()
-                        end,
-                    })
                 end,
 
                 ["lua_ls"] = function()

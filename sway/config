@@ -29,11 +29,11 @@ output * bg ~/.dotfiles/wallpapers/leafy.png fill
 
 output HDMI-A-1 pos 0 0
 ### LAPTOP START ###
-output eDP-1
+# output eDP-1
 ### LAPTOP END ###
 
 ### DESKTOP START ###
-# output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
+output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
 ### DESKTOP END ###
 
 ###################
@@ -42,13 +42,13 @@ output eDP-1
 exec $zen & disown
 
 ### DESKTOP START ###
-# exec $discord & disown
+exec $discord & disown
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-exec_always ~/.config/sway/scripts/clamshell.sh
-exec $helium & disown
-exec $slack & disown
+# exec_always ~/.config/sway/scripts/clamshell.sh
+# exec $helium & disown
+# exec $slack & disown
 ### LAPTOP END ###
 
 ###################
@@ -64,17 +64,17 @@ workspace 6 output HDMI-A-1
 workspace 1 output HDMI-A-1
 
 ### DESKTOP START ###
-# workspace 7 output DVI-I-1
-# workspace 8 output DVI-I-1
-# workspace 9 output DVI-I-1
-# workspace 10 output DVI-I-1
+workspace 7 output DVI-I-1
+workspace 8 output DVI-I-1
+workspace 9 output DVI-I-1
+workspace 10 output DVI-I-1
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-workspace 7 output eDP-1
-workspace 8 output eDP-1
-workspace 9 output eDP-1
-workspace 10 output eDP-1
+# workspace 7 output eDP-1
+# workspace 8 output eDP-1
+# workspace 9 output eDP-1
+# workspace 10 output eDP-1
 ### LAPTOP END ###
 
 # assign apps to workspaces

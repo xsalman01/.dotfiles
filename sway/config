@@ -96,6 +96,7 @@ for_window [class="loupe"] focus
 for_window [class="mpv"] focus
 
 # floating workspaces and windows
+for_window [window_role="pop-up"] floating enable
 for_window [class="ksnip"] floating enable
 for_window [class="pwvucontrol"] floating enable, resize set 900 600
 for_window [class="zen" instance="Places"] floating enable

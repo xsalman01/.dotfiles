@@ -13,14 +13,14 @@ set $up Up
 set $right Right
 
 # Set programs that you use
-set $term kitty
-set $zen zen-browser
-set $helium helium-browser
-set $slack slack --gtk-version=3 -s
-set $discord discord
-set $spotify spotify
-set $vscode code
-set $stremio stremio
+set $term uwsm app -- kitty
+set $zen uwsm app -- zen-browser
+set $helium uwsm app -- helium-browser
+set $slack uwsm app -- slack --gtk-version=3 -s
+set $discord uwsm app -- discord
+set $spotify uwsm app -- spotify
+set $vscode uwsm app -- code
+set $stremio uwsm app -- stremio
 set $menu rofi -show drun -run-command "uwsm app -- {cmd}"
 
 ### Output configuration
@@ -29,26 +29,27 @@ output * bg ~/.dotfiles/wallpapers/leafy.png fill
 
 output HDMI-A-1 pos 0 0
 ### LAPTOP START ###
-# output eDP-1
+output eDP-1
 ### LAPTOP END ###
 
 ### DESKTOP START ###
-output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
+# output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
 ### DESKTOP END ###
 
 ###################
 ### Autostart ###
 ###################
+exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec $zen & disown
 
 ### DESKTOP START ###
-exec $discord & disown
+# exec $discord & disown
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-# exec_always ~/.config/sway/scripts/clamshell.sh
-# exec $helium & disown
-# exec $slack & disown
+exec_always ~/.config/sway/scripts/clamshell.sh
+exec $helium & disown
+exec $slack & disown
 ### LAPTOP END ###
 
 ###################
@@ -64,42 +65,42 @@ workspace 6 output HDMI-A-1
 workspace 1 output HDMI-A-1
 
 ### DESKTOP START ###
-workspace 7 output DVI-I-1
-workspace 8 output DVI-I-1
-workspace 9 output DVI-I-1
-workspace 10 output DVI-I-1
+# workspace 7 output DVI-I-1
+# workspace 8 output DVI-I-1
+# workspace 9 output DVI-I-1
+# workspace 10 output DVI-I-1
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-# workspace 7 output eDP-1
-# workspace 8 output eDP-1
-# workspace 9 output eDP-1
-# workspace 10 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
 ### LAPTOP END ###
 
 # assign apps to workspaces
-assign [class="kitty"] 1
-assign [class="zen"] 2
-assign [class="Spotify"] 3
-assign [class="Stremio"] 4
-assign [class="mpv"] 4
-assign [class="Code"] 5
-assign [class="loupe"] 7
-assign [class="^discord$"] 8
-assign [class="Helium"] 9
-assign [class="Slack"] 10
-assign [class="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
+assign [app_id="kitty"] 1
+assign [app_id="zen"] 2
+assign [app_id="Spotify"] 3
+assign [app_id="Stremio"] 4
+assign [app_id="mpv"] 4
+assign [app_id="Code"] 5
+assign [app_id="loupe"] 7
+assign [app_id="^discord$"] 8
+assign [app_id="helium"] 9
+assign [app_id="Slack"] 10
+assign [app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
 
 # change focus
-for_window [class="kitty"] focus
-for_window [class="loupe"] focus
-for_window [class="mpv"] focus
+for_window [app_id="kitty"] focus
+for_window [app_id="loupe"] focus
+for_window [app_id="mpv"] focus
 
 # floating workspaces and windows
 for_window [window_role="pop-up"] floating enable
-for_window [class="ksnip"] floating enable
-for_window [class="pwvucontrol"] floating enable, resize set 900 600
-for_window [class="zen" instance="Places"] floating enable
+for_window [app_id="ksnip"] floating enable
+for_window [app_id="pwvucontrol"] floating enable, resize set 900 600
+for_window [app_id="zen" title="Library"] floating enable
 
 
 ###################
@@ -192,7 +193,7 @@ bindsym $super+minus scratchpad show
 # Resizing containers:
 mode "resize" {
     bindsym h resize shrink width 10px
-    bindsym jresize grow height 10px
+    bindsym j resize grow height 10px
     bindsym k resize shrink height 10px
     bindsym l resize grow width 10px
 
@@ -248,7 +249,7 @@ input type:touchpad {
 }
 
 input type:pointer {
-    natural_scroll enabled
+    natural_scroll disable
     accel_profile flat
     middle_emulation enabled
 }

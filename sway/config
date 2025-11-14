@@ -1,7 +1,22 @@
 ###################
-### Variables ###
+### SWAY CONFIG ###
 ###################
 
+### Output configuration
+# Default wallpaper
+output * bg ~/.dotfiles/wallpapers/leafy.png fill
+
+output HDMI-A-1 pos 0 0
+### LAPTOP START ###
+output eDP-1
+### LAPTOP END ###
+
+### DESKTOP START ###
+# output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
+### DESKTOP END ###
+
+
+##### Variables #######
 # Mods. Use Mod1 for Alt.
 set $super Mod4
 set $mod Mod1
@@ -23,235 +38,40 @@ set $vscode uwsm app -- code
 set $stremio uwsm app -- stremio
 set $menu rofi -show drun -run-command "uwsm app -- {cmd}"
 
-### Output configuration
-# Default wallpaper
-output * bg ~/.dotfiles/wallpapers/leafy.png fill
-
-output HDMI-A-1 pos 0 0
-### LAPTOP START ###
-output eDP-1
-### LAPTOP END ###
-
-### DESKTOP START ###
-# output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
-### DESKTOP END ###
-
-###################
-### Autostart ###
-###################
-exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
-exec $zen & disown
-
-### DESKTOP START ###
-# exec $discord & disown
-### DESKTOP END ###
-
-### LAPTOP START ###
-exec_always ~/.config/sway/scripts/clamshell.sh
-exec $helium & disown
-exec $slack & disown
-### LAPTOP END ###
-
-###################
-### Workspaces ###
-###################
-
-# Assign Workspaces
-workspace 2 output HDMI-A-1
-workspace 3 output HDMI-A-1
-workspace 4 output HDMI-A-1
-workspace 5 output HDMI-A-1
-workspace 6 output HDMI-A-1
-workspace 1 output HDMI-A-1
-
-### DESKTOP START ###
-# workspace 7 output DVI-I-1
-# workspace 8 output DVI-I-1
-# workspace 9 output DVI-I-1
-# workspace 10 output DVI-I-1
-### DESKTOP END ###
-
-### LAPTOP START ###
-workspace 7 output eDP-1
-workspace 8 output eDP-1
-workspace 9 output eDP-1
-workspace 10 output eDP-1
-### LAPTOP END ###
-
-# assign apps to workspaces
-assign [app_id="kitty"] 1
-assign [app_id="zen"] 2
-assign [app_id="Spotify"] 3
-assign [app_id="Stremio"] 4
-assign [app_id="mpv"] 4
-assign [app_id="Code"] 5
-assign [app_id="loupe"] 7
-assign [app_id="^discord$"] 8
-assign [app_id="helium"] 9
-assign [app_id="Slack"] 10
-assign [app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
-
-# change focus
-for_window [app_id="kitty"] focus
-for_window [app_id="loupe"] focus
-for_window [app_id="mpv"] focus
-
-# floating workspaces and windows
-for_window [window_role="pop-up"] floating enable
-for_window [app_id="ksnip"] floating enable
-for_window [app_id="pwvucontrol"] floating enable, resize set 900 600
-for_window [app_id="zen" title="Library"] floating enable
-
-
-###################
-### Binds ###
-###################
-
-# Switch to workspace
-bindsym $super+1 workspace number 1
-bindsym $super+2 workspace number 2
-bindsym $super+3 workspace number 3
-bindsym $super+4 workspace number 4
-bindsym $super+5 workspace number 5
-bindsym $super+6 workspace number 6
-bindsym $super+7 workspace number 7
-bindsym $super+8 workspace number 8
-bindsym $super+9 workspace number 9
-bindsym $super+0 workspace number 10
-
-# Move focused container to workspace
-bindsym $super+Shift+1 move container to workspace number 1
-bindsym $super+Shift+2 move container to workspace number 2
-bindsym $super+Shift+3 move container to workspace number 3
-bindsym $super+Shift+4 move container to workspace number 4
-bindsym $super+Shift+5 move container to workspace number 5
-bindsym $super+Shift+6 move container to workspace number 6
-bindsym $super+Shift+7 move container to workspace number 7
-bindsym $super+Shift+8 move container to workspace number 8
-bindsym $super+Shift+9 move container to workspace number 9
-bindsym $super+Shift+0 move container to workspace number 10
-
-# Basics
-bindsym $super+Shift+q kill
-bindsym $super+Shift+c reload
-bindsym $super+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-floating_modifier $super normal
-
-# restart waybar
-bindsym $super+Shift+w exec killall -SIGUSR2 waybar
-
-# Hotkeys
-bindsym $super+Return exec $term
-bindsym $super+d exec $menu
-bindsym Ctrl+$super+2 exec $zen & disown
-# bindsym Ctrl+$super+3 exec $HOME/.config/polybar/scripts/spotify-launcher.sh & disown
-bindsym Ctrl+$super+4 exec $stremio & disown
-bindsym Ctrl+$super+8 exec $discord & disown
-bindsym Ctrl+$super+9 exec $helium & disown
-bindsym Ctrl+$super+0 exec $slack & disown
-
-# Move your focus around
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-# Move the focused window with the same, but add Shift
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# Layout stuff
-bindsym $super+Shift+backslash splith
-bindsym $super+backslash splitv
-
-# Switch the current container between different layout styles
-bindsym $super+s layout stacking
-bindsym $super+w layout tabbed
-bindsym $super+e layout toggle split
-
-# Make the current focus fullscreen
-bindsym $super+f fullscreen
-
-# Toggle the current focus between tiling and floating mode
-bindsym $super+Shift+space floating toggle
-
-# Swap focus between the tiling area and the floating area
-bindsym $super+space focus mode_toggle
-
-# Move focus to the parent container
-bindsym $super+a focus parent
-
-# Move the currently focused window to the scratchpad
-bindsym $super+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $super+minus scratchpad show
-
-# Resizing containers:
+#### Resizing containers ####
 mode "resize" {
     bindsym h resize shrink width 10px
-    bindsym j resize grow height 10px
-    bindsym k resize shrink height 10px
-    bindsym l resize grow width 10px
+        bindsym j resize grow height 10px
+        bindsym k resize shrink height 10px
+        bindsym l resize grow width 10px
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $super+r mode "default"
+# Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $super+r mode "default"
 }
 bindsym $super+r mode "resize"
 
-# Multimedia
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_SINK@ 5%+
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
-bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
-
-bindsym --locked F10 exec wpctl set-mute @DEFAULT_SINK@ toggle
-bindsym --locked F11 exec wpctl set-volume @DEFAULT_SINK@ 5%- 
-bindsym --locked F12 exec wpctl set-volume -l 1 @DEFAULT_SINK@ 5%+
-
-bindsym --locked F9 exec wpctl set-mute @DEFAULT_SOURCE@ toggle
-bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
-
-# Track and Volume Controls in Spotify
-bindsym --locked F1 exec playerctl --player=spotify volume 0.0
-bindsym --locked F2 exec playerctl --player=spotify volume 0.05-
-bindsym --locked F3 exec playerctl --player=spotify volume 0.05+
-bindsym --locked F4 exec playerctl --player=spotify volume 1.0
-bindsym --locked F5 exec playerctl --player=spotify previous
-bindsym --locked F6 exec playerctl --player=spotify play-pause
-bindsym --locked F7 exec playerctl --player=spotify pause
-bindsym --locked F8 exec playerctl --player=spotify next
-
-bindsym --locked XF86AudioNext exec playerctl --player=spotify next
-bindsym --locked XF86AudioPrev exec playerctl --player=spotify previous
-bindsym --locked XF86AudioPlay exec playerctl --player=spotify play-pause
-bindsym --locked XF86AudioStop exec playerctl --player=spotify pause
-
-# Special key to take a screenshot with grim
-bindsym Print exec grim
-
-### Idle configuration
+### Idle configuration ###
 exec swayidle -w \
-     timeout 300 'swaylock -f -c 000000' \
-     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -f -c 000000'
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
 
-### Input configuration
+### Input configuration ###
 input type:touchpad {
     dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+        pointer_accel 0.7
 }
 
 input type:pointer {
     natural_scroll disable
-    accel_profile flat
-    middle_emulation enabled
+        accel_profile flat
+        middle_emulation enabled
+        pointer_accel 1
 }
 
 input "razer-razer-basilisk-v3" {
@@ -262,4 +82,5 @@ input "razer-razer-basilisk-v3-2" {
     pointer_accel -0.8
 }
 
+include ./modules/*
 include /etc/sway/config.d/*

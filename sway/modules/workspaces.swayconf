@@ -1,0 +1,51 @@
+# vim: filetype=swayconfig
+
+###################
+### Workspaces ###
+###################
+
+# Assign Workspaces
+workspace 2 output HDMI-A-1
+workspace 3 output HDMI-A-1
+workspace 4 output HDMI-A-1
+workspace 5 output HDMI-A-1
+workspace 6 output HDMI-A-1
+workspace 1 output HDMI-A-1
+
+### DESKTOP START ###
+# workspace 7 output DVI-I-1
+# workspace 8 output DVI-I-1
+# workspace 9 output DVI-I-1
+# workspace 10 output DVI-I-1
+### DESKTOP END ###
+
+### LAPTOP START ###
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+### LAPTOP END ###
+
+# assign apps to workspaces
+assign [app_id="kitty"] 1
+assign [app_id="zen"] 2
+assign [class="Spotify"] 3
+assign [app_id="stremio"] 4
+assign [app_id="mpv"] 4
+assign [app_id="code"] 5
+assign [app_id="loupe"] 7
+assign [app_id="^discord$"] 8
+assign [app_id="helium"] 9
+assign [app_id="Slack"] 10
+assign [app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
+
+# change focus
+for_window [app_id="kitty"] focus
+for_window [app_id="loupe"] focus
+for_window [app_id="mpv"] focus
+
+# floating workspaces and windows
+for_window [window_role="pop-up"] floating enable
+for_window [app_id="ksnip"] floating enable
+for_window [app_id="pwvucontrol"] floating enable, resize set 900 600
+for_window [app_id="zen" title="Library"] floating enable

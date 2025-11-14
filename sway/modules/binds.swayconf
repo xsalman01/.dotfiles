@@ -28,7 +28,7 @@ bindsym $super+Shift+8 move container to workspace number 8
 bindsym $super+Shift+9 move container to workspace number 9
 bindsym $super+Shift+0 move container to workspace number 10
 
-# Basics
+# sway basics
 bindsym $super+Shift+q kill
 bindsym $super+Shift+c reload
 bindsym $super+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -36,6 +36,10 @@ floating_modifier $super normal
 
 # restart waybar
 bindsym $super+Shift+w exec killall -SIGUSR2 waybar
+
+# system
+bindsym $super+$mod+F10 exec poweroff
+bindsym $super+$mod+F11 exec reboot
 
 # Hotkeys
 bindsym $super+Return exec $term

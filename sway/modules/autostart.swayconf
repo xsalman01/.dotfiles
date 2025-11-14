@@ -11,7 +11,7 @@ exec $zen & disown
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-exec_always ~/.config/sway/scripts/clamshell.sh
+exec ~/.config/sway/scripts/clamshell.sh
 exec $helium & disown
 exec $slack & disown
 ### LAPTOP END ###

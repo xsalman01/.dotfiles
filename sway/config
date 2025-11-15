@@ -8,11 +8,11 @@ output * bg ~/.dotfiles/wallpapers/leafy.png fill
 
 output HDMI-A-1 pos 0 0
 ### LAPTOP START ###
-output eDP-1
+# output eDP-1
 ### LAPTOP END ###
 
 ### DESKTOP START ###
-# output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
+output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
 ### DESKTOP END ###
 
 
@@ -35,7 +35,7 @@ set $slack uwsm app -- slack --gtk-version=3 -s
 set $discord uwsm app -- discord
 set $spotify uwsm app -- spotify
 set $vscode uwsm app -- code
-set $stremio uwsm app -- stremio
+set $stremio uwsm app -- stremio-enhanced
 set $menu rofi -show drun -run-command "uwsm app -- {cmd}"
 
 #### Resizing containers ####

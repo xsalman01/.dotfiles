@@ -30,7 +30,7 @@ workspace 10 output eDP-1
 assign [app_id="kitty"] 1
 assign [app_id="zen"] 2
 assign [class="Spotify"] 3
-assign [app_id="stremio"] 4
+assign [app_id="stremio-enhanced"] 4
 assign [app_id="mpv"] 4
 assign [app_id="code"] 5
 assign [app_id="loupe"] 7

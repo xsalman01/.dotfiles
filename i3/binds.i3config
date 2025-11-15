@@ -61,7 +61,7 @@ bindsym $super+a focus parent
 # applications
 bindsym Ctrl+$super+2 exec --no-startup-id zen-browser & disown
 bindsym Ctrl+$super+3 exec --no-startup-id $HOME/.config/polybar/scripts/spotify-launcher.sh & disown
-bindsym Ctrl+$super+4 exec --no-startup-id stremio & disown
+bindsym Ctrl+$super+4 exec --no-startup-id stremio-enhanced & disown
 bindsym Ctrl+$super+8 exec --no-startup-id discord & disown
 bindsym Ctrl+$super+9 exec --no-startup-id helium-browser & disown
 bindsym Ctrl+$super+0 exec --no-startup-id slack --gtk-version=3 -s & disown

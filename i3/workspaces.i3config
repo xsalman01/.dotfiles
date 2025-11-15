@@ -19,7 +19,7 @@ workspace "1" output HDMI-1
 assign [class="kitty"] 1
 assign [class="zen"] 2
 assign [class="Spotify"] 3
-assign [class="Stremio"] 4
+assign [class="stremio-enhanced"] 4
 assign [class="mpv"] 4
 assign [class="Code"] 5
 assign [class="loupe"] 7

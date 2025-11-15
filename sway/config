@@ -12,7 +12,7 @@ output HDMI-A-1 pos 0 0
 ### LAPTOP END ###
 
 ### DESKTOP START ###
-output DVI-I-1 mode 1600x900@59.01600 pos 1920x90
+output DVI-I-1 mode 1600x900@59.016Hz pos 1920 90
 ### DESKTOP END ###
 
 
@@ -35,7 +35,7 @@ set $slack uwsm app -- slack --gtk-version=3 -s
 set $discord uwsm app -- discord
 set $spotify uwsm app -- spotify
 set $vscode uwsm app -- code
-set $stremio uwsm app -- stremio-enhanced
+set $stremio uwsm app -- stremio
 set $menu rofi -show drun -run-command "uwsm app -- {cmd}"
 
 #### Resizing containers ####
@@ -61,25 +61,23 @@ exec swayidle -w \
 ### Input configuration ###
 input type:touchpad {
     dwt enabled
-        tap enabled
-        natural_scroll enabled
-        middle_emulation enabled
-        pointer_accel 0.7
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    pointer_accel 0.7
 }
 
 input type:pointer {
     natural_scroll disable
-        accel_profile flat
-        middle_emulation enabled
-        pointer_accel 1
+    accel_profile flat
+    middle_emulation enabled
+    pointer_accel 1
 }
 
-input "razer-razer-basilisk-v3" {
+input "5426:153:Razer_Razer_Basilisk_V3" {
     pointer_accel -0.8
-}
-
-input "razer-razer-basilisk-v3-2" {
-    pointer_accel -0.8
+    accel_profile flat
+    middle_emulation enabled
 }
 
 include ./modules/*

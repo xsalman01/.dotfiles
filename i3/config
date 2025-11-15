@@ -1,6 +1,6 @@
 # i3 config file (v4)
 
-include ~/.config/i3/*.conf
+include ~/.config/i3/*.i3config
 
 # remove default borders
 for_window [class="^.*"] border pixel 0

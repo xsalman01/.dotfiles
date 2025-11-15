@@ -19,10 +19,12 @@ fi
 
 # List of files to process (same as in your .gitattributes)
 FILES=(
-    "i3/autostart.conf"
+    ".zprofile"
+    "i3/autostart.i3config"
     "sway/config"
     "sway/modules/autostart.swayconf"
-    "sway/modules/binds.workspaces.swayconf"
+    "sway/modules/binds.swayconf"
+    "sway/modules/workspaces.swayconf"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"

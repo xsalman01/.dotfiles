@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-WORKSPACES_FILE="$HOME/.config/i3/workspaces.conf"
+WORKSPACES_FILE="$HOME/.config/i3/workspaces.i3config"
 
 if [ ! -f "$WORKSPACES_FILE" ]; then
   echo "workspaces.conf not found at $WORKSPACES_FILE. Exiting." >&2

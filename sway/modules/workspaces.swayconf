@@ -13,17 +13,17 @@ workspace 6 output HDMI-A-1
 workspace 1 output HDMI-A-1
 
 ### DESKTOP START ###
-# workspace 7 output DVI-I-1
-# workspace 8 output DVI-I-1
-# workspace 9 output DVI-I-1
-# workspace 10 output DVI-I-1
+workspace 7 output DVI-I-1
+workspace 8 output DVI-I-1
+workspace 9 output DVI-I-1
+workspace 10 output DVI-I-1
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-workspace 7 output eDP-1
-workspace 8 output eDP-1
-workspace 9 output eDP-1
-workspace 10 output eDP-1
+# workspace 7 output eDP-1
+# workspace 8 output eDP-1
+# workspace 9 output eDP-1
+# workspace 10 output eDP-1
 ### LAPTOP END ###
 
 # assign apps to workspaces

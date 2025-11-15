@@ -7,6 +7,6 @@ fi
 if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
         1) exec startx ;;
-        # 2) exec uwsm start hyprland-uwsm.desktop ;;
+        2) exec uwsm start sway.desktop ;;
     esac
 fi

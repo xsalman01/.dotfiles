@@ -8,8 +8,8 @@
     "reload_style_on_change": true,
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/window"
+        "sway/workspaces",
+        "sway/window"
     ],
     "modules-center": [
         "clock"
@@ -21,24 +21,24 @@
         "battery"
     ],
     // Modules configuration
-    "hyprland/workspaces": {
+    "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
         "format": "{icon}",
         "format-icons": {
-            "nvim": "",
-            "zen": "",
-            "spotify": "",
-            "movies": "",
-            "photos": "",
-            "discord": "",
-            "helium": "",
-            "slack": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
             "default": "◈"
         }
     },
-    "hyprland/window": {
+    "sway/window": {
         "format": "{class} - {title}",
         "rewrite": {
             " - ": "",

@@ -1,3 +1,5 @@
+# vim: filetype=i3config
+
 #i3 audio binds
 
 # Use wpctl to adjust volume in PulseAudio.

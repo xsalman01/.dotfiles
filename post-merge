@@ -21,6 +21,8 @@ fi
 FILES=(
     "i3/autostart.conf"
     "sway/config"
+    "sway/modules/autostart.swayconf"
+    "sway/modules/binds.workspaces.swayconf"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"

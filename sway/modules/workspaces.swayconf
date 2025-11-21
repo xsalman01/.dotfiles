@@ -37,12 +37,15 @@ assign [app_id="loupe"] 7
 assign [app_id="^discord$"] 8
 assign [app_id="helium"] 9
 assign [app_id="Slack"] 10
-assign [app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
+assign [title="^(?!Extension: ).*" app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
 
 # change focus
 for_window [app_id="kitty"] focus
 for_window [app_id="loupe"] focus
 for_window [app_id="mpv"] focus
+for_window [title="^Extension: .*"] floating enable
+for_window [app_id="chrome-*"] floating enable, move workspace current
+
 
 # floating workspaces and windows
 for_window [window_role="pop-up"] floating enable

@@ -8,11 +8,11 @@ output * bg ~/.dotfiles/wallpapers/leafy.png fill
 
 output HDMI-A-1 pos 0 0
 ### LAPTOP START ###
-# output eDP-1
+output eDP-1
 ### LAPTOP END ###
 
 ### DESKTOP START ###
-output DVI-I-1 mode 1600x900@59.016Hz pos 1920 90
+# output DVI-I-1 mode 1600x900@59.016Hz pos 1920 90
 ### DESKTOP END ###
 
 

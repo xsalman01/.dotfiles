@@ -1,5 +1,7 @@
 # zshrc
 
+disable kill
+
 # Source config files
 for file in ~/.dotfiles/zsh/*.zsh; do
     source "$file"

@@ -13,17 +13,17 @@ workspace 6 output HDMI-A-1
 workspace 1 output HDMI-A-1
 
 ### DESKTOP START ###
-workspace 7 output DVI-I-1
-workspace 8 output DVI-I-1
-workspace 9 output DVI-I-1
-workspace 10 output DVI-I-1
+# workspace 7 output DVI-I-1
+# workspace 8 output DVI-I-1
+# workspace 9 output DVI-I-1
+# workspace 10 output DVI-I-1
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-# workspace 7 output eDP-1
-# workspace 8 output eDP-1
-# workspace 9 output eDP-1
-# workspace 10 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
 ### LAPTOP END ###
 
 # assign apps to workspaces
@@ -37,12 +37,15 @@ assign [app_id="loupe"] 7
 assign [app_id="^discord$"] 8
 assign [app_id="helium"] 9
 assign [app_id="Slack"] 10
-assign [app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
+assign [title="^(?!Extension: ).*" app_id="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
 
 # change focus
 for_window [app_id="kitty"] focus
 for_window [app_id="loupe"] focus
 for_window [app_id="mpv"] focus
+for_window [title="^Extension: .*"] floating enable
+for_window [app_id="chrome-*"] floating enable, move workspace current
+
 
 # floating workspaces and windows
 for_window [window_role="pop-up"] floating enable

@@ -37,6 +37,9 @@ set $spotify uwsm app -- spotify
 set $vscode uwsm app -- code
 set $stremio uwsm app -- stremio
 set $menu rofi -show drun -run-command "uwsm app -- {cmd}"
+set $windows rofi -show window
+set $emoji rofimoji -a type
+set $bt_window rofi-bluetooth
 
 #### Resizing containers ####
 mode "resize" {

@@ -29,9 +29,9 @@ assign [class="Slack"] 10
 assign [class="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
 
 # change focus
-for_window [class="kitty"] focus
-for_window [class="loupe"] focus
-for_window [class="mpv"] focus
+for_window [class="kitty"] border pixel 2, focus
+for_window [class="loupe"] border pixel 2, focus
+for_window [class="mpv"] border pixel 2, focus
 
 # floating workspaces and windows
 for_window [window_role="pop-up"] floating enable

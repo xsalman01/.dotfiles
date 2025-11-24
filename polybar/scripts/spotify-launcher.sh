@@ -36,6 +36,9 @@ ZPID=$!
 # Monitor Spotify status; clean up when it exits
 playerctl --player=$PLAYER --follow status | while read -r _; do
   if ! pgrep -x "$PLAYER" >/dev/null; then
+    # <-- MINIMAL ADDITION: kill the lingering playerctl --follow process
+    pkill -f "playerctl --player=$PLAYER --follow status" 2>/dev/null
+
     kill "$ZPID" 2>/dev/null
     polybar-msg action "#spotify.module_hide" 2>/dev/null
     rm -f "$FIFO"

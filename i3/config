@@ -3,7 +3,7 @@
 include ~/.config/i3/*.i3config
 
 # remove default borders
-for_window [class="^.*"] border pixel 0
+# for_window [class="^.*"] border pixel 0
 
 # Variables
 set $mod Mod1
@@ -19,7 +19,7 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-font pango:monospace 8
+font pango:monospace 10
 #font pango:DejaVu Sans Mono 8
 
 

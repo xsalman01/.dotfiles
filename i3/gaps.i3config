@@ -2,7 +2,7 @@
 
 # i3 gaps config file
 
-gaps inner 6px
+gaps inner 10px
 gaps top -1px
 workspace "1" gaps top 0px
 workspace "3" gaps top 0px

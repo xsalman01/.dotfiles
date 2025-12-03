@@ -23,10 +23,11 @@ set $border_active  #c4a7e7fe
 set $border_inactive #4c4870aa
 
 # Theming border and Windows --------------
-# target                 title     bg       text     indicator          border
-client.focused           $rose     $base    $text    $border_active     $border_active
-client.focused_inactive  $text     $base    $text    $border_inactive   $border_inactive
-client.unfocused         $text     $base    $text    $border_inactive   $border_inactive
-client.urgent            $text     $base    $text    $love       $love
-client.placeholder       $base     $base    $text    $overlay    $overlay
-client.background        $base
+# class                 border              backgr. text    indicator           child_border
+client.focused          $border_active      $base   $text   $border_active      $border_active  
+client.focused_inactive $border_inactive    $base   $text   $border_inactive    $border_inactive
+client.unfocused        $border_inactive    $base   $text   $border_inactive    $border_inactive
+client.urgent           $love               $base   $text   $love               $love           
+client.placeholder      $overlay            $base   $text   $overlay            $overlay        
+
+client.background       $base

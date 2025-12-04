@@ -2,8 +2,14 @@
 
 # i3 gaps config file
 
-gaps inner 10px
-gaps top -1px
+### DESKTOP START ###
+gaps inner 7px
+### DESKTOP END ###
+
+### LAPTOP START ###
+#gaps inner 10px
+### LAPTOP END ###
+
 workspace "1" gaps top 0px
 workspace "3" gaps top 0px
 workspace "5" gaps top 0px

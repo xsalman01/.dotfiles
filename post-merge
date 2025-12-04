@@ -21,6 +21,7 @@ fi
 FILES=(
     ".zprofile"
     "i3/autostart.i3config"
+    "i3/gaps.i3config"
     "sway/config"
     "sway/modules/autostart.swayconf"
     "sway/modules/binds.swayconf"

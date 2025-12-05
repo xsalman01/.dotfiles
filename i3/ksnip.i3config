@@ -1,9 +1,0 @@
-# vim: filetype=i3config
-
-#i3 ksnip binds
-
-#ksnip screenshot tool
-bindsym $super+\ exec --no-startup-id ksnip -m -s
-bindsym $super+Shift+\ exec --no-startup-id ksnip -f -s
-bindsym $super+Ctrl+s exec --no-startup-id ksnip -a -s
-bindsym $super+Shift+s exec --no-startup-id ksnip -r -s

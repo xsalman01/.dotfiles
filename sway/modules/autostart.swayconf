@@ -7,11 +7,11 @@ exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DES
 exec $zen & disown
 
 ### DESKTOP START ###
-exec $discord & disown
+# exec $discord & disown
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-# exec ~/.config/sway/scripts/clamshell.sh
-# exec $helium & disown
-# exec $slack & disown
+exec ~/.config/sway/scripts/clamshell.sh
+exec $helium & disown
+exec $slack & disown
 ### LAPTOP END ###

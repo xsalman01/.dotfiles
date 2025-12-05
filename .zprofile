@@ -8,11 +8,11 @@ if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
         1) exec startx ;;
         ### LAPTOP START ###
-#         
+        
         ### LAPTOP END ###
         
         ### DESKTOP START ###
-
+# 
         ### DESKTOP END ###
     esac
 fi

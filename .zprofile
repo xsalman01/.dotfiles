@@ -10,10 +10,7 @@ if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
             exec startx 
             ;;
         2) 
-            if [ -z "$NIRI_LOADED" ]; then
-                export NIRI_LOADED=1
-                exec niri-session
-            fi
+            exec niri-session -l
             ;;
     esac
 fi

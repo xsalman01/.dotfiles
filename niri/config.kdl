@@ -36,7 +36,9 @@ input {
     mouse {
           // off
         // natural-scroll
-        // accel-speed 0.2
+        //### DESKTOP START ###
+        accel-speed -0.8
+        //### DESKTOP END ###
         accel-profile "flat"
         // scroll-factor 1.0
         // scroll-factor vertical=1.0 horizontal=-2.0

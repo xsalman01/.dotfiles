@@ -7,12 +7,6 @@ fi
 if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
         1) exec startx ;;
-        ### LAPTOP START ###
-       2) exec niri-session ;;
-        ### LAPTOP END ###
-        
-        ### DESKTOP START ###
-#         2) exec niri-session ;;
-        ### DESKTOP END ###
+        2) exec niri-session ;;
     esac
 fi

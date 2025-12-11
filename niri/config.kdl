@@ -12,6 +12,11 @@ gestures {
     }
 }
 
+output "HDMI-A-1" {
+    position x=0 y=0
+    focus-at-startup
+}
+
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
@@ -22,8 +27,24 @@ input {
         numlock
     }
     touchpad {
+        tap
+        dwt
+        natural-scroll
+        accel-speed 0.7
+        middle-emulation
     }
     mouse {
+          // off
+        // natural-scroll
+        // accel-speed 0.2
+        accel-profile "flat"
+        // scroll-factor 1.0
+        // scroll-factor vertical=1.0 horizontal=-2.0
+        // scroll-method "no-scroll"
+        // scroll-button 273
+        // scroll-button-lock
+        // left-handed
+        middle-emulation
     }
     trackpoint {
     }

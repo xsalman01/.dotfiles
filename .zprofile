@@ -6,13 +6,11 @@ fi
 # Session handling
 if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
-        1) exec startx ;;
-        ### LAPTOP START ###
-#        2) exec niri-session ;;
-        ### LAPTOP END ###
-        
-        ### DESKTOP START ###
-        2) exec niri-session ;;
-        ### DESKTOP END ###
+        1) 
+            exec startx 
+            ;;
+        2) 
+            exec niri-session -l
+            ;;
     esac
 fi

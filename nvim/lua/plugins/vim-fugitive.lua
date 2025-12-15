@@ -10,7 +10,7 @@ return {
 
         -- merge conflicts
         vim.keymap.set("n", "<leader>ms", ":Gvdiffsplit!<CR>", {desc = "three way git split"})
-        vim.keymap.set("n", "<leader>mg", ":diffget ", {desc = "get changes from selected git buffer"})
-        vim.keymap.set("n", "<leader>mp", ":diffput ", {desc = "put changes to selected git buffer"})
+        vim.keymap.set("n", "<leader>mg", ":diffget //", {desc = "get changes from selected git buffer"})
+        vim.keymap.set("n", "<leader>mp", ":diffput //", {desc = "put changes to selected git buffer"})
     end
 }

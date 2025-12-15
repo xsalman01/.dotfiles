@@ -10,7 +10,7 @@ if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
             exec startx 
             ;;
         2) 
-            exec niri-session -l
+            exec uwsm start default
             ;;
     esac
 fi

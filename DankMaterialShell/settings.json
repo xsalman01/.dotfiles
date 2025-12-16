@@ -160,7 +160,7 @@
   "loginctlLockIntegration": true,
   "fadeToLockEnabled": true,
   "fadeToLockGracePeriod": 5,
-  "launchPrefix": "",
+  "launchPrefix": "uwsm app --",
   "brightnessDevicePins": {},
   "wifiNetworkPins": {},
   "bluetoothDevicePins": {},

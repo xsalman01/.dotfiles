@@ -36,13 +36,13 @@
   "showBattery": true,
   "showControlCenterButton": true,
   "showCapsLockIndicator": true,
-  "controlCenterShowNetworkIcon": true,
+  "controlCenterShowNetworkIcon": false,
   "controlCenterShowBluetoothIcon": true,
   "controlCenterShowAudioIcon": true,
   "controlCenterShowVpnIcon": true,
   "controlCenterShowBrightnessIcon": false,
-  "controlCenterShowMicIcon": false,
-  "controlCenterShowBatteryIcon": false,
+  "controlCenterShowMicIcon": true,
+  "controlCenterShowBatteryIcon": true,
   "controlCenterShowPrinterIcon": false,
   "showPrivacyButton": true,
   "privacyShowMicIcon": false,
@@ -240,11 +240,17 @@
     ],
     "osd": [
       {
-        "name": "DVI-I-1",
-        "model": "Unknown"
+        "name": "HDMI-A-1",
+        "model": "DELL P2217H"
       }
     ],
     "toast": [
+      {
+        "name": "HDMI-A-1",
+        "model": "DELL P2217H"
+      }
+    ],
+    "notepad": [
       {
         "name": "HDMI-A-1",
         "model": "DELL P2217H"
@@ -304,14 +310,12 @@
         },
         {
           "id": "memUsage",
-          "enabled": true
+          "enabled": true,
+          "minimumWidth": true,
+          "showSwap": false
         },
         {
           "id": "notificationButton",
-          "enabled": true
-        },
-        {
-          "id": "battery",
           "enabled": true
         },
         {

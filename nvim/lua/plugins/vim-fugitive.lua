@@ -6,7 +6,7 @@ return {
             vim.cmd("vertical Git")
         end, {desc = "Show git status"})
 
-        vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>", {desc = "vertical git diff split current file"})
+        vim.keymap.set("n", "<leader>gd", ":Gvdiffsplit<CR>", {desc = "vertical git diff split current file"})
 
         -- merge conflicts
         vim.keymap.set("n", "<leader>ms", ":Gvdiffsplit!<CR>", {desc = "three way git split"})

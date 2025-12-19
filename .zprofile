@@ -7,10 +7,10 @@ fi
 if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
         1) 
-            exec uwsm start default
+            exec startx 
             ;;
         2) 
-            exec startx 
+            exec uwsm start default
             ;;
     esac
 fi

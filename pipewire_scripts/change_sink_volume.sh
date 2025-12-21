@@ -3,7 +3,7 @@
 
 SINK="$1"
 ACTION="$2"
-STEP="2%"
+STEP="5%"
 
 # Exit if sink doesn't exist
 pactl list short sinks | awk '{print $2}' | grep -Fxq "$SINK" || exit 1

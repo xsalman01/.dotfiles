@@ -6,12 +6,12 @@
 exec --no-startup-id dex --autostart --environment i3
 # exec_always --no-startup-id ~/.config/xborders/launch_borders.sh
 exec --no-startup-id ~/.config/i3/workspaces-setup.sh &
-exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
 
 # applications
 exec --no-startup-id zen-browser & disown
 
 ### DESKTOP START ###
+exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
 exec --no-startup-id sh -c "sleep 0.5 && ~/.fehbg" &
 exec --no-startup-id discord & disown
 exec --no-startup-id nvidia-settings --load-config-only & disown

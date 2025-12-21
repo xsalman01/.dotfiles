@@ -24,3 +24,4 @@ pactl list short modules | grep -q "chat_sink.monitor" || \
     source=chat_sink.monitor \
     sink="$DEFAULT_SINK"
 
+pactl set-default-sink game_sink

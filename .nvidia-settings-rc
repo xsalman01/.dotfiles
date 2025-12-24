@@ -2,7 +2,7 @@
 # /home/dopeman/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA Settings utility
-# Generated on Thu Dec 18 22:36:39 2025
+# Generated on Wed Dec 24 20:44:26 2025
 #
 
 # ConfigProperties:
@@ -18,4 +18,64 @@ Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 
 # Attributes:
 
+0/SyncToVBlank=1
+0/LogAniso=0
+0/FSAA=0
+0/TextureClamping=1
+0/FXAA=0
+0/AllowFlipping=1
+0/FSAAAppControlled=1
+0/LogAnisoAppControlled=1
+0/OpenGLImageSettings=1
+0/FSAAAppEnhanced=0
+0/ShowGraphicsVisualIndicator=0
+0/XVideoSyncToDisplayID=HDMI-0
+[DPY:DVI-I-0]/RedBrightness=-0.096000
+[DPY:DVI-I-0]/GreenBrightness=-0.096000
+[DPY:DVI-I-0]/BlueBrightness=-0.096000
+[DPY:DVI-I-0]/RedContrast=0.067478
+[DPY:DVI-I-0]/GreenContrast=0.067478
+[DPY:DVI-I-0]/BlueContrast=0.067478
+[DPY:DVI-I-0]/RedGamma=0.940000
+[DPY:DVI-I-0]/GreenGamma=0.990000
+[DPY:DVI-I-0]/BlueGamma=1.029600
+[DPY:DVI-I-0]/Dithering=0
+[DPY:DVI-I-0]/DitheringMode=0
+[DPY:DVI-I-0]/DitheringDepth=0
+[DPY:DVI-I-0]/DigitalVibrance=0
+[DPY:DVI-I-0]/SynchronousPaletteUpdates=0
+[DPY:DVI-I-1]/Dithering=0
+[DPY:DVI-I-1]/DitheringMode=0
+[DPY:DVI-I-1]/DitheringDepth=0
+[DPY:DVI-I-1]/ColorSpace=0
+[DPY:DVI-I-1]/ColorRange=0
+[DPY:DVI-I-1]/SynchronousPaletteUpdates=0
+[DPY:HDMI-0]/RedBrightness=-0.246353
+[DPY:HDMI-0]/GreenBrightness=-0.246353
+[DPY:HDMI-0]/BlueBrightness=-0.246353
+[DPY:HDMI-0]/RedContrast=-0.159686
+[DPY:HDMI-0]/GreenContrast=-0.159686
+[DPY:HDMI-0]/BlueContrast=-0.159686
+[DPY:HDMI-0]/RedGamma=0.960400
+[DPY:HDMI-0]/GreenGamma=0.980000
+[DPY:HDMI-0]/BlueGamma=1.050000
+[DPY:HDMI-0]/Dithering=0
+[DPY:HDMI-0]/DitheringMode=0
+[DPY:HDMI-0]/DitheringDepth=0
+[DPY:HDMI-0]/DigitalVibrance=0
+[DPY:HDMI-0]/ColorSpace=0
+[DPY:HDMI-0]/ColorRange=0
+[DPY:HDMI-0]/SynchronousPaletteUpdates=0
+[DPY:HDMI-1]/Dithering=0
+[DPY:HDMI-1]/DitheringMode=0
+[DPY:HDMI-1]/DitheringDepth=0
+[DPY:HDMI-1]/ColorSpace=0
+[DPY:HDMI-1]/ColorRange=0
+[DPY:HDMI-1]/SynchronousPaletteUpdates=0
+[DPY:DVI-D-0]/Dithering=0
+[DPY:DVI-D-0]/DitheringMode=0
+[DPY:DVI-D-0]/DitheringDepth=0
+[DPY:DVI-D-0]/ColorSpace=0
+[DPY:DVI-D-0]/ColorRange=0
+[DPY:DVI-D-0]/SynchronousPaletteUpdates=0
 [GPU:0]/GPUPowerMizerMode=2

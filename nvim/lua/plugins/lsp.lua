@@ -43,6 +43,14 @@ return {
                     }
                 end,
 
+                ["qmlls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.qmlls.setup {
+                        capabilities = capabilities,
+                        cmd = { "qmlls", "-E" },
+                    }
+                end,
+
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {

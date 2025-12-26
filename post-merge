@@ -20,7 +20,6 @@ fi
 # List of files to process (same as in your .gitattributes)
 FILES=(
     ".zprofile"
-    ".Xresources"
     "i3/autostart.i3config"
     "i3/audio.i3config"
     "i3/gaps.i3config"
@@ -43,7 +42,6 @@ for file in "${FILES[@]}"; do
     
     # Determine comment character based on file extension
     case "$file" in
-        .Xresources)   COMMENT="!" ;;
         *.rasi)        COMMENT="//" ;;
         *.kdl)         COMMENT="//" ;;
         *)             COMMENT="#"  ;;

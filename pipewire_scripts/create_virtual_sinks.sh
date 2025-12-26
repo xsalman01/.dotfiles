@@ -17,11 +17,13 @@ pactl list short modules | grep -q "chat_sink" || \
 pactl list short modules | grep -q "game_sink.monitor" || \
   pactl load-module module-loopback \
     source=game_sink.monitor \
-    sink="$DEFAULT_SINK"
+    sink="$DEFAULT_SINK" \
+    sink_dont_move=true
 
 pactl list short modules | grep -q "chat_sink.monitor" || \
   pactl load-module module-loopback \
     source=chat_sink.monitor \
-    sink="$DEFAULT_SINK"
+    sink="$DEFAULT_SINK" \
+    sink_dont_move=true
 
 pactl set-default-sink game_sink

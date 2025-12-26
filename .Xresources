@@ -1,7 +1,5 @@
 ! DPI
-!### DESKTOP START ###
-! Xft.dpi:110
-!### DESKTOP END ###
+!Xft.dpi:100
 
 ! special
 *.foreground:   #e0def4

@@ -2,26 +2,47 @@
 
 sleep 2
 
-DEFAULT_SINK="$(pactl get-default-sink)"
+REAL_SINK="$(pactl get-default-sink)"
 
-pactl list short modules | grep -q "game_sink" || \
+# ---------- create null sinks (once) ----------
+
+pactl list short sinks | grep -q "^game_sink\b" || \
   pactl load-module module-null-sink \
     sink_name=game_sink \
     sink_properties=device.description=Game
 
-pactl list short modules | grep -q "chat_sink" || \
+pactl list short sinks | grep -q "^chat_sink\b" || \
   pactl load-module module-null-sink \
     sink_name=chat_sink \
     sink_properties=device.description=Chat
 
-pactl list short modules | grep -q "game_sink.monitor" || \
+# ---------- create loopbacks (once) ----------
+
+pactl list short modules | grep -q "module-loopback.*game_sink.monitor" || \
   pactl load-module module-loopback \
     source=game_sink.monitor \
-    sink="$DEFAULT_SINK"
+    sink="$REAL_SINK"
 
-pactl list short modules | grep -q "chat_sink.monitor" || \
+pactl list short modules | grep -q "module-loopback.*chat_sink.monitor" || \
   pactl load-module module-loopback \
     source=chat_sink.monitor \
-    sink="$DEFAULT_SINK"
+    sink="$REAL_SINK"
 
-pactl set-default-sink game_sink
+# ---------- set default sink only if needed ----------
+
+CURRENT_DEFAULT="$(pactl get-default-sink)"
+
+if [ "$CURRENT_DEFAULT" != "game_sink" ]; then
+  pactl set-default-sink game_sink
+
+  # give PA/PW time to auto-move streams
+  sleep 0.2
+
+  # ---------- move loopbacks back to real sink ----------
+  pactl list short sink-inputs | awk '
+    /game_sink\.monitor|chat_sink\.monitor/ {print $1}
+  ' | while read -r id; do
+    pactl move-sink-input "$id" "$REAL_SINK"
+  done
+fi
+

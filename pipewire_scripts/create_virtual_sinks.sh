@@ -6,12 +6,12 @@ REAL_SINK="$(pactl get-default-sink)"
 
 # ---------- create null sinks (once) ----------
 
-pactl list short sinks | grep -q "^game_sink\b" || \
+pactl list short sinks | grep -q "game_sink" || \
   pactl load-module module-null-sink \
     sink_name=game_sink \
     sink_properties=device.description=Game
 
-pactl list short sinks | grep -q "^chat_sink\b" || \
+pactl list short sinks | grep -q "chat_sink" || \
   pactl load-module module-null-sink \
     sink_name=chat_sink \
     sink_properties=device.description=Chat

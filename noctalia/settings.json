@@ -1,6 +1,6 @@
 {
     "appLauncher": {
-        "autoPasteClipboard": false,
+        "autoPasteClipboard": true,
         "clipboardWrapText": true,
         "customLaunchPrefix": "uwsm app --",
         "customLaunchPrefixEnabled": true,
@@ -44,7 +44,8 @@
         "marginHorizontal": 4,
         "marginVertical": 4,
         "monitors": [
-            "HDMI-A-1"
+            "HDMI-A-1",
+            "DVI-I-1"
         ],
         "outerCorners": false,
         "position": "top",
@@ -65,15 +66,10 @@
             ],
             "left": [
                 {
-                    "icon": "rocket",
-                    "id": "Launcher",
-                    "usePrimaryColor": true
-                },
-                {
                     "characterCount": 2,
                     "colorizeIcons": false,
                     "enableScrollWheel": true,
-                    "followFocusedScreen": true,
+                    "followFocusedScreen": false,
                     "groupedBorderOpacity": 1,
                     "hideUnoccupied": true,
                     "iconScale": 0.8,
@@ -87,7 +83,7 @@
                     "colorizeIcons": true,
                     "hideMode": "hidden",
                     "id": "ActiveWindow",
-                    "maxWidth": 145,
+                    "maxWidth": 160,
                     "scrollingMode": "hover",
                     "showIcon": true,
                     "useFixedWidth": false

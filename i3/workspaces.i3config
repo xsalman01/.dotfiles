@@ -26,7 +26,7 @@ assign [class="loupe"] 7
 assign [class="^discord$"] 8
 assign [class="Helium"] 9
 assign [class="Slack"] 10
-assign [class="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|nm-applet).*"] 6
+assign [class="^(?i)(?!xdg-desktop-portal-gtk|pwvucontrol|electron|nm-applet).*"] 6
 
 # change focus
 for_window [class="kitty"] border pixel 2, focus

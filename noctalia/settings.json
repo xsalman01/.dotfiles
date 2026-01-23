@@ -336,7 +336,7 @@
         "allowPanelsOnScreenWithoutBar": false,
         "animationDisabled": false,
         "animationSpeed": 1,
-        "avatarImage": "/home/dopeman/.face",
+        "avatarImage": "/home/dopeman/Pictures/Saved Pictures/433087447_731941542261164_7379490055230866290_n.jpg",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
         "dimmerOpacity": 0,
@@ -354,7 +354,7 @@
         "showChangelogOnStartup": true,
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
-        "showSessionButtonsOnLockScreen": true,
+        "showSessionButtonsOnLockScreen": false,
         "telemetryEnabled": false
     },
     "hooks": {

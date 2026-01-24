@@ -6,6 +6,7 @@
         "customLaunchPrefixEnabled": true,
         "enableClipPreview": true,
         "enableClipboardHistory": true,
+        "enableSettingsSearch": true,
         "iconMode": "tabler",
         "ignoreMouseInput": false,
         "pinnedApps": [
@@ -31,6 +32,7 @@
         ],
         "preferredPlayer": "spotify",
         "visualizerType": "none",
+        "volumeFeedback": false,
         "volumeOverdrive": false,
         "volumeStep": 5
     },
@@ -49,6 +51,8 @@
         ],
         "outerCorners": false,
         "position": "top",
+        "screenOverrides": [
+        ],
         "showCapsule": true,
         "showOutline": false,
         "useSeparateOpacity": true,
@@ -121,6 +125,7 @@
                 {
                     "deviceNativePath": "",
                     "displayMode": "onhover",
+                    "hideIfIdle": false,
                     "hideIfNotDetected": true,
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
@@ -142,6 +147,20 @@
                     "id": "Bluetooth"
                 },
                 {
+                    "defaultSettings": {
+                        "audioCodec": "opus",
+                        "audioSource": "default_output",
+                        "colorRange": "limited",
+                        "copyToClipboard": false,
+                        "directory": "",
+                        "filenamePattern": "recording_yyyyMMdd_HHmmss",
+                        "frameRate": "60",
+                        "quality": "very_high",
+                        "resolution": "original",
+                        "showCursor": true,
+                        "videoCodec": "h264",
+                        "videoSource": "portal"
+                    },
                     "id": "plugin:screen-recorder"
                 },
                 {
@@ -156,6 +175,7 @@
                     "showMemoryAsPercent": false,
                     "showMemoryUsage": true,
                     "showNetworkStats": false,
+                    "showSwapUsage": false,
                     "useMonospaceFont": true,
                     "usePrimaryColor": false
                 },
@@ -191,9 +211,10 @@
     },
     "colorSchemes": {
         "darkMode": true,
+        "generationMethod": "tonal-spot",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "matugenSchemeType": "scheme-expressive",
+        "monitorForColors": "",
         "predefinedScheme": "Rose Pine",
         "schedulingMode": "off",
         "useWallpaperColors": false
@@ -253,7 +274,7 @@
         }
     },
     "desktopWidgets": {
-        "enabled": false,
+        "enabled": true,
         "gridSnap": true,
         "monitorWidgets": [
             {
@@ -265,12 +286,45 @@
                         "format": "HH:mm\\nd MMMM yyyy",
                         "id": "Clock",
                         "roundedCorners": true,
-                        "scale": 2.616917506313239,
+                        "scale": 2.7338295103172334,
                         "showBackground": true,
                         "useCustomFont": false,
                         "usePrimaryColor": true,
-                        "x": 780,
-                        "y": 260
+                        "x": 760,
+                        "y": 240
+                    },
+                    {
+                        "hideMode": "visible",
+                        "id": "MediaPlayer",
+                        "roundedCorners": true,
+                        "scale": 0.9962434952249465,
+                        "showAlbumArt": true,
+                        "showBackground": true,
+                        "showButtons": true,
+                        "showVisualizer": true,
+                        "visualizerType": "linear",
+                        "x": 760,
+                        "y": 680
+                    },
+                    {
+                        "defaultSettings": {
+                            "barWidth": 0.6,
+                            "bloomIntensity": 0.5,
+                            "customPrimaryColor": "#6750A4",
+                            "customSecondaryColor": "#625B71",
+                            "fadeWhenIdle": false,
+                            "innerDiameter": 0.7,
+                            "ringOpacity": 0.8,
+                            "rotationSpeed": 0.5,
+                            "sensitivity": 1.5,
+                            "useCustomColors": false,
+                            "visualizationMode": 3,
+                            "waveThickness": 1
+                        },
+                        "id": "plugin:fancy-audiovisualizer",
+                        "showBackground": true,
+                        "x": 80,
+                        "y": 80
                     }
                 ]
             }
@@ -298,15 +352,17 @@
         "allowPanelsOnScreenWithoutBar": false,
         "animationDisabled": false,
         "animationSpeed": 1,
-        "avatarImage": "/home/dopeman/Pictures/Saved Pictures/433087447_731941542261164_7379490055230866290_n.jpg",
+        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
         "dimmerOpacity": 0,
+        "enableLockScreenCountdown": true,
         "enableShadows": true,
         "forceBlackScreenCorners": false,
         "iRadiusRatio": 0.28,
         "language": "",
         "lockOnSuspend": true,
+        "lockScreenCountdownDuration": 10000,
         "radiusRatio": 0.11,
         "scaleRatio": 0.9,
         "screenRadiusRatio": 0,
@@ -327,6 +383,7 @@
         "screenLock": "",
         "screenUnlock": "",
         "session": "",
+        "startup": "",
         "wallpaperChange": ""
     },
     "location": {
@@ -450,7 +507,7 @@
         "showHeader": true,
         "showNumberLabels": true
     },
-    "settingsVersion": 41,
+    "settingsVersion": 44,
     "systemMonitor": {
         "cpuCriticalThreshold": 90,
         "cpuPollingInterval": 3000,
@@ -469,6 +526,8 @@
         "memPollingInterval": 3000,
         "memWarningThreshold": 80,
         "networkPollingInterval": 3000,
+        "swapCriticalThreshold": 90,
+        "swapWarningThreshold": 80,
         "tempCriticalThreshold": 90,
         "tempPollingInterval": 3000,
         "tempWarningThreshold": 80,
@@ -478,7 +537,7 @@
     "templates": {
         "activeTemplates": [
         ],
-        "enableUserTemplates": false
+        "enableUserTheming": false
     },
     "ui": {
         "bluetoothDetailsViewMode": "grid",
@@ -496,6 +555,7 @@
         "wifiDetailsViewMode": "grid"
     },
     "wallpaper": {
+        "automationEnabled": false,
         "directory": "/home/dopeman/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
@@ -506,16 +566,16 @@
         ],
         "overviewEnabled": false,
         "panelPosition": "follow_bar",
-        "randomEnabled": false,
         "randomIntervalSec": 300,
-        "recursiveSearch": false,
         "setWallpaperOnAllMonitors": true,
+        "showHiddenFiles": false,
         "solidColor": "#1a1a2e",
         "transitionDuration": 1500,
         "transitionEdgeSmoothness": 0.05,
         "transitionType": "random",
         "useSolidColor": false,
         "useWallhaven": false,
+        "viewMode": "single",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",

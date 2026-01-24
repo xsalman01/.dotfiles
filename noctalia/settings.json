@@ -46,13 +46,16 @@
         "marginHorizontal": 4,
         "marginVertical": 4,
         "monitors": [
-            "eDP-1",
             "HDMI-A-1",
-            "DVI-I-1"
+            "eDP-1"
         ],
         "outerCorners": false,
         "position": "top",
         "screenOverrides": [
+            {
+                "enabled": false,
+                "name": "eDP-1"
+            }
         ],
         "showCapsule": true,
         "showOutline": false,
@@ -155,13 +158,14 @@
                     "id": "plugin:screen-recorder"
                 },
                 {
+                    "deviceNativePath": "BAT0",
                     "displayMode": "onhover",
                     "hideIfIdle": false,
-                    "hideIfNotDetected": false,
+                    "hideIfNotDetected": true,
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
                     "showPowerProfiles": false,
-                    "warningThreshold": 30
+                    "warningThreshold": 25
                 },
                 {
                     "compactMode": true,

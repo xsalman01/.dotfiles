@@ -3,8 +3,8 @@
 #i3 general binds
 
 # screenshot tool
-bindsym $super+$mod+s exec --no-startup-id flameshot screen -c -p ~/Pictures/Screenshots & disown
-bindsym $super+Ctrl+s exec --no-startup-id flameshot full -c -p ~/Pictures/Screenshots & disown
+bindsym $super+s exec --no-startup-id flameshot screen -c -p ~/Pictures/Screenshots & disown
+bindsym $super+$mod+s exec --no-startup-id flameshot full -c -p ~/Pictures/Screenshots & disown
 bindsym $super+Shift+s exec --no-startup-id flameshot gui -c -p ~/Pictures/Screenshots & disown
 
 #xkill
@@ -52,7 +52,7 @@ bindsym $mod+Shift+l move right
 bindsym $super+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $super+s layout stacking
+bindsym $super+Ctrl+s layout stacking
 bindsym $super+w layout tabbed
 bindsym $super+e layout toggle split
 

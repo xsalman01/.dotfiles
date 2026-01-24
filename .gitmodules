@@ -1,3 +1,6 @@
 [submodule "rosepine_gtk/gtk"]
 	path = rosepine_gtk/gtk
 	url = https://github.com/rose-pine/gtk.git
+[submodule "quickshell/noctalia-shell"]
+	path = quickshell/noctalia-shell
+	url = https://github.com/xsalman01/noctalia-shell.git

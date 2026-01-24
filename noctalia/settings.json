@@ -142,6 +142,9 @@
                     "id": "Bluetooth"
                 },
                 {
+                    "id": "plugin:screen-recorder"
+                },
+                {
                     "compactMode": true,
                     "diskPath": "/",
                     "id": "SystemMonitor",
@@ -161,9 +164,6 @@
                     "hideWhenZeroUnread": true,
                     "id": "NotificationHistory",
                     "showUnreadBadge": true
-                },
-                {
-                    "id": "plugin:screen-recorder"
                 }
             ]
         }
@@ -242,9 +242,6 @@
             "right": [
                 {
                     "id": "Notifications"
-                },
-                {
-                    "id": "PowerProfile"
                 },
                 {
                     "id": "KeepAwake"

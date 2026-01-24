@@ -298,7 +298,7 @@
         "allowPanelsOnScreenWithoutBar": false,
         "animationDisabled": false,
         "animationSpeed": 1,
-        "avatarImage": "/home/dopeman/Pictures/Saved Pictures/433087447_731941542261164_7379490055230866290_n.jpg",
+        "avatarImage": "",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
         "dimmerOpacity": 0,
@@ -496,7 +496,7 @@
         "wifiDetailsViewMode": "grid"
     },
     "wallpaper": {
-        "directory": "/home/dopeman/.dotfiles/wallpapers",
+        "directory": "$HOME/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "fillColor": "#000000",

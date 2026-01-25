@@ -366,7 +366,7 @@
         "iRadiusRatio": 0.28,
         "language": "",
         "lockOnSuspend": true,
-        "lockScreenCountdownDuration": 10000,
+        "lockScreenCountdownDuration": 5000,
         "radiusRatio": 0.11,
         "scaleRatio": 0.9,
         "screenRadiusRatio": 0,
@@ -376,7 +376,7 @@
         "showChangelogOnStartup": true,
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
-        "showSessionButtonsOnLockScreen": false,
+        "showSessionButtonsOnLockScreen": true,
         "telemetryEnabled": false
     },
     "hooks": {

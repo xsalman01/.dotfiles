@@ -33,13 +33,13 @@ bindsym XF86AudioStop exec --no-startup-id playerctl --player=spotify pause
 
 # virtual sinks
 ### DESKTOP START ###
-# bindsym $super+F6 exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
-# 
-# bindsym $super+F1 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink down &
-# bindsym $super+F2 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink up &
-# bindsym $super+F3 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink mute &
-# 
-# bindsym $super+F10 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink mute &
-# bindsym $super+F11 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink down &
-# bindsym $super+F12 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink up &
+bindsym $super+F6 exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
+
+bindsym $super+F1 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink down &
+bindsym $super+F2 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink up &
+bindsym $super+F3 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh game_sink mute &
+
+bindsym $super+F10 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink mute &
+bindsym $super+F11 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink down &
+bindsym $super+F12 exec --no-startup-id ~/.dotfiles/pipewire_scripts/change_sink_volume.sh chat_sink up &
 ### DESKTOP END ###

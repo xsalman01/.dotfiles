@@ -59,7 +59,7 @@ for file in "${FILES[@]}"; do
         fi
 
         if [[ "$ACTION" == "enable_desktop" ]]; then
-            echo "  -> Applying desktop profile (dopeman + HDMI-A-1, DVI-I-1)"
+            echo "  -> Applying desktop profile (dopeman + HDMI-A-1, DVI-I-1, compact)"
             jq '
               .general.avatarImage |= gsub("/home/[^/]+/"; "/home/dopeman/") |
               .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/dopeman/") |
@@ -69,7 +69,7 @@ for file in "${FILES[@]}"; do
                 echo "  -> ERROR: failed to write $file"
             }
         else
-            echo "  -> Applying laptop profile (Agnosia + HDMI-A-1, eDP-1)"
+            echo "  -> Applying laptop profile (Agnosia + HDMI-A-1, eDP-1, default)"
             jq '
               .general.avatarImage |= gsub("/home/[^/]+/"; "/home/Agnosia/") |
               .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/Agnosia/") |

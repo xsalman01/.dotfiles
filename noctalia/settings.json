@@ -39,7 +39,7 @@
     "bar": {
         "backgroundOpacity": 0,
         "capsuleOpacity": 1,
-        "density": "default",
+        "density": "compact",
         "exclusive": true,
         "floating": false,
         "hideOnOverview": false,
@@ -47,7 +47,7 @@
         "marginVertical": 4,
         "monitors": [
             "HDMI-A-1",
-            "eDP-1"
+            "DVI-I-1"
         ],
         "outerCorners": false,
         "position": "top",
@@ -360,7 +360,7 @@
         "allowPanelsOnScreenWithoutBar": false,
         "animationDisabled": false,
         "animationSpeed": 1,
-        "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
+        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
         "dimmerOpacity": 0,
@@ -564,7 +564,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/Agnosia/.dotfiles/wallpapers",
+        "directory": "/home/dopeman/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "fillColor": "#000000",

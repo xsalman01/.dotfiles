@@ -39,7 +39,7 @@
     "bar": {
         "backgroundOpacity": 0,
         "capsuleOpacity": 1,
-        "density": "compact",
+        "density": "default",
         "exclusive": true,
         "floating": false,
         "hideOnOverview": false,
@@ -55,6 +55,10 @@
             {
                 "enabled": false,
                 "name": "eDP-1"
+            },
+            {
+                "enabled": false,
+                "name": "HDMI-A-1"
             }
         ],
         "showCapsule": true,

@@ -39,7 +39,7 @@
     "bar": {
         "backgroundOpacity": 0,
         "capsuleOpacity": 1,
-        "density": "compact",
+        "density": "default",
         "exclusive": true,
         "floating": false,
         "hideOnOverview": false,
@@ -47,7 +47,7 @@
         "marginVertical": 4,
         "monitors": [
             "HDMI-A-1",
-            "DVI-I-1"
+            "eDP-1"
         ],
         "outerCorners": false,
         "position": "top",
@@ -80,14 +80,18 @@
                 {
                     "characterCount": 2,
                     "colorizeIcons": false,
+                    "emptyColor": "secondary",
                     "enableScrollWheel": true,
+                    "focusedColor": "primary",
                     "followFocusedScreen": false,
                     "groupedBorderOpacity": 1,
                     "hideUnoccupied": true,
                     "iconScale": 0.8,
                     "id": "Workspace",
                     "labelMode": "none",
+                    "occupiedColor": "secondary",
                     "showApplications": false,
+                    "showBadge": true,
                     "showLabelsOnlyWhenOccupied": true,
                     "unfocusedIconsOpacity": 1
                 },
@@ -360,7 +364,8 @@
         "allowPanelsOnScreenWithoutBar": false,
         "animationDisabled": false,
         "animationSpeed": 1,
-        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
+        "autoStartAuth": false,
+        "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
         "dimmerOpacity": 0,
@@ -564,7 +569,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/dopeman/.dotfiles/wallpapers",
+        "directory": "/home/Agnosia/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "fillColor": "#000000",

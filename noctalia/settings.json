@@ -49,7 +49,7 @@
         "displayMode": "always_visible",
         "floating": false,
         "frameRadius": 4,
-        "frameThickness": 6,
+        "frameThickness": 8,
         "hideOnOverview": false,
         "marginHorizontal": 4,
         "marginVertical": 4,
@@ -289,25 +289,25 @@
                         "format": "HH:mm\\nd MMMM yyyy",
                         "id": "Clock",
                         "roundedCorners": true,
-                        "scale": 2.7338295103172334,
+                        "scale": 1.4525667541984841,
                         "showBackground": true,
                         "useCustomFont": false,
                         "usePrimaryColor": true,
-                        "x": 760,
-                        "y": 240
+                        "x": 1720,
+                        "y": 440
                     },
                     {
                         "hideMode": "visible",
                         "id": "MediaPlayer",
                         "roundedCorners": true,
-                        "scale": 0.9962434952249465,
+                        "scale": 0.9189405195108546,
                         "showAlbumArt": true,
                         "showBackground": true,
                         "showButtons": true,
                         "showVisualizer": true,
                         "visualizerType": "linear",
-                        "x": 760,
-                        "y": 680
+                        "x": 60,
+                        "y": 980
                     },
                     {
                         "defaultSettings": {
@@ -325,9 +325,10 @@
                             "waveThickness": 1
                         },
                         "id": "plugin:fancy-audiovisualizer",
+                        "scale": 0.9600797637485908,
                         "showBackground": true,
-                        "x": 80,
-                        "y": 80
+                        "x": 20,
+                        "y": 0
                     }
                 ]
             }

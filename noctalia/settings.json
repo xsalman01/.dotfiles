@@ -45,11 +45,11 @@
         "backgroundOpacity": 1,
         "barType": "framed",
         "capsuleOpacity": 1,
-        "density": "compact",
+        "density": "mini",
         "displayMode": "always_visible",
         "floating": false,
         "frameRadius": 4,
-        "frameThickness": 8,
+        "frameThickness": 6,
         "hideOnOverview": false,
         "marginHorizontal": 4,
         "marginVertical": 4,
@@ -81,15 +81,6 @@
         "widgets": {
             "center": [
                 {
-                    "colorizeIcons": false,
-                    "hideMode": "hidden",
-                    "id": "ActiveWindow",
-                    "maxWidth": 160,
-                    "scrollingMode": "hover",
-                    "showIcon": true,
-                    "useFixedWidth": false
-                },
-                {
                     "customFont": "Hack Nerd Font Mono",
                     "formatHorizontal": "hh:mm AP | ddd, MMM dd",
                     "formatVertical": "hh mm a - dd MMM",
@@ -97,24 +88,6 @@
                     "tooltipFormat": "hh:mm AP | ddd, MMM dd",
                     "useCustomFont": true,
                     "usePrimaryColor": true
-                },
-                {
-                    "compactMode": false,
-                    "compactShowAlbumArt": true,
-                    "compactShowVisualizer": false,
-                    "hideMode": "hidden",
-                    "hideWhenIdle": false,
-                    "id": "MediaMini",
-                    "maxWidth": 145,
-                    "panelShowAlbumArt": true,
-                    "panelShowVisualizer": true,
-                    "scrollingMode": "always",
-                    "showAlbumArt": true,
-                    "showArtistFirst": true,
-                    "showProgressRing": true,
-                    "showVisualizer": true,
-                    "useFixedWidth": true,
-                    "visualizerType": "wave"
                 }
             ],
             "left": [
@@ -140,16 +113,6 @@
                     "id": "Bluetooth"
                 },
                 {
-                    "displayMode": "alwaysHide",
-                    "id": "Microphone",
-                    "middleClickCommand": "pwvucontrol"
-                },
-                {
-                    "displayMode": "alwaysHide",
-                    "id": "Volume",
-                    "middleClickCommand": "pwvucontrol"
-                },
-                {
                     "defaultSettings": {
                         "audioCodec": "opus",
                         "audioSource": "default_output",
@@ -165,9 +128,37 @@
                         "videoSource": "portal"
                     },
                     "id": "plugin:screen-recorder"
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "id": "Volume",
+                    "middleClickCommand": "pwvucontrol"
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "id": "Microphone",
+                    "middleClickCommand": "pwvucontrol"
                 }
             ],
             "right": [
+                {
+                    "compactMode": false,
+                    "compactShowAlbumArt": true,
+                    "compactShowVisualizer": false,
+                    "hideMode": "hidden",
+                    "hideWhenIdle": false,
+                    "id": "MediaMini",
+                    "maxWidth": 145,
+                    "panelShowAlbumArt": true,
+                    "panelShowVisualizer": true,
+                    "scrollingMode": "always",
+                    "showAlbumArt": true,
+                    "showArtistFirst": true,
+                    "showProgressRing": true,
+                    "showVisualizer": true,
+                    "useFixedWidth": true,
+                    "visualizerType": "wave"
+                },
                 {
                     "blacklist": [
                     ],

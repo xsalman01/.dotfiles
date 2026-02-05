@@ -93,24 +93,10 @@
             "left": [
                 {
                     "hideWhenZero": true,
-                    "hideWhenZeroUnread": false,
+                    "hideWhenZeroUnread": true,
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
-                },
-                {
-                    "deviceNativePath": "BAT0",
-                    "displayMode": "onhover",
-                    "hideIfIdle": false,
-                    "hideIfNotDetected": true,
-                    "id": "Battery",
-                    "showNoctaliaPerformance": false,
-                    "showPowerProfiles": false,
-                    "warningThreshold": 25
-                },
-                {
-                    "displayMode": "alwaysHide",
-                    "id": "Bluetooth"
                 },
                 {
                     "defaultSettings": {
@@ -128,6 +114,20 @@
                         "videoSource": "portal"
                     },
                     "id": "plugin:screen-recorder"
+                },
+                {
+                    "deviceNativePath": "BAT0",
+                    "displayMode": "onhover",
+                    "hideIfIdle": false,
+                    "hideIfNotDetected": true,
+                    "id": "Battery",
+                    "showNoctaliaPerformance": false,
+                    "showPowerProfiles": false,
+                    "warningThreshold": 25
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "id": "Bluetooth"
                 },
                 {
                     "displayMode": "alwaysHide",

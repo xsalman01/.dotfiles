@@ -360,7 +360,7 @@
         "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
-        "dimmerOpacity": 0,
+        "dimmerOpacity": 0.21,
         "enableLockScreenCountdown": true,
         "enableShadows": false,
         "forceBlackScreenCorners": false,
@@ -460,7 +460,7 @@
             1,
             2
         ],
-        "location": "top_right",
+        "location": "bottom",
         "monitors": [
         ],
         "overlayLayer": true
@@ -586,7 +586,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "110",
-        "wallhavenQuery": "gintama",
+        "wallhavenQuery": "jojo",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

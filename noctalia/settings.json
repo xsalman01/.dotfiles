@@ -44,6 +44,7 @@
         "autoShowDelay": 150,
         "backgroundOpacity": 1,
         "barType": "framed",
+        "capsuleColorKey": "none",
         "capsuleOpacity": 1,
         "density": "compact",
         "displayMode": "always_visible",
@@ -94,6 +95,7 @@
                 {
                     "hideWhenZero": true,
                     "hideWhenZeroUnread": true,
+                    "iconColor": "none",
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
@@ -126,17 +128,23 @@
                 },
                 {
                     "displayMode": "alwaysHide",
-                    "id": "Bluetooth"
+                    "iconColor": "none",
+                    "id": "Bluetooth",
+                    "textColor": "none"
                 },
                 {
                     "displayMode": "alwaysHide",
+                    "iconColor": "none",
                     "id": "Volume",
-                    "middleClickCommand": "pwvucontrol"
+                    "middleClickCommand": "pwvucontrol",
+                    "textColor": "none"
                 },
                 {
                     "displayMode": "alwaysHide",
+                    "iconColor": "none",
                     "id": "Microphone",
-                    "middleClickCommand": "pwvucontrol"
+                    "middleClickCommand": "pwvucontrol",
+                    "textColor": "none"
                 }
             ],
             "right": [
@@ -155,12 +163,14 @@
                     "showArtistFirst": true,
                     "showProgressRing": true,
                     "showVisualizer": true,
+                    "textColor": "none",
                     "useFixedWidth": true,
                     "visualizerType": "wave"
                 },
                 {
                     "blacklist": [
                     ],
+                    "chevronColor": "none",
                     "colorizeIcons": false,
                     "drawerEnabled": false,
                     "hidePassive": true,
@@ -360,6 +370,8 @@
         "autoStartAuth": false,
         "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
+        "clockFormat": "hh\\nmm",
+        "clockStyle": "analog",
         "compactLockScreen": false,
         "dimmerOpacity": 0.21,
         "enableLockScreenCountdown": true,
@@ -370,7 +382,7 @@
         "lockOnSuspend": true,
         "lockScreenCountdownDuration": 5000,
         "radiusRatio": 0.11,
-        "scaleRatio": 0.9,
+        "scaleRatio": 0.9500000000000001,
         "screenRadiusRatio": 0,
         "shadowDirection": "center",
         "shadowOffsetX": 0,
@@ -425,9 +437,8 @@
     },
     "notifications": {
         "backgroundOpacity": 1,
-        "batteryCriticalThreshold": 5,
-        "batteryWarningThreshold": 20,
         "criticalUrgencyDuration": 5,
+        "enableBatteryToast": true,
         "enableKeyboardLayoutToast": false,
         "enableMediaToast": false,
         "enabled": true,
@@ -467,6 +478,9 @@
         "monitors": [
         ],
         "overlayLayer": true
+    },
+    "plugins": {
+        "autoUpdate": false
     },
     "sessionMenu": {
         "countdownDuration": 1000,
@@ -515,8 +529,10 @@
         "showHeader": true,
         "showNumberLabels": true
     },
-    "settingsVersion": 47,
+    "settingsVersion": 49,
     "systemMonitor": {
+        "batteryCriticalThreshold": 5,
+        "batteryWarningThreshold": 20,
         "cpuCriticalThreshold": 90,
         "cpuPollingInterval": 1000,
         "cpuWarningThreshold": 80,

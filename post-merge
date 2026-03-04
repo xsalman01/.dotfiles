@@ -64,7 +64,9 @@ for file in "${FILES[@]}"; do
               .general.avatarImage |= gsub("/home/[^/]+/"; "/home/dopeman/") |
               .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/dopeman/") |
               .bar.monitors = ["HDMI-A-1", "DVI-I-1"] |
-              .bar.density = "mini"
+              .bar.density = "mini" |
+              .general.scaleRatio = 0.9 |
+              .ui.fontFixedScale = 1
             ' "$file" > "$file.tmp" && mv "$file.tmp" "$file" || {
                 echo "  -> ERROR: failed to write $file"
             }
@@ -74,7 +76,9 @@ for file in "${FILES[@]}"; do
               .general.avatarImage |= gsub("/home/[^/]+/"; "/home/Agnosia/") |
               .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/Agnosia/") |
               .bar.monitors = ["HDMI-A-1", "eDP-1"] |
-              .bar.density = "compact"
+              .bar.density = "compact" |
+              .general.scaleRatio = 0.95 |
+              .ui.fontFixedScale = 1.1,
             ' "$file" > "$file.tmp" && mv "$file.tmp" "$file" || {
                 echo "  -> ERROR: failed to write $file"
             }

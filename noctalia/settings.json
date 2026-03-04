@@ -62,7 +62,7 @@
         "marginVertical": 4,
         "monitors": [
             "HDMI-A-1",
-            "DVI-I-1"
+            "eDP-1"
         ],
         "mouseWheelAction": "none",
         "mouseWheelWrap": true,
@@ -96,7 +96,7 @@
                     "clockColor": "primary",
                     "customFont": "Hack Nerd Font Mono",
                     "formatHorizontal": "hh:mm AP | ddd, MMM dd",
-                    "formatVertical": "hh mm a - dd MMM",
+                    "formatVertical": "hh mm AP - dd MMM",
                     "id": "Clock",
                     "tooltipFormat": "hh:mm AP | ddd, MMM dd",
                     "useCustomFont": true
@@ -110,6 +110,15 @@
                     "id": "NotificationHistory",
                     "showUnreadBadge": true,
                     "unreadBadgeColor": "primary"
+                },
+                {
+                    "deviceNativePath": "BAT0",
+                    "displayMode": "icon-only",
+                    "hideIfIdle": false,
+                    "hideIfNotDetected": true,
+                    "id": "Battery",
+                    "showNoctaliaPerformance": false,
+                    "showPowerProfiles": false
                 },
                 {
                     "defaultSettings": {
@@ -371,7 +380,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
+        "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "analog",
@@ -633,7 +642,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/dopeman/.dotfiles/wallpapers",
+        "directory": "/home/Agnosia/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -653,7 +662,7 @@
         "skipStartupTransition": false,
         "solidColor": "#1a1a2e",
         "sortOrder": "name",
-        "transitionDuration": 1500,
+        "transitionDuration": 1000,
         "transitionEdgeSmoothness": 0.05,
         "transitionType": "random",
         "useSolidColor": false,

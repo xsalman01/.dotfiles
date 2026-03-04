@@ -8,7 +8,7 @@ if ok then
         })
     end, { desc = "Telescope diagnostics (current buffer)" })
 
-    vim.keymap.set("n", "<leader>tw", function()
+    vim.keymap.set("n", "<leader>tW", function()
         telescope_builtin.diagnostics({
             wrap_results = true, -- Entire workspace
         })

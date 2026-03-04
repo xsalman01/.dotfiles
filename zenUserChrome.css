@@ -78,7 +78,7 @@ hbox.zen-essentials-container tab:not([zen-glance-tab="true"])>.tab-stack>.tab-c
 }
 
 .zen-essentials-container {
-  &[data-hack-type="2"] {
-    grid-template-columns: repeat( auto-fit, minmax(max(24%, 48px), 1fr) minmax(max(24%, 48px), 1fr) ) !important;
-  }
+    &[data-hack-type="2"] {
+        grid-template-columns: repeat(auto-fit, minmax(max(24%, 48px), 1fr) minmax(max(24%, 48px), 1fr)) !important;
+    }
 }

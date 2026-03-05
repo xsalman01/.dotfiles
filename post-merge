@@ -78,7 +78,7 @@ for file in "${FILES[@]}"; do
               .bar.monitors = ["HDMI-A-1", "eDP-1"] |
               .bar.density = "compact" |
               .general.scaleRatio = 0.95 |
-              .ui.fontFixedScale = 1.1,
+              .ui.fontFixedScale = 1.1
             ' "$file" > "$file.tmp" && mv "$file.tmp" "$file" || {
                 echo "  -> ERROR: failed to write $file"
             }

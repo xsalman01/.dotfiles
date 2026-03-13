@@ -51,8 +51,9 @@
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
         "contentPadding": 2,
-        "density": "mini",
+        "density": "compact",
         "displayMode": "always_visible",
+        "enableExclusionZoneInset": true,
         "floating": false,
         "fontScale": 1,
         "frameRadius": 4,
@@ -65,7 +66,7 @@
         "middleClickFollowMouse": false,
         "monitors": [
             "HDMI-A-1",
-            "DVI-I-1"
+            "eDP-1"
         ],
         "mouseWheelAction": "none",
         "mouseWheelWrap": true,
@@ -206,8 +207,9 @@
                     "id": "Workspace",
                     "labelMode": "none",
                     "occupiedColor": "secondary",
-                    "pillSize": 0.6,
+                    "pillSize": 0.55,
                     "showApplications": false,
+                    "showApplicationsHover": false,
                     "showBadge": true,
                     "showLabelsOnlyWhenOccupied": true,
                     "unfocusedIconsOpacity": 1
@@ -305,6 +307,7 @@
     "desktopWidgets": {
         "enabled": false,
         "gridSnap": true,
+        "gridSnapScale": false,
         "monitorWidgets": [
             {
                 "name": "HDMI-A-1",
@@ -377,7 +380,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
+        "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "analog",
@@ -424,7 +427,7 @@
         "passwordChars": false,
         "radiusRatio": 0.11,
         "reverseScroll": false,
-        "scaleRatio": 0.9,
+        "scaleRatio": 0.95,
         "screenRadiusRatio": 0,
         "shadowDirection": "center",
         "shadowOffsetX": 0,
@@ -636,16 +639,18 @@
         "fontDefault": "Adwaita Sans",
         "fontDefaultScale": 1,
         "fontFixed": "JetBrainsMono Nerd Font Mono",
-        "fontFixedScale": 1,
+        "fontFixedScale": 1.1,
         "panelBackgroundOpacity": 1,
         "panelsAttachedToBar": true,
+        "scrollbarAlwaysVisible": true,
         "settingsPanelMode": "attached",
         "settingsPanelSideBarCardStyle": false,
-        "tooltipsEnabled": true
+        "tooltipsEnabled": true,
+        "translucentWidgets": false
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/dopeman/.dotfiles/wallpapers",
+        "directory": "/home/Agnosia/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [

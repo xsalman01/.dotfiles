@@ -43,6 +43,19 @@ return {
                     }
                 end,
 
+                ["rust_analyzer"] = function()
+                    require("lspconfig").rust_analyzer.setup({
+                        capabilities = capabilities,
+                        settings = {
+                            ["rust-analyzer"] = {
+                                checkOnSave = {
+                                    command = "clippy",
+                                },
+                            },
+                        },
+                    })
+                end,
+
                 ["qmlls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.qmlls.setup {

@@ -38,6 +38,7 @@
         ],
         "preferredPlayer": "spotify",
         "spectrumFrameRate": 30,
+        "spectrumMirrored": true,
         "visualizerType": "none",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
@@ -52,10 +53,9 @@
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
         "contentPadding": 2,
-        "density": "mini",
+        "density": "compact",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
-        "floating": false,
         "fontScale": 1,
         "frameRadius": 4,
         "frameThickness": 8,
@@ -67,7 +67,7 @@
         "middleClickFollowMouse": false,
         "monitors": [
             "HDMI-A-1",
-            "DVI-I-1"
+            "eDP-1"
         ],
         "mouseWheelAction": "none",
         "mouseWheelWrap": true,
@@ -217,6 +217,62 @@
                 }
             ]
         }
+      ],
+      "left": [
+        {
+          "hideWhenZero": true,
+          "hideWhenZeroUnread": true,
+          "iconColor": "none",
+          "id": "NotificationHistory",
+          "showUnreadBadge": true,
+          "unreadBadgeColor": "primary"
+        },
+        {
+          "deviceNativePath": "BAT0",
+          "displayMode": "icon-only",
+          "hideIfIdle": false,
+          "hideIfNotDetected": true,
+          "id": "Battery",
+          "showNoctaliaPerformance": false,
+          "showPowerProfiles": false
+        },
+        {
+          "defaultSettings": {
+            "audioCodec": "opus",
+            "audioSource": "default_output",
+            "colorRange": "limited",
+            "copyToClipboard": false,
+            "directory": "",
+            "filenamePattern": "recording_yyyyMMdd_HHmmss",
+            "frameRate": "60",
+            "quality": "very_high",
+            "resolution": "original",
+            "showCursor": true,
+            "videoCodec": "h264",
+            "videoSource": "portal"
+          },
+          "id": "plugin:screen-recorder"
+        },
+        {
+          "displayMode": "alwaysHide",
+          "iconColor": "none",
+          "id": "Bluetooth",
+          "textColor": "none"
+        },
+        {
+          "displayMode": "alwaysHide",
+          "iconColor": "none",
+          "id": "Volume",
+          "middleClickCommand": "pwvucontrol",
+          "textColor": "none"
+        },
+        {
+          "displayMode": "alwaysHide",
+          "iconColor": "none",
+          "id": "Microphone",
+          "middleClickCommand": "pwvucontrol",
+          "textColor": "none"
+        }
     },
     "brightness": {
         "backlightDeviceMappings": [
@@ -307,51 +363,6 @@
     },
     "desktopWidgets": {
         "enabled": false,
-        "gridSnap": true,
-        "gridSnapScale": false,
-        "monitorWidgets": [
-            {
-                "name": "HDMI-A-1",
-                "widgets": [
-                    {
-                        "clockStyle": "analog",
-                        "customFont": "",
-                        "format": "HH:mm\\nd MMMM yyyy",
-                        "id": "Clock",
-                        "roundedCorners": true,
-                        "scale": 1.4525667541984841,
-                        "showBackground": true,
-                        "useCustomFont": false,
-                        "usePrimaryColor": true,
-                        "x": 1720,
-                        "y": 440
-                    },
-                    {
-                        "hideMode": "visible",
-                        "id": "MediaPlayer",
-                        "roundedCorners": true,
-                        "scale": 0.9189405195108546,
-                        "showAlbumArt": true,
-                        "showBackground": true,
-                        "showButtons": true,
-                        "showVisualizer": true,
-                        "visualizerType": "linear",
-                        "x": 60,
-                        "y": 980
-                    }
-                ]
-            }
-        ],
-        "overviewEnabled": true
-    },
-    "dock": {
-        "animationSpeed": 1,
-        "backgroundOpacity": 1,
-        "colorizeIcons": false,
-        "deadOpacity": 1,
-        "displayMode": "auto_hide",
-        "dockType": "floating",
-        "enabled": false,
         "floatingRatio": 0.5,
         "groupApps": false,
         "groupClickAction": "cycle",
@@ -383,7 +394,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/dopeman/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
+        "avatarImage": "/home/Agnosia/.dotfiles/noctalia/613728229_929003903054405_5293362239213956370_n.jpg",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "analog",
@@ -490,8 +501,7 @@
         "bluetoothRssiPollingEnabled": false,
         "disableDiscoverability": false,
         "networkPanelView": "wifi",
-        "wifiDetailsViewMode": "grid",
-        "wifiEnabled": true
+        "wifiDetailsViewMode": "grid"
     },
     "nightLight": {
         "autoSchedule": true,
@@ -644,7 +654,7 @@
         "fontDefault": "Adwaita Sans",
         "fontDefaultScale": 1,
         "fontFixed": "JetBrainsMono Nerd Font Mono",
-        "fontFixedScale": 1,
+        "fontFixedScale": 1.1,
         "panelBackgroundOpacity": 1,
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": true,
@@ -655,7 +665,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/dopeman/.dotfiles/wallpapers",
+        "directory": "/home/Agnosia/.dotfiles/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -685,6 +695,7 @@
             "pixelate",
             "honeycomb"
         ],
+        "useOriginalImages": false,
         "useSolidColor": false,
         "useWallhaven": false,
         "viewMode": "browse",

@@ -12,6 +12,19 @@ return {
     config = function()
         vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
 
+        -- Explicitly clear document color extmarks on client detach.
+        -- The built-in cleanup can be skipped when server_capabilities are
+        -- already cleared by the time the capability on_detach check runs
+        -- (e.g. during :lsp restart), leaving stale marks behind.
+        vim.api.nvim_create_autocmd("LspDetach", {
+            callback = function(args)
+                local ns = vim.api.nvim_get_namespaces()['nvim.lsp.document_color:' .. args.data.client_id]
+                if ns then
+                    vim.api.nvim_buf_clear_namespace(args.buf, ns, 0, -1)
+                end
+            end,
+        })
+
         local capabilities = vim.tbl_deep_extend(
             "force",
             vim.lsp.protocol.make_client_capabilities(),

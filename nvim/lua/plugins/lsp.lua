@@ -10,12 +10,25 @@ return {
     },
 
     config = function()
-        local cmp_lsp = require("cmp_nvim_lsp")
+        vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+
+        -- Explicitly clear document color extmarks on client detach.
+        -- The built-in cleanup can be skipped when server_capabilities are
+        -- already cleared by the time the capability on_detach check runs
+        -- (e.g. during :lsp restart), leaving stale marks behind.
+        vim.api.nvim_create_autocmd("LspDetach", {
+            callback = function(args)
+                local ns = vim.api.nvim_get_namespaces()['nvim.lsp.document_color:' .. args.data.client_id]
+                if ns then
+                    vim.api.nvim_buf_clear_namespace(args.buf, ns, 0, -1)
+                end
+            end,
+        })
+
         local capabilities = vim.tbl_deep_extend(
             "force",
             vim.lsp.protocol.make_client_capabilities(),
-            {},
-            cmp_lsp.default_capabilities()
+            require("cmp_nvim_lsp").default_capabilities()
         )
 
         require("fidget").setup({})
@@ -35,67 +48,37 @@ return {
             },
         })
 
-        require("mason-lspconfig").setup({
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities,
-                    }
-                end,
+        -- Global capabilities for all servers
+        vim.lsp.config('*', { capabilities = capabilities })
 
-                ["rust_analyzer"] = function()
-                    require("lspconfig").rust_analyzer.setup({
-                        capabilities = capabilities,
-                        settings = {
-                            ["rust-analyzer"] = {
-                                checkOnSave = {
-                                    command = "clippy",
-                                },
-                            },
-                        },
-                    })
-                end,
-
-                ["qmlls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.qmlls.setup {
-                        capabilities = capabilities,
-                        cmd = { "qmlls", "-E" },
-                    }
-                end,
-
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "LuaJIT" },
-                                workspace = {
-                                    checkThirdParty = false,
-                                    library = {
-                                        vim.env.VIMRUNTIME .. '/lua',
-                                    },
-                                },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-            }
-        })
-        vim.diagnostic.config({
-            -- update_in_insert = true,
-            float = {
-                focusable = false,
-                style = "minimal",
-                border = "rounded",
-                source = "always",
-                header = "",
-                prefix = "",
+        -- Per-server overrides
+        vim.lsp.config("rust_analyzer", {
+            settings = {
+                ["rust-analyzer"] = {
+                    checkOnSave = { command = "clippy" },
+                },
             },
         })
+
+        vim.lsp.config("qmlls", {
+            cmd = { "qmlls", "-E" },
+        })
+
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    runtime = { version = "LuaJIT" },
+                    workspace = {
+                        checkThirdParty = false,
+                        library = { vim.env.VIMRUNTIME .. "/lua" },
+                    },
+                    diagnostics = {
+                        globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+                    },
+                },
+            },
+        })
+
+        require("mason-lspconfig").setup({ automatic_enable = true })
     end
 }

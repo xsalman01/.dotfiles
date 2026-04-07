@@ -52,7 +52,7 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>", {desc = "restart lsp"})
+vim.keymap.set("n", "<leader>zig", "<cmd>lsp restart<cr>", {desc = "restart lsp"})
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", '"_dP', {desc = "Paste without overwriting the yank register"})
@@ -74,5 +74,5 @@ vim.keymap.set("n", "<M-s>", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
 vim.keymap.set("n", "<leader>l", vim.lsp.buf.format, {desc = "format buffer using lsp.buf.format"})
 
 vim.keymap.set("n", "<leader>s", ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', {desc = "select the word under cursor to substitute"})
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true }, {desc = "make current file executable"})
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "make current file executable" })
 

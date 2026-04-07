@@ -88,5 +88,5 @@ end
 setup_auto_hover()
 
 -- Keybinding to toggle the auto hover functionality
-vim.keymap.set('n', '<leader>ad', toggle_auto_hover, { desc = 'Toggle auto diagnostic hover' })
+vim.keymap.set('n', '<leader>D', toggle_auto_hover, { desc = 'Toggle auto diagnostic hover' })
 vim.opt.updatetime = 150 -- Default is 4000ms which is quite slow

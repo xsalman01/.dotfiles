@@ -129,7 +129,7 @@
   },
   "telescope.nvim": {
     "branch": "master",
-    "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026"
+    "commit": "5255aa27c422de944791318024167ad5d40aad20"
   },
   "undotree": {
     "branch": "master",

@@ -38,7 +38,7 @@ zvm_after_init_commands+=("bindkey -s '^f' 'tmux-sessionizer\n'")
 bindkey -s '\eh' "tmux-sessionizer -s 0\n"
 bindkey -s '\et' "tmux-sessionizer -s 1\n"
 bindkey -s '\en' "tmux-sessionizer -s 2\n"
-bindkey -s '\es' "tmux-sessionizer -s 3\n"
+# bindkey -s '\es' "tmux-sessionizer -s 3\n"
 
 # ZOXIDE
 eval "$(zoxide init zsh)"

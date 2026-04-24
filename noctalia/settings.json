@@ -314,32 +314,6 @@
             {
                 "name": "HDMI-A-1",
                 "widgets": [
-                    {
-                        "clockStyle": "analog",
-                        "customFont": "",
-                        "format": "HH:mm\\nd MMMM yyyy",
-                        "id": "Clock",
-                        "roundedCorners": true,
-                        "scale": 1.4525667541984841,
-                        "showBackground": true,
-                        "useCustomFont": false,
-                        "usePrimaryColor": true,
-                        "x": 1720,
-                        "y": 440
-                    },
-                    {
-                        "hideMode": "visible",
-                        "id": "MediaPlayer",
-                        "roundedCorners": true,
-                        "scale": 0.9189405195108546,
-                        "showAlbumArt": true,
-                        "showBackground": true,
-                        "showButtons": true,
-                        "showVisualizer": true,
-                        "visualizerType": "linear",
-                        "x": 60,
-                        "y": 980
-                    }
                 ]
             }
         ],
@@ -428,7 +402,7 @@
         "lockScreenMonitors": [
         ],
         "lockScreenTint": 0,
-        "passwordChars": false,
+        "passwordChars": true,
         "radiusRatio": 0.11,
         "reverseScroll": false,
         "scaleRatio": 0.95,

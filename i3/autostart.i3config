@@ -11,16 +11,16 @@ exec --no-startup-id ~/.config/i3/workspaces-setup.sh &
 exec --no-startup-id zen-browser & disown
 
 ### DESKTOP START ###
-# exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
-# exec --no-startup-id sh -c "sleep 0.5 && ~/.fehbg" &
-# exec --no-startup-id discord & disown
-# exec --no-startup-id nvidia-settings --load-config-only & disown
+exec --no-startup-id ~/.dotfiles/pipewire_scripts/create_virtual_sinks.sh &
+exec --no-startup-id sh -c "sleep 0.5 && ~/.fehbg" &
+exec --no-startup-id discord & disown
+exec --no-startup-id nvidia-settings --load-config-only & disown
 ### DESKTOP END ###
 
 ### LAPTOP START ###
-exec --no-startup-id sh -c "sleep 1 && ~/.fehbg" &
-exec --no-startup-id helium-browser & disown
-exec --no-startup-id slack --gtk-version=3 -s & disown
+# exec --no-startup-id sh -c "sleep 1 && ~/.fehbg" &
+# exec --no-startup-id helium-browser & disown
+# exec --no-startup-id slack --gtk-version=3 -s & disown
 ### LAPTOP END ###
 
 # exec --no-startup-id caffeine &

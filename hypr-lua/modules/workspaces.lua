@@ -40,13 +40,13 @@ hl.window_rule({ name = "workspace-9", workspace = "9", tile = true, match = { c
 hl.window_rule({ name = "workspace-10", workspace = "10", tile = true, match = { class = "^(Slack|slack)$" } })
 
 -- Catch-all: anything not claimed above → workspace 6, floating, focus on activate
-hl.window_rule({
-    name              = "workspace-6",
-    workspace         = "6",
-    float             = true,
-    focus_on_activate = true,
-    match             = { class = ".*" },
-})
+-- hl.window_rule({
+--     name              = "workspace-6",
+--     workspace         = "6",
+--     float             = true,
+--     focus_on_activate = true,
+--     match             = { class = ".*" },
+-- })
 
 -- Zen floating dialogs (PiP, file pickers, library etc.)
 hl.window_rule({

@@ -10,7 +10,7 @@ hl.config({
         gaps_out    = 0,
         border_size = 0,
         col         = {
-            -- active_border   = theme.active_border,
+            active_border   = theme.active_border,
             inactive_border = theme.muted,
         },
         layout      = "scrolling",

@@ -11,17 +11,17 @@ hl.workspace_rule({ workspace = "5", monitor = "HDMI-A-1", default_name = "misc"
 hl.workspace_rule({ workspace = "6", monitor = "HDMI-A-1", default_name = "misc" })
 
 -- ### DESKTOP START ###
-hl.workspace_rule({ workspace = "7", monitor = "DVI-I-1", default_name = "photos" })
-hl.workspace_rule({ workspace = "8", monitor = "DVI-I-1", default_name = "discord" })
-hl.workspace_rule({ workspace = "9", monitor = "DVI-I-1", default = true, default_name = "helium" })
-hl.workspace_rule({ workspace = "10", monitor = "DVI-I-1", default_name = "slack" })
+-- hl.workspace_rule({ workspace = "7", monitor = "DVI-I-1", default_name = "photos" })
+-- hl.workspace_rule({ workspace = "8", monitor = "DVI-I-1", default_name = "discord" })
+-- hl.workspace_rule({ workspace = "9", monitor = "DVI-I-1", default = true, default_name = "helium" })
+-- hl.workspace_rule({ workspace = "10", monitor = "DVI-I-1", default_name = "slack" })
 -- ### DESKTOP END ###
 
 -- ### LAPTOP START ###
--- hl.workspace_rule({ workspace = "7",  monitor = "eDP-1",                 default_name = "photos"  })
--- hl.workspace_rule({ workspace = "8",  monitor = "eDP-1",                 default_name = "discord" })
--- hl.workspace_rule({ workspace = "9",  monitor = "eDP-1", default = true, default_name = "helium"  })
--- hl.workspace_rule({ workspace = "10", monitor = "eDP-1",                 default_name = "slack"   })
+hl.workspace_rule({ workspace = "7",  monitor = "eDP-1",                 default_name = "photos"  })
+hl.workspace_rule({ workspace = "8",  monitor = "eDP-1",                 default_name = "discord" })
+hl.workspace_rule({ workspace = "9",  monitor = "eDP-1", default = true, default_name = "helium"  })
+hl.workspace_rule({ workspace = "10", monitor = "eDP-1",                 default_name = "slack"   })
 -- ### LAPTOP END ###
 
 -- ===========================
@@ -55,7 +55,7 @@ hl.window_rule({
     match = {
         class = "^zen$",
         title =
-        "^(Picture-in-Picture|Library|Extension: \\(|Enter name of file to save to.*|File Upload - .*|Save Image - .*|Open Executable File.*)",
+        "^(Picture-in-Picture|File Upload - .*|Save Image - .*|Open Executable File.*)",
     },
 })
 

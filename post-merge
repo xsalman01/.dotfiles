@@ -32,10 +32,9 @@ FILES=(
     "i3/autostart.i3config"
     "i3/audio.i3config"
     "i3/gaps.i3config"
-    "hypr/hyprland.conf"
-    "hypr/modules/workspaces.conf"
-    "hypr/modules/looks.conf"
-    "hypr/modules/audio_controls.conf"
+    "hypr/hyprland.lua"
+    "hypr/modules/workspaces.lua"
+    "hypr/modules/audio-controls.lua"
     "rofi/config.rasi"
     "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"
@@ -92,6 +91,7 @@ for file in "${FILES[@]}"; do
     case "$file" in
         *.rasi)        COMMENT="//" ;;
         *.kdl)         COMMENT="//" ;;
+        *.lua)         COMMENT="--" ;;
         *)             COMMENT="#"  ;;
     esac
 
@@ -127,4 +127,3 @@ for file in "${FILES[@]}"; do
 done
 
 exit 0
-

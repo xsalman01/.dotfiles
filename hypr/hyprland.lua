@@ -54,15 +54,16 @@ hl.on("hyprland.start", function()
     -- ### DESKTOP START ###
     -- hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
     -- hl.timer(function()
-    --     hl.exec_cmd("uwsm app --" .. vars.discord)
+    --     hl.exec_cmd("uwsm app -- " .. vars.discord)
     -- end, { timeout = 3000, type = "oneshot" })
     -- ### DESKTOP END ###
 
     -- ### LAPTOP START ###
     hl.timer(function()
-        hl.exec_cmd("uwsm app --" .. vars.slack)
+        hl.exec_cmd("uwsm app -- " .. vars.slack)
     end, { timeout = 3000, type = "oneshot" })
-    hl.exec_cmd("uwsm app --" .. vars.helium)
+
+    hl.exec_cmd("uwsm app -- " .. vars.helium)
     -- ### LAPTOP END ###
 end)
 

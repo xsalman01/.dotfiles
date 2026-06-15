@@ -6,43 +6,43 @@ local vars = require("variables")
 --]]
 
 -- ### LAPTOP START ###
-hl.monitor({
-    output = "HDMI-A-1",
-    position = "0x0",
-    mode = "preferred",
-    scale = 1
-})
-
-hl.monitor({
-    output = "eDP-1",
-    position = "auto",
-    mode = "preferred",
-    scale = 1
-})
-
-hl.bind("switch:on:Lid Switch", function()
-    hl.monitor({ output = "eDP-1", disabled = true })
-end, { locked = true })
-
-hl.bind("switch:off:Lid Switch", function()
-    hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1, disabled = false })
-end, { locked = true })
--- ### LAPTOP END ###
-
--- ### DESKTOP START ###
 -- hl.monitor({
 --     output = "HDMI-A-1",
 --     position = "0x0",
 --     mode = "preferred",
---     scale = 1,
+--     scale = 1
 -- })
-
+--
 -- hl.monitor({
---     output = "DVI-I-1",
---     position = "1920x90",
---     mode = "1600x900@59.01600",
---     scale = 1,
+--     output = "eDP-1",
+--     position = "auto",
+--     mode = "preferred",
+--     scale = 1
 -- })
+--
+-- hl.bind("switch:on:Lid Switch", function()
+--     hl.monitor({ output = "eDP-1", disabled = true })
+-- end, { locked = true })
+--
+-- hl.bind("switch:off:Lid Switch", function()
+--     hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1, disabled = false })
+-- end, { locked = true })
+-- ### LAPTOP END ###
+
+-- ### DESKTOP START ###
+hl.monitor({
+    output = "HDMI-A-1",
+    position = "0x0",
+    mode = "preferred",
+    scale = 1,
+})
+
+hl.monitor({
+    output = "DVI-I-1",
+    position = "1920x90",
+    mode = "1600x900@59.01600",
+    scale = 1,
+})
 -- ### DESKTOP END ###
 
 --[[
@@ -60,18 +60,18 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
 
     -- ### DESKTOP START ###
-    -- hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
-    -- hl.timer(function()
-    --     hl.exec_cmd("uwsm app -- " .. vars.discord)
-    -- end, { timeout = 3000, type = "oneshot" })
+    hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
+    hl.timer(function()
+        hl.exec_cmd("uwsm app -- " .. vars.discord)
+    end, { timeout = 3000, type = "oneshot" })
     -- ### DESKTOP END ###
 
     -- ### LAPTOP START ###
-    hl.timer(function()
-        hl.exec_cmd("uwsm app -- " .. vars.slack)
-    end, { timeout = 3000, type = "oneshot" })
-
-    hl.exec_cmd("uwsm app -- " .. vars.helium)
+    --     hl.timer(function()
+    --         hl.exec_cmd("uwsm app -- " .. vars.slack)
+    --     end, { timeout = 3000, type = "oneshot" })
+    --
+    --     hl.exec_cmd("uwsm app -- " .. vars.helium)
     -- ### LAPTOP END ###
 end)
 

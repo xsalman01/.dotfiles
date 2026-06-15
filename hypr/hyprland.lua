@@ -19,6 +19,14 @@ hl.monitor({
     mode = "preferred",
     scale = 1
 })
+
+hl.bind("switch:on:Lid Switch", function()
+    hl.monitor({ output = "eDP-1", disabled = true })
+end, { locked = true })
+
+hl.bind("switch:off:Lid Switch", function()
+    hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1, disabled = false })
+end, { locked = true })
 -- ### LAPTOP END ###
 
 -- ### DESKTOP START ###

@@ -36,7 +36,7 @@ end, { locked = true })
 --     mode = "preferred",
 --     scale = 1,
 -- })
-
+-- 
 -- hl.monitor({
 --     output = "DVI-I-1",
 --     position = "1920x90",
@@ -60,19 +60,11 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
 
     -- ### DESKTOP START ###
-    -- hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
-    -- hl.timer(function()
-    --     hl.exec_cmd("uwsm app -- " .. vars.discord)
-    -- end, { timeout = 3000, type = "oneshot" })
+--     -- hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
+--     -- hl.timer(function()
+--     --     hl.exec_cmd("uwsm app -- " .. vars.discord)
+--     -- end, { timeout = 3000, type = "oneshot" })
     -- ### DESKTOP END ###
-
-    -- ### LAPTOP START ###
-    hl.timer(function()
-        hl.exec_cmd("uwsm app -- " .. vars.slack)
-    end, { timeout = 3000, type = "oneshot" })
-
-    hl.exec_cmd("uwsm app -- " .. vars.helium)
-    -- ### LAPTOP END ###
 end)
 
 require("modules.audio-controls")

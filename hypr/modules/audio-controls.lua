@@ -31,11 +31,11 @@ hl.bind("F8", hl.dsp.exec_cmd("playerctl --player=spotify next"), { locked = tru
 -- local vars = require("variables")
 -- local scripts = vars.home .. "/.dotfiles/pipewire_scripts/"
 -- hl.bind(vars.super .. " + F6", hl.dsp.exec_cmd(scripts .. "create_virtual_sinks.sh"))
-
+-- 
 -- hl.bind(vars.super .. " + F1", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh game_sink mute"), { repeating = true })
 -- hl.bind(vars.super .. " + F2", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh game_sink down"), { repeating = true })
 -- hl.bind(vars.super .. " + F3", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh game_sink up"), { repeating = true })
-
+-- 
 -- hl.bind(vars.super .. " + F10", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh chat_sink mute"), { repeating = true })
 -- hl.bind(vars.super .. " + F11", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh chat_sink down"), { repeating = true })
 -- hl.bind(vars.super .. " + F12", hl.dsp.exec_cmd(scripts .. "change_sink_volume.sh chat_sink up"), { repeating = true })

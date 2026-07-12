@@ -17,10 +17,10 @@ SHARED_OFFICIAL=(
     noto-fonts-cjk noto-fonts-emoji otf-font-awesome woff2-font-awesome
     vimix-cursors nwg-look nvm ffmpeg imagemagick resvg 7zip rsync
     inotify-tools python-libtmux python-dbus python-gobject python-xlib
-    python-requests python-pipx unclutter
+    python-requests python-pipx unclutter wget unzip
 )
 
-SHARED_AUR=(zsh-vi-mode)
+SHARED_AUR=(zsh-vi-mode xremap-x11-bin)
 
 I3_OFFICIAL=(
     i3-wm xss-lock xbindkeys xdotool feh picom polybar dex flameshot
@@ -29,7 +29,7 @@ I3_OFFICIAL=(
     xorg-xmodmap xorg-xkill xorg-xcursorgen
 )
 
-I3_AUR=(i3lock-color zscroll-git rofi-bluetooth-git xborder-git xremap-x11-bin)
+I3_AUR=(i3lock-color zscroll-git rofi-bluetooth-git xborder-git)
 
 HYPR_OFFICIAL=(
     hyprland hypridle hyprpicker hyprshot uwsm
@@ -39,13 +39,13 @@ HYPR_OFFICIAL=(
     wtype wlr-randr wlsunset wl-clipboard satty cliphist xorg-xwayland
 )
 
-HYPR_AUR=(noctalia-git pwvucontrol)
+HYPR_AUR=(noctalia-shell pwvucontrol)
 
 HOME_SHARED=(.zshrc .zprofile .tmux.conf .dircolors)
 HOME_I3=(.xinitrc .Xresources)
 
-CFG_SHARED=(btop cava kitty lazydocker mpv nvim yazi tmux-sessionizer gtk-3.0 gtk-4.0)
-CFG_I3=(i3 polybar rofi flameshot xborders xremap)
+CFG_SHARED=(btop cava kitty lazydocker mpv nvim yazi tmux-sessionizer gtk-3.0 gtk-4.0 xremap)
+CFG_I3=(i3 polybar rofi flameshot xborders)
 CFG_HYPR=(hypr noctalia satty cliphist)
 
 INSTALL_I3=0

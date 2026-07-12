@@ -18,6 +18,9 @@ else
     ACTION="enable_laptop"
 fi
 
+# Current user, used to rewrite /home/<user>/ paths dynamically
+CURRENT_USER="${USER:-$(whoami)}"
+
 # Check jq availability (needed for JSON edits)
 if command -v jq >/dev/null 2>&1; then
     JQ_OK=1
@@ -58,10 +61,10 @@ for file in "${FILES[@]}"; do
         fi
 
         if [[ "$ACTION" == "enable_desktop" ]]; then
-            echo "  -> Applying desktop profile (dopeman + HDMI-A-1, DVI-I-1, compact)"
-            jq '
-              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/dopeman/") |
-              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/dopeman/") |
+            echo "  -> Applying desktop profile ($CURRENT_USER + HDMI-A-1, DVI-I-1, compact)"
+            jq --arg user "$CURRENT_USER" '
+              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
+              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
               .bar.monitors = ["HDMI-A-1", "DVI-I-1"] |
               .bar.density = "mini" |
               .general.scaleRatio = 0.9 |
@@ -70,10 +73,10 @@ for file in "${FILES[@]}"; do
                 echo "  -> ERROR: failed to write $file"
             }
         else
-            echo "  -> Applying laptop profile (Agnosia + HDMI-A-1, eDP-1, default)"
-            jq '
-              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/Agnosia/") |
-              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/Agnosia/") |
+            echo "  -> Applying laptop profile ($CURRENT_USER + HDMI-A-1, eDP-1, default)"
+            jq --arg user "$CURRENT_USER" '
+              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
+              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
               .bar.monitors = ["HDMI-A-1", "eDP-1"] |
               .bar.density = "compact" |
               .general.scaleRatio = 0.95 |

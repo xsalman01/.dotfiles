@@ -56,6 +56,32 @@ return {
             settings = {
                 ["rust-analyzer"] = {
                     checkOnSave = { command = "clippy" },
+
+                    -- Show types/hints inline
+                    inlayHints = {
+                        bindingModeHints = { enable = true },
+                        chainingHints = { enable = true },
+                        closingBraceHints = { enable = true },
+                        parameterHints = { enable = true },
+                        typeHints = { enable = true },
+                    },
+
+                    -- Auto-import completions
+                    imports = {
+                        granularity = { group = "module" },
+                        prefix = "self",
+                    },
+
+                    -- Cargo features awareness
+                    cargo = {
+                        allFeatures = true,
+                        loadOutDirsFromCheck = true,
+                    },
+
+                    -- Proc macro support (needed for things like serde, tokio macros)
+                    procMacro = {
+                        enable = true,
+                    },
                 },
             },
         })

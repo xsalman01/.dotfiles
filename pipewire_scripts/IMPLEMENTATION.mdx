@@ -1,0 +1,379 @@
+---
+title: Virtual Sinks — Auto-Following Hardware Output
+status: planned (files created, not yet installed)
+---
+
+# Virtual Sinks — Auto-Following Hardware Output
+
+Replacement for `create_virtual_sinks.sh` using a WirePlumber Lua script. Creates
+`game_sink` + `chat_sink` as null sinks, routes chat/voice apps to `chat_sink`,
+routes everything else to `game_sink`, and makes both sinks' loopback output
+**follow the active hardware device** — including when a Bluetooth headset is
+connected or the output device is changed mid-session.
+
+## Files in this directory
+
+| File | Installs to | Purpose |
+| --- | --- | --- |
+| `virtual-sinks.lua` | `~/.config/wireplumber/scripts/virtual-sinks.lua` | The WirePlumber Lua script: creates sinks, manages loopbacks, follows hardware changes. |
+| `50-virtual-sinks.conf` | `~/.config/wireplumber/wireplumber.conf.d/50-virtual-sinks.conf` | Registers the Lua script as a component + defines `stream.rules` for chat-app routing. |
+| `IMPLEMENTATION.mdx` | (this file) | Design, install steps, verification checklist, troubleshooting. |
+| `create_virtual_sinks.sh` | (unchanged) | The old bash script. Left in place, untouched, no longer referenced. |
+| `change_sink_volume.sh` | (unchanged) | Volume/mute keybind target. Still works — same sink names, same `pactl` commands. |
+
+## How it works
+
+### Routing model
+
+- `game_sink` is set as the **configured default sink** (`default.configured.audio.sink`).
+  Every new audio stream that doesn't explicitly target a sink lands on `game_sink`.
+- Chat/voice apps are routed to `chat_sink` by `stream.rules` in the `.conf` file
+  (matched on `application.name`, plus a `media.role = "Communication"` catch-all
+  for browser-based calls).
+- Both `game_sink` and `chat_sink` are null sinks. Their monitor outputs are
+  bridged to the real hardware device by two `module-loopback` instances:
+  `game_sink.monitor → <hardware>` and `chat_sink.monitor → <hardware>`.
+
+### Following the hardware device
+
+Three triggers retarget the loopbacks to a new hardware sink `H`:
+
+1. **Manual selection** — you pick a device in your volume app. WP sets
+   `default.configured.audio.sink = H`. The `metadata-changed` hook sees `H` is
+   a hardware sink, retargets both loopbacks to `H`, saves `H` to state, then
+   resets the configured default back to `game_sink` (so new apps still route
+   through the virtual sinks). The reset re-triggers the hook, which returns
+   early because `game_sink` is a virtual sink — no infinite loop.
+
+2. **Hardware sink appears** (BT headset connects, USB DAC plugs in, profile
+   change creates a new sink node) — `hw_sink_om` `object-added` fires after
+   init; the loopbacks retarget to the new sink.
+
+3. **Hardware sink disappears** (BT disconnects) — `object-removed` fires; if it
+   was the current target, the loopbacks retarget to the best remaining
+   hardware sink (highest `priority.session`).
+
+The last chosen hardware sink is persisted in WirePlumber state
+(`State("virtual-sinks")`, key `hardware-target`) so it survives WP restarts.
+
+### Initial target resolution (on script load)
+
+In priority order:
+
+1. Saved `hardware-target` from state, if that sink still exists.
+2. The current resolved default (`default.audio.sink`), if it's a hardware sink.
+3. The highest-priority hardware sink present.
+
+### Activation
+
+No new systemd unit. The script loads automatically with `wireplumber.service`
+(which is already enabled as a systemd --user unit) once the `.conf` and `.lua`
+files are in place. Reload with `systemctl --user restart wireplumber`. This
+satisfies the "always-on via systemd --user" requirement with no extra moving
+parts.
+
+---
+
+## Installation steps (do these when ready to enable)
+
+```sh
+# 1. Create the target directories (idempotent).
+mkdir -p ~/.config/wireplumber/scripts
+mkdir -p ~/.config/wireplumber/wireplumber.conf.d
+
+# 2. Copy the two files into place.
+cp ~/.dotfiles/pipewire_scripts/virtual-sinks.lua \
+   ~/.config/wireplumber/scripts/virtual-sinks.lua
+cp ~/.dotfiles/pipewire_scripts/50-virtual-sinks.conf \
+   ~/.config/wireplumber/wireplumber.conf.d/50-virtual-sinks.conf
+
+# 3. Reload WirePlumber (picks up the new component + stream.rules).
+systemctl --user restart wireplumber
+
+# 4. Wait a couple seconds, then verify (see the checklist below).
+```
+
+### Optional: remove the now-redundant keybinds
+
+The old `create_virtual_sinks.sh` autostart / `Super+F6` bindings (all currently
+commented out in `hypr/`, `i3/`, `hypr-legacy/`) are no longer needed. They're
+already commented, so no action is required. **Do not** re-enable them: running
+the bash script on top of the WP script could create duplicate loopbacks and
+cause double audio.
+
+The volume/mute keybinds (`change_sink_volume.sh` for `game_sink` /
+`chat_sink`) **stay as-is** — they work unchanged.
+
+---
+
+## Verification checklist (run after installing + reloading)
+
+Run each command and check the expected result. Items marked **CONFIRM** are the
+ones I could not test pre-install and need you to verify on first load.
+
+### 1. Sinks exist
+
+```sh
+pactl list short sinks
+```
+
+Expect to see `game_sink` and `chat_sink` in the output (column 2 = sink name),
+plus your hardware sinks. **CONFIRM**: the Pulse sink name is exactly `game_sink`
+/ `chat_sink` (matches the `node.name`). If the name differs, `change_sink_volume.sh`
+would silently no-op — report it so we can fix the name mapping.
+
+```sh
+wpctl status
+```
+
+Expect `Game` and `Chat` to appear under `Audio ▸ Sinks:` (as virtual sinks),
+and your hardware sinks to also be listed. **CONFIRM**: `Game`/`Chat` do **not**
+appear as the `*` (default) sink — the configured default should resolve to
+`game_sink` but `wpctl status` shows the *resolved* default; if the `*` is on a
+hardware sink instead of `game_sink`, the `setConfiguredDefaultSink` call may not
+have taken effect (see troubleshooting).
+
+### 2. Loopbacks are wired to the current hardware device
+
+```sh
+pactl list short sink-inputs
+```
+
+Expect to see two sink-inputs whose `Sink:` field is your current hardware sink
+name (e.g. `alsa_output.pci-...`). Their `node.name` should be
+`loopback.game_sink.playback` / `loopback.chat_sink.playback`. **CONFIRM**: both
+loopbacks target the same hardware sink (the active output device).
+
+### 3. Audio flows through the virtual sinks
+
+```sh
+# Play anything, then check where the stream landed:
+pactl list sink-inputs
+```
+
+A normal app (e.g. a browser, mpv) should show `Sink: game_sink`. Slack/Zoom
+should show `Sink: chat_sink`. Audio should come out of your current hardware
+device.
+
+### 4. Device switching follows
+
+- **Manual switch**: pick a different output device in `pavucontrol` / `wpctl`
+  / your volume widget. Within ~1s, `pactl list short sink-inputs` should show
+  the two loopback sink-inputs moved to the new hardware sink. New apps should
+  still land on `game_sink` (configured default got reset).
+
+- **Bluetooth connect**: pair/connect a BT headset. After it connects, the
+  loopbacks should retarget to the BT headset automatically (no manual
+  selection needed). Verify with `pactl list short sink-inputs`.
+
+- **Bluetooth disconnect**: disconnect the BT headset. The loopbacks should
+  retarget to the best remaining hardware sink (e.g. internal speakers).
+
+### 5. State persistence
+
+```sh
+# After switching devices at least once, restart WP:
+systemctl --user restart wireplumber
+# The loopbacks should retarget to the last-used hardware device, not reset
+# to the default. Check:
+pactl list short sink-inputs
+```
+
+### 6. Volume keybinds still work
+
+Use your `change_sink_volume.sh` keybinds (F1–F3 for `game_sink`, F10–F12 for
+`chat_sink`). The hardware output volume should change. This works because the
+null sinks have `monitor.channel-volumes = true`, so the sink volume propagates
+through the monitor into the loopback.
+
+---
+
+## Things to CONFIRM on first load (couldn't test pre-install)
+
+These are the technical assumptions the script relies on. Each is documented
+inline in `virtual-sinks.lua` as well. If any fails, see Troubleshooting.
+
+1. **Component name resolution** — `name = virtual-sinks.lua` in the `.conf`
+   resolves to `~/.config/wireplumber/scripts/virtual-sinks.lua`. WirePlumber's
+   config search path is `/usr/share/wireplumber/` → `/etc/wireplumber/` →
+   `~/.config/wireplumber/`, and component `name` is looked up in the `scripts/`
+   subdir of each. **If the script doesn't load at all** (no `Game`/`Chat`
+   sinks after restart), this is the likely cause. Check
+   `journalctl --user -u wireplumber -b` for a "script not found" error. Fallback:
+   try `name = scripts/virtual-sinks.lua` or an absolute path.
+
+2. **`device.id` present on hardware sinks, absent on null sinks** — the
+   `hw_sink_om` filter relies on `device.id` being present to identify hardware
+   sinks and exclude our null sinks. The custom `node.virtual-sinks.owned`
+   marker is a backup filter. **CONFIRM**: run
+   `pw-dump | grep -A2 node.name | grep -E 'game_sink|"node.name".*alsa'` and
+   check that hardware sinks have `device.id` set while `game_sink`/`chat_sink`
+   do not. If null sinks unexpectedly have `device.id`, the marker filter still
+   excludes them.
+
+3. **`wireplumber.is-virtual` self-set** — we set this on our null sinks so
+   WP's built-in `fallback-sink.lua` ignores them. **CONFIRM**: no errors in the
+   journal; the fallback-sink dummy ("Dummy Output") should not appear while
+   `game_sink`/`chat_sink` exist.
+
+4. **`md:find(0, "default.audio.sink")` returns `{"name":"..."}` JSON** — the
+   `getCurrentDefaultSinkName()` helper parses this for initial-target
+   resolution. Confirmed against `apply-default-node.lua:36-37` and
+   `find-selected-default-node.lua:41-48`, but **CONFIRM** on first load by
+   checking the journal for parse warnings, and that the initial target is
+   sensible (not nil when a hardware sink is present). The function is wrapped
+   in `pcall`, so a format mismatch degrades gracefully to the
+   highest-priority fallback rather than crashing.
+
+5. **`stream.capture.sink = true` + `target.object = "<sink>"` captures the
+   sink's monitor** — this is the documented `module-loopback` approach (man
+   `libpipewire-module-loopback(7)`). **CONFIRM**: play audio to `game_sink`
+   and hear it from the hardware device. If silent, the capture may be failing
+   to tap the monitor; try replacing `target.object = sink_name` +
+   `stream.capture.sink = "true"` with `target.object = sink_name .. ".monitor"`
+   (the Pulse-style monitor-source name) and dropping `stream.capture.sink`.
+
+6. **Loopback destroy via GC** — dropping the `LocalModule` Lua reference +
+   `collectgarbage("collect")` unloads the module. This is the pattern used in
+   `node/audio-group.lua`. **CONFIRM**: on device switch, check
+   `pactl list short sink-inputs` shows exactly two loopback sink-inputs (not
+   four). If old loopbacks linger, there may be a brief double-audio overlap on
+   retarget — report it so we can add explicit module unloading.
+
+7. **`stream.rules` do not catch the loopback's own streams** — the loopback
+   streams are tagged `node.virtual-sinks.loopback = true` with
+   `media.role` unset / `application.name` = `module-loopback`-ish, so they
+   won't match the chat-app rules or the `Communication` role catch-all.
+   **CONFIRM**: `pactl list sink-inputs` shows the loopback sink-inputs on the
+   *hardware* sink, never on `chat_sink`.
+
+8. **`stream.rules` array merge** — WirePlumber's `conf.d` merge replaces
+   arrays (last-wins), it does not append. This file is the only place
+   `stream.rules` is defined in your config (the stock `wireplumber.conf` has no
+   `stream.rules` section). **CONFIRM**: if you later add another `.conf` with
+   `stream.rules`, merge it into this file to avoid one overwriting the other.
+
+---
+
+## Troubleshooting
+
+### Sinks don't appear after restart
+
+```sh
+journalctl --user -u wireplumber -b --no-pager | grep -i 'virtual-sinks\|error\|fail'
+```
+
+Common causes:
+- Script not found → component `name` resolution (CONFIRM #1). Try an
+  alternate `name` form.
+- Lua syntax/runtime error → the journal will name the line. The script is
+  defensive (`pcall` around metadata reads), so a crash usually means a typo
+  or an API mismatch with your WP version (tested against wireplumber 0.5.15).
+
+### Audio is silent
+
+- Check the loopbacks exist and target a hardware sink:
+  `pactl list short sink-inputs`.
+- Check the configured default is `game_sink`:
+  `wpctl status` (the `*` should be on `game_sink`, or on a hardware sink if the
+  reset hasn't run — play something to trigger it).
+- Check `stream.capture.sink` is tapping the monitor (CONFIRM #5).
+
+### Audio comes out of the wrong / old device after switching
+
+- The `object-added`/`object-removed` handlers should retarget. Check the
+  journal for `loopback game_sink -> <name>` lines.
+- If a BT headset connects but loopbacks don't move, the BT sink node may not
+  match the `hw_sink_om` filter (e.g. missing `device.id`). Check with
+  `pw-dump` and adjust the filter Interest if needed.
+
+### Double audio / overlapping loopbacks
+
+- The destroy-before-recreate uses GC (CONFIRM #6). If old modules linger,
+  you'll hear doubled audio after a device switch. Check
+  `pactl list short sink-inputs` for >2 loopback entries. This is usually
+  transient (GC catches up); if persistent, report it.
+
+### Chat apps don't route to `chat_sink`
+
+- Run `pactl list sink-inputs` while the app is playing audio. Find its
+  `application.name =` and compare to the list in `50-virtual-sinks.conf`.
+  App names are case-sensitive exact matches (the conf lists common variants
+  like `Telegram`/`telegram-desktop`, `Mumble`/`mumble`). Add the exact name
+  to the `matches` list and `systemctl --user restart wireplumber`.
+- Electron apps sometimes report a different `application.name` than expected.
+  You can also match on `application.process.binary` or `media.name` if
+  `application.name` is unreliable.
+
+### Volume keybinds (F1–F12) stopped working
+
+- `change_sink_volume.sh` checks the sink exists via
+  `pactl list short sinks | awk '{print $2}' | grep -Fxq "$SINK"`. CONFIRM #1
+  ensures the sink name is `game_sink`/`chat_sink`. If the WP-created null
+  sink has a different Pulse name, the keybinds no-op silently. Check
+  `pactl list short sinks` for the exact name.
+
+---
+
+## Editing the chat app list
+
+Open `50-virtual-sinks.conf`. Add/remove entries in the first `stream.rules`
+block's `matches` array. Each entry is one app:
+
+```
+{ application.name = "AppName", media.class = "Stream/Output/Audio" }
+```
+
+For regex matching (case-insensitive / partial), prefix the value with `~`:
+
+```
+{ application.name = "~(?i).*discord.*", media.class = "Stream/Output/Audio" }
+```
+
+The `media.role = "Communication"` catch-all block handles browser-based call
+audio (Meet, Discord-web, Teams-web). Remove that block if you'd rather route
+browser calls to `game_sink`.
+
+After editing: `systemctl --user restart wireplumber`.
+
+---
+
+## Tunables (in `virtual-sinks.lua`)
+
+| What | Where | Default | Notes |
+| --- | --- | --- | --- |
+| Init debounce | `scheduleInit` `Core.timeout_add` | `500` ms | Time to wait for OMs to enumerate before initialising. Increase if hardware sinks aren't all enumerated at init time. |
+| Safety-net init timeout | bottom `Core.timeout_add` | `2000` ms | Forces init even if no hw sink / metadata event fired. |
+| Null sink sample rate / channels | `createNullSink` | 48000 / stereo | Match your hardware if needed. |
+| `node.passive` on capture | `loopbackArgs` capture.props | `true` | Monitor is passive. Remove if you want the monitor to prevent idle suspend. |
+| `node.passive` on playback | `loopbackArgs` playback.props | not set | Loopback keeps the hardware sink ready (no idle suspend). Set `true` if you want power saving at the cost of startup latency. |
+| `node.dont-reconnect` | both loopback props | `true` | We manage retargeting. Set `false` if you want WP to auto-reconnect the loopback when a target reappears (may conflict with our retarget logic). |
+| Auto-retarget on new hw sink | `object-added` handler | retarget to new sink | If too aggressive (e.g. switches to a USB DAC you didn't want), gate it on `api.bluez5.*` properties to only auto-follow BT. |
+
+---
+
+## Design references (WirePlumber source on this system)
+
+| Concept | File:line |
+| --- | --- |
+| `LocalNode` null sink with `monitor.channel-volumes` | `/usr/share/wireplumber/scripts/fallback-sink.lua:22-48` |
+| `LocalModule("libpipewire-module-loopback", ...)` | `/usr/share/wireplumber/scripts/node/audio-group.lua:98`, `/usr/share/wireplumber/scripts/monitors/bluez.lua:128` |
+| `default.configured.audio.sink` = `{"name":...}` JSON read/write | `/usr/share/wireplumber/scripts/default-nodes/apply-default-node.lua:36-37`, `/usr/share/wireplumber/scripts/default-nodes/find-selected-default-node.lua:41-48` |
+| `target.object` resolved by node.name | `/usr/share/wireplumber/scripts/linking/find-defined-target.lua:45-93` |
+| `stream.rules` loaded + applied | `/usr/share/wireplumber/scripts/node/state-stream.lua:15,48` |
+| `stream.capture.sink` semantics | `libpipewire-module-loopback(7)` man page, `/usr/share/wireplumber/scripts/lib/common-utils.lua:42` |
+| Match-rules `~` regex syntax | `/usr/share/wireplumber/wireplumber.conf.d/alsa-vm.conf` |
+| `metadata.default` component provides-name | `/usr/share/wireplumber/wireplumber.conf:348-351` |
+
+---
+
+## Environment this was authored against
+
+- wireplumber 0.5.15-1
+- pipewire 1:1.6.7-1, pipewire-pulse 1:1.6.7-1, pipewire-alsa 1:1.6.7-1
+- pactl 17.0 (pipewire-pulse)
+- Arch Linux
+
+If you upgrade WirePlumber across a major version, re-run the verification
+checklist — the Lua event/hook API (`SimpleEventHook`, `EventInterest`) has
+changed between WP 0.4 and 0.5 and may change again.

@@ -16,6 +16,7 @@ return {
                 typescript = { "prettierd", "prettier" },
                 typescriptreact = { "prettierd", "prettier" },
                 rust = { "rustfmt" },
+                python = { "ruff_fix", "black" },
             },
         })
 

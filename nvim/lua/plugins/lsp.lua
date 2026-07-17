@@ -11,6 +11,7 @@ return {
 
     config = function()
         vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+        vim.lsp.inlay_hint.enable(true)
 
         -- Explicitly clear document color extmarks on client detach.
         -- The built-in cleanup can be skipped when server_capabilities are
@@ -55,7 +56,18 @@ return {
         vim.lsp.config("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {
-                    checkOnSave = { command = "clippy" },
+                    check = { command = "clippy" },
+                    inlayHints = {
+                        typeHints = { enable = true },
+                        bindingModeHints = { enable = true },
+                    },
+                    imports = {
+                        granularity = { group = "module" },
+                        prefix = "self",
+                    },
+                    cargo = {
+                        allFeatures = true,
+                    },
                 },
             },
         })

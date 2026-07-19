@@ -45,7 +45,8 @@ return {
                 "tailwindcss-language-server",
                 "bash-language-server",
                 "vim-language-server",
-                "typescript-language-server"
+                "typescript-language-server",
+                "basedpyright", "ruff", "black"
             },
         })
 
@@ -74,6 +75,13 @@ return {
 
         vim.lsp.config("qmlls", {
             cmd = { "qmlls", "-E" },
+        })
+
+        vim.lsp.config("ruff", {
+            settings = {
+                -- let basedpyright handle hover so you don't get duplicate hover popups
+                hover = { enable = false },
+            },
         })
 
         vim.lsp.config("lua_ls", {

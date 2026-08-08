@@ -1,7 +1,7 @@
 # vim: filetype=i3config
 
 #i3 colors config
-default_border pixel 2
+default_border pixel 0
 default_floating_border pixel 2
 
 set $base           #191724

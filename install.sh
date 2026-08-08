@@ -17,10 +17,10 @@ SHARED_OFFICIAL=(
     noto-fonts-cjk noto-fonts-emoji otf-font-awesome woff2-font-awesome
     vimix-cursors nwg-look nvm ffmpeg imagemagick resvg 7zip rsync
     inotify-tools python-libtmux python-dbus python-gobject python-xlib
-    python-requests python-pipx unclutter wget unzip
+    python-requests python-pipx unclutter wget unzip poppler loupe
 )
 
-SHARED_AUR=(zsh-vi-mode xremap-x11-bin)
+SHARED_AUR=(zsh-vi-mode xremap-x11-bin pwvucontrol)
 
 I3_OFFICIAL=(
     i3-wm xss-lock xbindkeys xdotool feh picom polybar dex flameshot
@@ -29,7 +29,7 @@ I3_OFFICIAL=(
     xorg-xmodmap xorg-xkill xorg-xcursorgen
 )
 
-I3_AUR=(i3lock-color zscroll-git rofi-bluetooth-git xborder-git)
+I3_AUR=(i3lock-color zscroll-git rofi-bluetooth-git xborder-git rofi-greenclip)
 
 HYPR_OFFICIAL=(
     hyprland hypridle hyprpicker hyprshot uwsm
@@ -39,7 +39,7 @@ HYPR_OFFICIAL=(
     wtype wlr-randr wlsunset wl-clipboard satty cliphist xorg-xwayland
 )
 
-HYPR_AUR=(noctalia-shell pwvucontrol)
+HYPR_AUR=(noctalia-shell)
 
 HOME_SHARED=(.zshrc .zprofile .tmux.conf .dircolors)
 HOME_I3=(.xinitrc .Xresources)

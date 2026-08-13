@@ -80,6 +80,7 @@
         "rightClickFollowMouse": true,
         "screenOverrides": [
             {
+                "displayMode": "always_visible",
                 "enabled": true,
                 "name": "eDP-1",
                 "position": "right"

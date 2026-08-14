@@ -1,113 +1,230 @@
 {
-  "appLauncher": {
-    "autoPasteClipboard": true,
-    "clipboardWatchImageCommand": "wl-paste --type image --watch cliphist store",
-    "clipboardWatchTextCommand": "wl-paste --type text --watch cliphist store",
-    "clipboardWrapText": true,
-    "customLaunchPrefix": "uwsm app --",
-    "customLaunchPrefixEnabled": true,
-    "density": "default",
-    "enableClipPreview": true,
-    "enableClipboardChips": true,
-    "enableClipboardHistory": true,
-    "enableClipboardSmartIcons": true,
-    "enableSessionSearch": true,
-    "enableSettingsSearch": true,
-    "enableWindowsSearch": true,
-    "iconMode": "tabler",
-    "ignoreMouseInput": false,
-    "overviewLayer": false,
-    "pinnedApps": [],
-    "position": "center",
-    "screenshotAnnotationTool": "",
-    "showCategories": true,
-    "showIconBackground": false,
-    "sortByMostUsed": true,
-    "terminalCommand": "kitty -e",
-    "viewMode": "list"
-  },
-  "audio": {
-    "mprisBlacklist": [
-      "Mozilla",
-      "Chrome",
-      "zen",
-      "discord",
-      "mpv",
-      "stremio",
-      "helium"
-    ],
-    "preferredPlayer": "spotify",
-    "spectrumFrameRate": 30,
-    "spectrumMirrored": true,
-    "visualizerType": "none",
-    "volumeFeedback": false,
-    "volumeFeedbackSoundFile": "",
-    "volumeOverdrive": false,
-    "volumeStep": 5
-  },
-  "bar": {
-    "autoHideDelay": 500,
-    "autoShowDelay": 150,
-    "backgroundOpacity": 1,
-    "barType": "framed",
-    "capsuleColorKey": "none",
-    "capsuleOpacity": 1,
-    "contentPadding": 2,
-    "density": "compact",
-    "displayMode": "always_visible",
-    "enableExclusionZoneInset": true,
-    "fontScale": 1,
-    "frameRadius": 4,
-    "frameThickness": 8,
-    "hideOnOverview": false,
-    "marginHorizontal": 4,
-    "marginVertical": 4,
-    "middleClickAction": "none",
-    "middleClickCommand": "",
-    "middleClickFollowMouse": false,
-    "monitors": [
-      "HDMI-A-1",
-      "eDP-1"
-    ],
-    "mouseWheelAction": "none",
-    "mouseWheelWrap": true,
-    "outerCorners": false,
-    "position": "left",
-    "reverseScroll": false,
-    "rightClickAction": "controlCenter",
-    "rightClickCommand": "",
-    "rightClickFollowMouse": true,
-    "screenOverrides": [
-      {
-        "enabled": true,
-        "name": "eDP-1",
-        "position": "right"
-      },
-      {
-        "enabled": false,
-        "name": "HDMI-A-1"
-      },
-      {
-        "enabled": true,
-        "name": "DVI-I-1",
-        "position": "right"
-      }
-    ],
-    "showCapsule": false,
-    "showOnWorkspaceSwitch": true,
-    "showOutline": false,
-    "useSeparateOpacity": true,
-    "widgetSpacing": 6,
-    "widgets": {
-      "center": [
-        {
-          "clockColor": "primary",
-          "customFont": "Hack Nerd Font Mono",
-          "formatHorizontal": "hh:mm AP | ddd, MMM dd",
-          "formatVertical": "hh mm AP - dd MMM",
-          "id": "Clock",
-          "tooltipFormat": "hh:mm AP | ddd, MMM dd",
-          "useCustomFont": true
+    "appLauncher": {
+        "autoPasteClipboard": true,
+        "clipboardWatchImageCommand": "wl-paste --type image --watch cliphist store",
+        "clipboardWatchTextCommand": "wl-paste --type text --watch cliphist store",
+        "clipboardWrapText": true,
+        "customLaunchPrefix": "uwsm app --",
+        "customLaunchPrefixEnabled": true,
+        "density": "default",
+        "enableClipPreview": true,
+        "enableClipboardChips": true,
+        "enableClipboardHistory": true,
+        "enableClipboardSmartIcons": true,
+        "enableSessionSearch": true,
+        "enableSettingsSearch": true,
+        "enableWindowsSearch": true,
+        "iconMode": "tabler",
+        "ignoreMouseInput": false,
+        "overviewLayer": false,
+        "pinnedApps": [
+        ],
+        "position": "center",
+        "screenshotAnnotationTool": "",
+        "showCategories": true,
+        "showIconBackground": false,
+        "sortByMostUsed": true,
+        "terminalCommand": "kitty -e",
+        "viewMode": "list"
+    },
+    "audio": {
+        "mprisBlacklist": [
+            "Mozilla",
+            "Chrome",
+            "zen",
+            "discord",
+            "mpv",
+            "stremio",
+            "helium"
+        ],
+        "preferredPlayer": "spotify",
+        "spectrumFrameRate": 30,
+        "spectrumMirrored": true,
+        "visualizerType": "none",
+        "volumeFeedback": false,
+        "volumeFeedbackSoundFile": "",
+        "volumeOverdrive": false,
+        "volumeStep": 5
+    },
+    "bar": {
+        "autoHideDelay": 500,
+        "autoShowDelay": 150,
+        "backgroundOpacity": 1,
+        "barType": "framed",
+        "capsuleColorKey": "none",
+        "capsuleOpacity": 1,
+        "contentPadding": 2,
+        "density": "compact",
+        "displayMode": "always_visible",
+        "enableExclusionZoneInset": true,
+        "fontScale": 1,
+        "frameRadius": 4,
+        "frameThickness": 8,
+        "hideOnOverview": false,
+        "marginHorizontal": 4,
+        "marginVertical": 4,
+        "middleClickAction": "none",
+        "middleClickCommand": "",
+        "middleClickFollowMouse": false,
+        "monitors": [
+            "HDMI-A-1",
+            "eDP-1"
+        ],
+        "mouseWheelAction": "none",
+        "mouseWheelWrap": true,
+        "outerCorners": false,
+        "position": "left",
+        "reverseScroll": false,
+        "rightClickAction": "controlCenter",
+        "rightClickCommand": "",
+        "rightClickFollowMouse": true,
+        "screenOverrides": [
+            {
+                "displayMode": "always_visible",
+                "enabled": true,
+                "name": "eDP-1",
+                "position": "right"
+            },
+            {
+                "enabled": false,
+                "name": "HDMI-A-1"
+            },
+            {
+                "enabled": true,
+                "name": "DVI-I-1",
+                "position": "right"
+            }
+        ],
+        "showCapsule": false,
+        "showOnWorkspaceSwitch": true,
+        "showOutline": false,
+        "useSeparateOpacity": true,
+        "widgetSpacing": 6,
+        "widgets": {
+            "center": [
+                {
+                    "clockColor": "primary",
+                    "customFont": "Hack Nerd Font Mono",
+                    "formatHorizontal": "hh:mm AP | ddd, MMM dd",
+                    "formatVertical": "hh mm AP - dd MMM",
+                    "id": "Clock",
+                    "tooltipFormat": "hh:mm AP | ddd, MMM dd",
+                    "useCustomFont": true
+                }
+            ],
+            "left": [
+                {
+                    "hideWhenZero": true,
+                    "hideWhenZeroUnread": true,
+                    "iconColor": "none",
+                    "id": "NotificationHistory",
+                    "showUnreadBadge": true,
+                    "unreadBadgeColor": "primary"
+                },
+                {
+                    "defaultSettings": {
+                        "audioCodec": "opus",
+                        "audioSource": "default_output",
+                        "colorRange": "limited",
+                        "copyToClipboard": false,
+                        "customReplayDuration": "30",
+                        "directory": "",
+                        "filenamePattern": "recording_yyyyMMdd_HHmmss",
+                        "frameRate": "60",
+                        "hideInactive": false,
+                        "iconColor": "none",
+                        "quality": "very_high",
+                        "replayDuration": "30",
+                        "replayEnabled": false,
+                        "replayStorage": "ram",
+                        "resolution": "original",
+                        "restorePortalSession": false,
+                        "showCursor": true,
+                        "videoCodec": "h264",
+                        "videoSource": "portal"
+                    },
+                    "id": "plugin:screen-recorder"
+                },
+                {
+                    "deviceNativePath": "__default__",
+                    "displayMode": "icon-only",
+                    "hideIfIdle": false,
+                    "hideIfNotDetected": true,
+                    "id": "Battery",
+                    "showNoctaliaPerformance": false,
+                    "showPowerProfiles": false
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "iconColor": "none",
+                    "id": "Bluetooth",
+                    "textColor": "none"
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "iconColor": "none",
+                    "id": "Volume",
+                    "middleClickCommand": "pwvucontrol",
+                    "textColor": "none"
+                },
+                {
+                    "displayMode": "alwaysHide",
+                    "iconColor": "none",
+                    "id": "Microphone",
+                    "middleClickCommand": "pwvucontrol",
+                    "textColor": "none"
+                }
+            ],
+            "right": [
+                {
+                    "compactMode": false,
+                    "hideMode": "hidden",
+                    "hideWhenIdle": false,
+                    "id": "MediaMini",
+                    "maxWidth": 145,
+                    "panelShowAlbumArt": true,
+                    "scrollingMode": "always",
+                    "showAlbumArt": true,
+                    "showArtistFirst": true,
+                    "showProgressRing": true,
+                    "showVisualizer": true,
+                    "textColor": "none",
+                    "useFixedWidth": true,
+                    "visualizerType": "wave"
+                },
+                {
+                    "blacklist": [
+                    ],
+                    "chevronColor": "none",
+                    "colorizeIcons": false,
+                    "drawerEnabled": false,
+                    "hidePassive": true,
+                    "id": "Tray",
+                    "pinned": [
+                    ]
+                },
+                {
+                    "characterCount": 2,
+                    "colorizeIcons": false,
+                    "emptyColor": "secondary",
+                    "enableScrollWheel": true,
+                    "focusedColor": "primary",
+                    "followFocusedScreen": false,
+                    "fontWeight": "bold",
+                    "groupedBorderOpacity": 1,
+                    "hideUnoccupied": true,
+                    "iconScale": 0.8,
+                    "id": "Workspace",
+                    "labelMode": "none",
+                    "occupiedColor": "secondary",
+                    "pillSize": 0.55,
+                    "showApplications": false,
+                    "showApplicationsHover": false,
+                    "showBadge": true,
+                    "showLabelsOnlyWhenOccupied": true,
+                    "unfocusedIconsOpacity": 1
+                }
+            ]
         }
       ],
       "left": [

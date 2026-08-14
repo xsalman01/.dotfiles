@@ -4,9 +4,3 @@
 
 gaps inner 6px
 gaps outer -6px
-
-workspace "1" gaps top 0px
-workspace "3" gaps top 0px
-workspace "5" gaps top 0px
-workspace "7" gaps top 0px
-workspace "9" gaps top 0px

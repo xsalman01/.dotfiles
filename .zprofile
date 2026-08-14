@@ -6,10 +6,10 @@ fi
 # Session handling
 if [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
     case "$XDG_VTNR" in
-        2) 
+        1) 
             exec uwsm start default
             ;;
-        1) 
+        2) 
             exec startx 
             ;;
     esac

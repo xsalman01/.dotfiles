@@ -11,7 +11,6 @@ return {
 
     config = function()
         vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
-        vim.lsp.inlay_hint.enable(true)
 
         -- Explicitly clear document color extmarks on client detach.
         -- The built-in cleanup can be skipped when server_capabilities are
@@ -23,6 +22,19 @@ return {
                 if ns then
                     vim.api.nvim_buf_clear_namespace(args.buf, ns, 0, -1)
                 end
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("LspAttach", {
+            callback = function(args)
+                local opts = { buffer = args.buf }
+
+                vim.keymap.set("n", "grd", vim.lsp.buf.definition, {buffer = args.buf, desc = "vim.lsp.buf.definition()"})
+
+                vim.keymap.set("n", "grh", function()
+                    local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf })
+                    vim.lsp.inlay_hint.enable(not enabled, { bufnr = args.buf })
+                end, {buffer = args.buf, desc = "vim.lsp.inlay_hint.enable(toggle)"})
             end,
         })
 
@@ -46,7 +58,8 @@ return {
                 "bash-language-server",
                 "vim-language-server",
                 "typescript-language-server",
-                "basedpyright", "ruff", "black"
+                "basedpyright", "ruff", "black",
+                "gopls", "golangci-lint", "gofumpt", "goimports",
             },
         })
 
@@ -81,6 +94,23 @@ return {
             settings = {
                 -- let basedpyright handle hover so you don't get duplicate hover popups
                 hover = { enable = false },
+            },
+        })
+
+        vim.lsp.config("gopls", {
+            settings = {
+                gopls = {
+                    staticcheck = true,
+                    hints = {
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        parameterNames = true,
+                        rangeVariableTypes = true,
+                    },
+                },
             },
         })
 

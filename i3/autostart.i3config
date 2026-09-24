@@ -18,9 +18,9 @@ exec --no-startup-id zen-browser & disown
 # exec --no-startup-id nvidia-settings --load-config-only & disown
 ### DESKTOP END ###
 
+# exec --no-startup-id helium-browser & disown
 ### LAPTOP START ###
 exec --no-startup-id sh -c "sleep 1 && ~/.fehbg" &
-exec --no-startup-id helium-browser & disown
 exec --no-startup-id slack --gtk-version=3 -s & disown
 ### LAPTOP END ###
 

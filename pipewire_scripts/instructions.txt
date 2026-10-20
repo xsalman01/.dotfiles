@@ -1,0 +1,13 @@
+create_virtual_sinks.sh is reduntant it is not used now. It's legacy version.
+new implementation is wireplumber based.
+
+these scripts basically creates two virtual sinks, chat and game, chat is used 
+for voice calls and game is used for basically everything else. set keybinds as 
+needed using the change_sink_volume.sh.
+
+It also handles changing the output device and current device getting disconnected.
+
+create symlinks as follows:
+virtual-sinks.lua goes into ~/.local/share/wireplumber/scripts/virtual-sinks.lua
+50_virtual_sinks.conf goes into ~/.config/wireplumber/wireplumber.conf.d/50_virtual_sinks.conf
+

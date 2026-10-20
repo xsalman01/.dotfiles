@@ -1,32 +1,62 @@
 -- WirePlumber: virtual sinks (game_sink, chat_sink) that auto-follow the
 -- user's hardware output device, with per-app routing to chat_sink.
 --
--- Install: ~/.config/wireplumber/scripts/virtual-sinks.lua
--- Config:  50-virtual-sinks.conf (companion file in this directory)
--- Full design + verification checklist: IMPLEMENTATION.mdx
+-- Install: ~/.local/share/wireplumber/scripts/virtual-sinks.lua
+-- Config:  50_virtual_sinks.conf
+--
+-- Design (v2): each virtual sink IS the capture side of a
+-- libpipewire-module-loopback (media.class = Audio/Sink). There is no separate
+-- null sink to tap, because WP 0.5.18 would not resolve a sink as the
+-- target of a capture stream (it fell through to the default sink and created
+-- a feedback loop). Only the *playback* side needs a target (the hardware
+-- sink), and WP resolves that fine.
+--
+-- Retargeting does not destroy the modules (that would destroy the sinks and
+-- kick apps off them). It sets `target.object` in the default metadata for
+-- each playback node, which WP's linking scripts honour.
+--
+-- Behaviour:
+--   * pick a device in pavucontrol ("Set as fallback") -> both sinks follow
+--   * a higher-priority hardware sink appears (BT, USB) -> both sinks follow
+--   * the current target disappears -> most recently used device that still
+--     exists, else the highest-priority one
 
 log = Log.open_topic ("s-virtual-sinks")
 
 GAME_SINK = "game_sink"
 CHAT_SINK = "chat_sink"
 VIRTUAL_SINK_NAMES = { GAME_SINK, CHAT_SINK }
+SINK_DESCRIPTIONS = { [GAME_SINK] = "Game", [CHAT_SINK] = "Chat" }
 
 -- Persisted name of the last chosen hardware sink (survives WP restarts).
 state = State ("virtual-sinks")
 state_table = state:load ()
 current_hw_target = state_table ["hardware-target"]
 
-sink_nodes = {}
+-- Most-recently-used hardware sinks, newest first (in memory only).
+target_history = {}
+if current_hw_target then
+  table.insert (target_history, current_hw_target)
+end
+
 loopback_modules = {}
 
--- Hardware audio sinks only: null sinks have no device.id, so requiring it
--- present excludes virtual sinks. The custom marker is belt-and-suspenders.
+-- Hardware audio sinks only. Loopback-created sinks have no device.id, so
+-- requiring it excludes them. The custom marker is belt-and-suspenders.
 hw_sink_om = ObjectManager {
   Interest {
     type = "node",
     Constraint { "media.class", "matches", "Audio/Sink", type = "pw-global" },
     Constraint { "device.id", "+", type = "pw" },
     Constraint { "node.virtual-sinks.owned", "!", true, type = "pw" },
+  }
+}
+
+-- The playback side of our two loopbacks (so we can retarget them).
+playback_om = ObjectManager {
+  Interest {
+    type = "node",
+    Constraint { "node.virtual-sinks.loopback", "=", "true", type = "pw" },
   }
 }
 
@@ -38,56 +68,25 @@ metadata_om = ObjectManager {
 }
 
 -- ---------------------------------------------------------------------------
--- null sink creation
--- ---------------------------------------------------------------------------
-
-function createNullSink (name, description)
-  local properties = {
-    ["node.name"] = name,
-    ["node.description"] = description,
-    ["audio.rate"] = "48000",
-    ["audio.channels"] = "2",
-    ["audio.position"] = "FL,FR",
-    ["media.class"] = "Audio/Sink",
-    ["factory.name"] = "support.null-audio-sink",
-    ["node.virtual"] = "true",
-    -- monitor volume tracks the sink volume, so `pactl set-sink-volume`
-    -- propagates through the loopback to the hardware device.
-    ["monitor.channel-volumes"] = "true",
-    -- tag so WP's own fallback-sink.lua ignores our sinks.
-    ["wireplumber.is-virtual"] = "true",
-    -- custom marker so our hw_sink_om filter can exclude them.
-    ["node.virtual-sinks.owned"] = "true",
-    -- never auto-selected as a hardware default.
-    ["priority.session"] = "0",
-  }
-  local node = LocalNode ("adapter", properties)
-  node:activate (Feature.Proxy.BOUND)
-  return node
-end
-
--- ---------------------------------------------------------------------------
--- loopback creation (game_sink.monitor -> hardware, chat_sink.monitor -> hw)
+-- loopback creation: the loopback's capture side is the virtual sink
 -- ---------------------------------------------------------------------------
 
 function loopbackArgs (sink_name, hw_target)
   local capture_props = {
-    ["node.name"] = "loopback." .. sink_name .. ".capture",
-    -- capture from the monitor of our virtual sink (NOT a real source):
-    ["target.object"] = sink_name,
-    ["stream.capture.sink"] = "true",
-    ["node.passive"] = "true",
-    -- we manage retargeting ourselves (destroy + recreate on device change).
-    ["node.dont-reconnect"] = "true",
-    -- marker so stream.rules never re-route the loopback's own streams.
-    ["node.virtual-sinks.loopback"] = "true",
-    ["state.restore-props"] = "false",
-    ["state.restore-target"] = "false",
+    ["node.name"] = sink_name,
+    ["node.description"] = SINK_DESCRIPTIONS [sink_name],
+    ["media.class"] = "Audio/Sink",
+    ["audio.channels"] = "2",
+    ["audio.position"] = "FL,FR",
+    -- never auto-selected as a hardware default.
+    ["priority.session"] = "0",
+    -- marker so hw_sink_om never treats our sinks as hardware.
+    ["node.virtual-sinks.owned"] = "true",
   }
   local playback_props = {
     ["node.name"] = "loopback." .. sink_name .. ".playback",
     ["target.object"] = hw_target,
-    ["node.dont-reconnect"] = "true",
+    -- marker: lets playback_om find us, and keeps stream.rules away.
     ["node.virtual-sinks.loopback"] = "true",
     ["state.restore-props"] = "false",
     ["state.restore-target"] = "false",
@@ -99,25 +98,38 @@ function loopbackArgs (sink_name, hw_target)
   return args:get_data ()
 end
 
-function applyLoopback (sink_name, hw_target)
-  -- destroy the previous instance first (drop ref + force GC) to avoid a
-  -- brief double-audio overlap when retargeting.
-  if loopback_modules [sink_name] then
-    loopback_modules [sink_name] = nil
-    pcall (function () collectgarbage ("collect") end)
-  end
-  if not hw_target then
-    log:warning ("no hardware target; skipping loopback for " .. sink_name)
-    return
-  end
-  log:info ("loopback " .. sink_name .. " -> " .. hw_target)
+function createLoopback (sink_name, hw_target)
+  log:info ("creating " .. sink_name .. " -> " .. hw_target)
   loopback_modules [sink_name] =
       LocalModule ("libpipewire-module-loopback", loopbackArgs (sink_name, hw_target), {})
 end
 
+-- Point an existing loopback's playback side at a different hardware sink.
+function moveLoopback (sink_name, hw_target)
+  local node = playback_om:lookup {
+    Constraint { "node.name", "=", "loopback." .. sink_name .. ".playback", type = "pw" }
+  }
+  local md = metadata_om:lookup ()
+  if not node or not md then
+    log:warning ("cannot move " .. sink_name .. ": playback node or metadata missing")
+    return
+  end
+  log:info ("moving " .. sink_name .. " -> " .. hw_target)
+  md:set (node ["bound-id"], "target.object", "Spa:String", hw_target)
+end
+
 function retargetLoopbacks (hw_target)
-  applyLoopback (GAME_SINK, hw_target)
-  applyLoopback (CHAT_SINK, hw_target)
+  if not hw_target then
+    log:warning ("no hardware target; leaving loopbacks as they are")
+    return
+  end
+  for _, sink_name in ipairs (VIRTUAL_SINK_NAMES) do
+    if loopback_modules [sink_name] then
+      moveLoopback (sink_name, hw_target)
+    else
+      createLoopback (sink_name, hw_target)
+    end
+  end
 end
 
 -- ---------------------------------------------------------------------------
@@ -135,15 +147,32 @@ function hwSinkName (node)
   return node and node.properties ["node.name"] or nil
 end
 
-function pickBestHwSink ()
+function sinkPriority (node)
+  return node and (tonumber (node.properties ["priority.session"]) or 0) or -1
+end
+
+-- Highest-priority hardware sink, optionally excluding one name (used when
+-- that sink is in the middle of being removed).
+function pickBestHwSink (exclude)
   local best, best_prio = nil, -1
   for node in hw_sink_om:iterate () do
-    local prio = tonumber (node.properties ["priority.session"]) or 0
-    if prio > best_prio then
-      best, best_prio = node, prio
+    if hwSinkName (node) ~= exclude then
+      local prio = sinkPriority (node)
+      if prio > best_prio then
+        best, best_prio = node, prio
+      end
     end
   end
   return best
+end
+
+-- Fallback when the current target vanishes: most recently used sink that
+-- still exists, otherwise the highest-priority remaining sink.
+function pickFallback (removed)
+  for _, n in ipairs (target_history) do
+    if n ~= removed and findHwSink (n) then return n end
+  end
+  return hwSinkName (pickBestHwSink (removed))
 end
 
 -- Read the resolved default sink name ("default.audio.sink") from metadata.
@@ -172,8 +201,18 @@ function setConfiguredDefaultSink (name)
       Json.Object { ["name"] = name }:to_string ())
 end
 
+-- Record the new target. Never persists nil, so a moment with no hardware
+-- sink does not wipe the saved choice.
 function saveHwTarget (name)
   current_hw_target = name
+  if not name then return end
+  for i, v in ipairs (target_history) do
+    if v == name then
+      table.remove (target_history, i)
+      break
+    end
+  end
+  table.insert (target_history, 1, name)
   state_table ["hardware-target"] = name
   state:save_after_timeout (state_table)
 end
@@ -196,13 +235,6 @@ end
 function initialise ()
   if initialised then return end
 
-  if not sink_nodes [GAME_SINK] then
-    sink_nodes [GAME_SINK] = createNullSink (GAME_SINK, "Game")
-  end
-  if not sink_nodes [CHAT_SINK] then
-    sink_nodes [CHAT_SINK] = createNullSink (CHAT_SINK, "Chat")
-  end
-
   -- resolve the initial hardware target, in priority order:
   --   1. saved name (from state) that still exists
   --   2. the current resolved default, if it is a hardware sink
@@ -219,6 +251,12 @@ function initialise ()
     end
   end
 
+  if not target_name then
+    -- no hardware sink yet; wait for one (object-added will initialise us)
+    log:warning ("no hardware sink yet; waiting")
+    return
+  end
+
   saveHwTarget (target_name)
   retargetLoopbacks (target_name)
 
@@ -230,7 +268,7 @@ function initialise ()
 end
 
 -- ---------------------------------------------------------------------------
--- react to the user manually changing the output device
+-- react to the user manually changing the output device (pavucontrol etc.)
 -- ---------------------------------------------------------------------------
 
 default_changed_hook = SimpleEventHook {
@@ -243,6 +281,7 @@ default_changed_hook = SimpleEventHook {
     },
   },
   execute = function (event)
+    if not initialised then return end
     local props = event:get_properties ()
     local new_value = props ["event.subject.value"]
     if not new_value then return end
@@ -277,8 +316,7 @@ default_changed_hook = SimpleEventHook {
 }:register ()
 
 -- ---------------------------------------------------------------------------
--- react to hardware sinks appearing/disappearing (BT connect/disconnect,
--- USB DAC plug/unplug, profile changes)
+-- react to hardware sinks appearing/disappearing
 -- ---------------------------------------------------------------------------
 
 hw_sink_om:connect ("object-added", function (_, node)
@@ -287,20 +325,32 @@ hw_sink_om:connect ("object-added", function (_, node)
     return
   end
   local name = hwSinkName (node)
-  -- a new hardware sink appeared mid-session -> retarget to it (the user
-  -- just connected a device and most likely wants to use it).
-  log:info ("hardware sink appeared -> " .. tostring (name))
-  saveHwTarget (name)
-  retargetLoopbacks (name)
-  setConfiguredDefaultSink (GAME_SINK)
+  local new_prio = sinkPriority (node)
+  local cur = findHwSink (current_hw_target)
+  local cur_prio = cur and sinkPriority (cur) or -1
+
+  -- mimic WirePlumber: a new sink only becomes the target if it outranks the
+  -- current one (BT headsets / USB DACs usually do; HDMI usually doesn't).
+  if new_prio > cur_prio then
+    log:info ("hardware sink appeared with higher priority -> " .. tostring (name) ..
+        " (" .. new_prio .. " > " .. cur_prio .. ")")
+    saveHwTarget (name)
+    retargetLoopbacks (name)
+    setConfiguredDefaultSink (GAME_SINK)
+  else
+    log:info ("hardware sink appeared, lower priority; keeping " ..
+        tostring (current_hw_target) .. " (" .. tostring (name) ..
+        " prio " .. new_prio .. " <= " .. cur_prio .. ")")
+  end
 end)
 
 hw_sink_om:connect ("object-removed", function (_, node)
   if not initialised then return end
   local name = hwSinkName (node)
-  -- if our current target vanished, fall back to the best remaining sink.
+  -- if our current target vanished, fall back to the last-used device that
+  -- still exists (else the best remaining sink).
   if current_hw_target == name then
-    local new_name = hwSinkName (pickBestHwSink ())
+    local new_name = pickFallback (name)
     log:info ("hardware target removed -> " .. tostring (new_name))
     saveHwTarget (new_name)
     retargetLoopbacks (new_name)
@@ -322,10 +372,11 @@ end)
 -- ---------------------------------------------------------------------------
 
 hw_sink_om:activate ()
+playback_om:activate ()
 metadata_om:activate ()
 
 -- safety net: if no hardware sink and no metadata event fires within 2s,
--- initialise anyway (sinks get created; loopbacks wait for a hw sink).
+-- try to initialise anyway.
 Core.timeout_add (2000, function ()
   if not initialised then initialise () end
 end)

@@ -54,3 +54,4 @@ runc() {
 }
 
 compdef '_files -g "*.c"' runc
+compdef '_dispatch redis-cli_completion redis-cli' valkey-cli

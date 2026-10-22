@@ -25,6 +25,19 @@ return {
             end,
         })
 
+        vim.api.nvim_create_autocmd("LspAttach", {
+            callback = function(args)
+                local opts = { buffer = args.buf }
+
+                vim.keymap.set("n", "grd", vim.lsp.buf.definition, {buffer = args.buf, desc = "vim.lsp.buf.definition()"})
+
+                vim.keymap.set("n", "grh", function()
+                    local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf })
+                    vim.lsp.inlay_hint.enable(not enabled, { bufnr = args.buf })
+                end, {buffer = args.buf, desc = "vim.lsp.inlay_hint.enable(toggle)"})
+            end,
+        })
+
         local capabilities = vim.tbl_deep_extend(
             "force",
             vim.lsp.protocol.make_client_capabilities(),
@@ -44,7 +57,9 @@ return {
                 "tailwindcss-language-server",
                 "bash-language-server",
                 "vim-language-server",
-                "typescript-language-server"
+                "typescript-language-server",
+                "basedpyright", "ruff", "black",
+                "gopls", "golangci-lint", "gofumpt", "goimports",
             },
         })
 
@@ -55,13 +70,48 @@ return {
         vim.lsp.config("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {
-                    checkOnSave = { command = "clippy" },
+                    check = { command = "clippy" },
+                    inlayHints = {
+                        typeHints = { enable = true },
+                        bindingModeHints = { enable = true },
+                    },
+                    imports = {
+                        granularity = { group = "module" },
+                        prefix = "self",
+                    },
+                    cargo = {
+                        allFeatures = true,
+                    },
                 },
             },
         })
 
         vim.lsp.config("qmlls", {
             cmd = { "qmlls", "-E" },
+        })
+
+        vim.lsp.config("ruff", {
+            settings = {
+                -- let basedpyright handle hover so you don't get duplicate hover popups
+                hover = { enable = false },
+            },
+        })
+
+        vim.lsp.config("gopls", {
+            settings = {
+                gopls = {
+                    staticcheck = true,
+                    hints = {
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        parameterNames = true,
+                        rangeVariableTypes = true,
+                    },
+                },
+            },
         })
 
         vim.lsp.config("lua_ls", {

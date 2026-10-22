@@ -7,7 +7,7 @@ Type=Application
 Categories=Audio;Music;Player;
 
 ### LAPTOP START ###
-# Exec=/home/Agnosia/.config/polybar/scripts/spotify-launcher.sh
+# Exec=/home/cattywampus/.config/polybar/scripts/spotify-launcher.sh
 ### LAPTOP END ###
 
 ### DESKTOP START ###

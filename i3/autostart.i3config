@@ -6,6 +6,7 @@
 exec --no-startup-id dex --autostart --environment i3
 # exec_always --no-startup-id ~/.config/xborders/launch_borders.sh
 exec --no-startup-id ~/.config/i3/workspaces-setup.sh &
+exec --no-startup-id greenclip daemon
 
 # applications
 exec --no-startup-id zen-browser & disown
@@ -17,10 +18,10 @@ exec --no-startup-id discord & disown
 exec --no-startup-id nvidia-settings --load-config-only & disown
 ### DESKTOP END ###
 
-### LAPTOP START ###
-# exec --no-startup-id sh -c "sleep 1 && ~/.fehbg" &
 # exec --no-startup-id helium-browser & disown
-# exec --no-startup-id slack --gtk-version=3 -s & disown
+### LAPTOP START ###
+exec --no-startup-id sh -c "sleep 1 && ~/.fehbg" &
+exec --no-startup-id slack --gtk-version=3 -s & disown
 ### LAPTOP END ###
 
 # exec --no-startup-id caffeine &

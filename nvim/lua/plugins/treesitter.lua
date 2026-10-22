@@ -8,8 +8,8 @@ return {
         require('nvim-treesitter').setup {}
 
         local ensureInstalled = { "javascript", "typescript", "tsx", "jsx",
-            "html", "css", "lua", "vim", "vimdoc", "hyprlang", "json", "toml",
-            "bash", "markdown", "markdown_inline"
+            "html", "css", "lua", "vim", "vimdoc", "json", "toml", "rust",
+            "bash", "markdown", "markdown_inline", "go", "python"
         }
         local ts = require('nvim-treesitter')
         local parsersToInstall = vim.iter(ensureInstalled)

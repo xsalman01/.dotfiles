@@ -6,4 +6,10 @@ Terminal=false
 Type=Application
 Categories=Audio;Music;Player;
 
-Exec=/home/cattywampus/.config/polybar/scripts/spotify-launcher.sh
+### LAPTOP START ###
+# Exec=/home/cattywampus/.config/polybar/scripts/spotify-launcher.sh
+### LAPTOP END ###
+
+### DESKTOP START ###
+Exec=/home/dopeman/.config/polybar/scripts/spotify-launcher.sh
+### DESKTOP END ###

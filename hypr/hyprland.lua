@@ -6,18 +6,42 @@ local vars = require("variables")
 --]]
 
 -- ### LAPTOP START ###
+-- hl.monitor({
+--     output = "HDMI-A-1",
+--     position = "0x0",
+--     mode = "preferred",
+--     scale = 1
+-- })
+--
+-- hl.monitor({
+--     output = "eDP-1",
+--     position = "auto",
+--     mode = "preferred",
+--     scale = 1
+-- })
+--
+-- hl.bind("switch:on:Lid Switch", function()
+--     hl.monitor({ output = "eDP-1", disabled = true })
+-- end, { locked = true })
+--
+-- hl.bind("switch:off:Lid Switch", function()
+--     hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1, disabled = false })
+-- end, { locked = true })
+-- ### LAPTOP END ###
+
+-- ### DESKTOP START ###
 hl.monitor({
     output = "HDMI-A-1",
     position = "0x0",
     mode = "preferred",
-    scale = 1
+    scale = 1,
 })
 
 hl.monitor({
-    output = "eDP-1",
-    position = "auto",
-    mode = "preferred",
-    scale = 1
+    output = "DVI-I-1",
+    position = "1920x90",
+    mode = "1600x900@59.01600",
+    scale = 1,
 })
 
 hl.bind("switch:on:Lid Switch", function()

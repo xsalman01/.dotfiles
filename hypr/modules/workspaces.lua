@@ -127,10 +127,10 @@ hl.window_rule({
 })
 
 -- ===========================
--- LAYER RULES
+-- NOCTALIA RULES
 -- ===========================
-hl.layer_rule({
-    name    = "quickshell-layer",
-    no_anim = true,
-    match   = { namespace = "^quickshell$" },
+hl.window_rule({
+    match = { class = "dev.noctalia.Noctalia" },
+    float = true,
+    size = { 720, 960 },
 })

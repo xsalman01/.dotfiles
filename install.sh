@@ -34,12 +34,15 @@ I3_AUR=(i3lock-color zscroll-git rofi-bluetooth-git xborder-git rofi-greenclip)
 HYPR_OFFICIAL=(
     hyprland hypridle hyprpicker hyprshot uwsm
     xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
-    qt5-wayland qt6-wayland qt5-svg qt5-multimedia qt5-imageformats
+    qt5-wayland qt5-svg qt5-multimedia qt5-imageformats noctalia
     qt6-5compat qt6-imageformats qt6-multimedia qt6-shadertools
     wtype wlr-randr wlsunset wl-clipboard satty cliphist xorg-xwayland
 )
 
-HYPR_AUR=(noctalia-shell)
+HYPR_AUR=()
+
+# Optional: installed only when the user opts in at the prompt.
+KEYRING_OFFICIAL=(gnome-keyring libsecret)
 
 HOME_SHARED=(.zshrc .zprofile .tmux.conf .dircolors)
 HOME_I3=(.xinitrc .Xresources)
@@ -50,6 +53,7 @@ CFG_HYPR=(hypr noctalia satty cliphist)
 
 INSTALL_I3=0
 INSTALL_HYPR=0
+SETUP_KEYRING=0
 
 print_banner() {
     cat <<'BANNER'
@@ -120,6 +124,22 @@ select_route() {
     echo "   i3=$INSTALL_I3  hypr=$INSTALL_HYPR"
 }
 
+select_keyring() {
+    echo
+    echo ":: GNOME Keyring (optional)"
+    echo "   Provides a Secret Service so apps (e.g. Noctalia) can store keys and"
+    echo "   credentials, and unlocks automatically on TTY login via PAM."
+    echo "   This installs gnome-keyring + libsecret and edits /etc/pam.d/login"
+    echo "   (a timestamped backup is kept)."
+    local ans=""
+    read -rp "   Set up GNOME Keyring? [y/N]: " ans || ans=""
+    case "$ans" in
+        [yY]|[yY][eE][sS]) SETUP_KEYRING=1 ;;
+        *)                 SETUP_KEYRING=0 ;;
+    esac
+    echo "   keyring=$SETUP_KEYRING"
+}
+
 install_packages() {
     echo
     echo ":: Installing packages (official repositories)"
@@ -127,6 +147,7 @@ install_packages() {
     local -a official=("${SHARED_OFFICIAL[@]}")
     [[ "$INSTALL_I3" -eq 1 ]] && official+=("${I3_OFFICIAL[@]}")
     [[ "$INSTALL_HYPR" -eq 1 ]] && official+=("${HYPR_OFFICIAL[@]}")
+    [[ "$SETUP_KEYRING" -eq 1 ]] && official+=("${KEYRING_OFFICIAL[@]}")
 
     sudo pacman -S --needed -- "${official[@]}"
 
@@ -138,6 +159,46 @@ install_packages() {
     [[ "$INSTALL_HYPR" -eq 1 ]] && aur+=("${HYPR_AUR[@]}")
 
     yay -S --needed -- "${aur[@]}"
+}
+
+setup_pam_keyring() {
+    [[ "$SETUP_KEYRING" -eq 1 ]] || return 0
+    echo
+    echo ":: GNOME Keyring PAM (TTY login auto-unlock)"
+
+    local pam_file="/etc/pam.d/login"
+
+    if [[ ! -f "$pam_file" ]]; then
+        echo "   [warn] $pam_file not found - skipping."
+        return 0
+    fi
+
+    if grep -q 'pam_gnome_keyring\.so' "$pam_file"; then
+        echo "   [skip] $pam_file already references pam_gnome_keyring.so"
+        return 0
+    fi
+
+    local tmp
+    tmp="$(mktemp)"
+
+    awk '
+        { print }
+        /^auth[[:space:]]+include[[:space:]]+system-local-login/     { print "-auth       optional     pam_gnome_keyring.so" }
+        /^password[[:space:]]+include[[:space:]]+system-local-login/ { print "-password   optional     pam_gnome_keyring.so    use_authtok" }
+        /^session[[:space:]]+include[[:space:]]+system-local-login/  { print "-session    optional     pam_gnome_keyring.so    auto_start" }
+    ' "$pam_file" > "$tmp"
+
+    if [[ "$(grep -c 'pam_gnome_keyring\.so' "$tmp")" -ne 3 ]]; then
+        echo "   [warn] unexpected layout in $pam_file - not modifying."
+        echo "          Add the pam_gnome_keyring.so lines manually (see Arch Wiki: GNOME/Keyring)."
+        rm -f "$tmp"
+        return 0
+    fi
+
+    sudo cp -a "$pam_file" "${pam_file}.bak.${TIMESTAMP}"
+    sudo install -m 644 -o root -g root "$tmp" "$pam_file"
+    rm -f "$tmp"
+    echo "   [done] PAM lines added (backup: ${pam_file}.bak.${TIMESTAMP})"
 }
 
 setup_submodules() {
@@ -307,6 +368,11 @@ print_next_steps() {
     if [[ "$INSTALL_I3" -eq 1 ]]; then
         echo "     3. Start i3:  startx  (from TTY, .zprofile auto-starts on VT 2)"
     fi
+    if [[ "$SETUP_KEYRING" -eq 1 ]]; then
+        echo "     4. Log out and back in so PAM can unlock the keyring."
+        echo "        When prompted to create the keyring, use your login password."
+        echo "        Verify:  busctl --user list | grep -i org.freedesktop.secrets"
+    fi
 }
 
 main() {
@@ -314,7 +380,9 @@ main() {
     preflight
     setup_repo "$@"
     select_route
+    select_keyring
     install_packages
+    setup_pam_keyring
     setup_submodules
     setup_tpm
     setup_symlinks

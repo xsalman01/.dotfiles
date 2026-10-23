@@ -1,0 +1,255 @@
+config_version = 15
+
+[bar]
+order = [ "Main" ]
+
+    [bar.Main]
+    compositor_blur = false
+    concave_edge_corners = false
+    end = [ "media", "tray", "bluetooth", "input_volume", "volume", "battery", "recorder", "notifications" ]
+    font_family = "Hack Nerd Font Mono"
+    font_weight = 400
+    hover_highlight = false
+    margin_ends = 0
+    panel_overlap = 0
+    radius = 0
+    scale = 0.90000000596046448
+    shadow = false
+    start = [ "workspaces", "active_window" ]
+    thickness = 24
+
+[calendar]
+enabled = true
+
+    [calendar.account.personal_google]
+    name = "Personal"
+    type = "google"
+
+[control_center]
+width = 900
+
+    [control_center.calendar]
+    show_events_card = false
+
+[desktop_widgets]
+enabled = false
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+auto_locate = true
+
+[lockscreen]
+blurred_desktop = true
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-widget-0000000000000001" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 874.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 240.0
+    box_width = 448.0
+    cx = 976.0
+    cy = 424.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+[osd]
+background_opacity = 0.87999998033046722
+follow_focused_output = true
+hide_delay_ms = 600
+offset_x = 8
+orientation = "vertical"
+position = "top_right"
+position_vertical = "bottom_right"
+
+    [osd.kinds]
+    media = false
+
+[plugin_settings."noctalia/screen_recorder"]
+color_range = "full"
+directory = "/home/dopeman/Videos/Captures"
+
+[plugin_settings."noctalia/wallhaven"]
+api_key = "u5YK0epHomK05ScobB88pRhj3G3Oe2jg"
+
+[plugins]
+enabled = [ "noctalia/kaomoji", "noctalia/screen_recorder", "noctalia/wallhaven" ]
+
+[shell]
+button_borders = false
+card_borders = false
+corner_radius_scale = 0.0
+date_format = "{:%a}, {:%b %d}"
+font_family = "Adwaita Sans"
+input_borders = false
+launch_apps_custom_command = "uwsm app -- $CMD"
+password_style = "random"
+popup_borders = false
+popup_shadows = false
+screen_time_enabled = true
+show_close_buttons = false
+time_format = "{:%-I:%M %p}"
+
+    [shell.launcher]
+    categories = false
+    compact = true
+    layout = "simple"
+
+    [shell.mpris]
+    blacklist = [ "zen", "discord", "helium", "chrome", "mpv" ]
+
+    [shell.panel]
+    floating_layer = "top"
+    shadow = false
+
+    [shell.screen_corners]
+    size = 1
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = false
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 0.0
+    enabled = false
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+[theme]
+builtin = "Rosé Pine"
+community_palette = "Rose Pine Alt"
+mode = "dark"
+wallpaper_scheme = "m3-content"
+
+[wallpaper]
+directory = "/home/dopeman/.dotfiles/wallpapers"
+directory_dark = "/home/dopeman/.dotfiles/wallpapers"
+directory_light = "/home/dopeman/.dotfiles/wallpapers"
+transition_duration = 1000
+transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/dopeman/.dotfiles/wallpapers/cherry-blossom.png"
+
+    [wallpaper.last]
+    path = "/home/dopeman/.dotfiles/wallpapers/cherry-blossom.png"
+
+[widget.active_window]
+font_weight = 700
+show_tooltip = false
+title_scroll = "on_hover"
+
+[widget.clock]
+anchor = true
+color = "primary"
+format = "{:%-I:%M %p | %a, %b %d}"
+interactive = false
+show_tooltip = false
+vertical_format = "{:%-I\\n%M\\n%p}"
+
+[widget.input_volume]
+font_scale = 0.90000000000000013
+scale = 0.90000000000000013
+show_label = false
+
+[widget.media]
+color = "on_surface_variant"
+font_weight = 700
+hide_when_no_media = true
+rotate_album_art = true
+title_scroll = "on_hover"
+
+[widget.network]
+show_label = false
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+hide_when_empty = true
+scale = 0.90000000000000013
+show_icons = false
+show_labels = false
+style = "focus_hint"

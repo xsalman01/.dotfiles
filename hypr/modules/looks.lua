@@ -29,7 +29,7 @@ hl.config({
             enabled      = false,
             range        = 10,
             render_power = 4,
-            offset       = "-6 6",
+            offset       = {-6, 6},
             color        = "rgba(000000ce)",
         },
         blur             = {
@@ -82,10 +82,10 @@ hl.config({
 -- ==================
 -- LAYER RULES
 -- ==================
-hl.layer_rule({
-    name         = "noctalia",
-    match        = { namespace = "noctalia-background-.*" },
-    ignore_alpha = 0.5,
-    blur         = true,
-    blur_popups  = true,
-})
+-- hl.layer_rule({
+--     name         = "noctalia",
+--     match        = { namespace = "noctalia-background-.*" },
+--     ignore_alpha = 0.5,
+--     blur         = true,
+--     blur_popups  = true,
+-- })

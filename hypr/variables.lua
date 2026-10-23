@@ -14,6 +14,7 @@ return {
     discord  = "discord",
     spotify  = "spotify",
     code     = "cursor",
+    ipc      = "noctalia msg ",
 
     -- ==================
     -- ROSEPINE THEME

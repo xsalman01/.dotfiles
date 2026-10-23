@@ -55,7 +55,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd("hyprctl setcursor Vimix-white-cursors 24")
     hl.exec_cmd("uwsm app -- " .. vars.zen)
-    hl.exec_cmd("uwsm app -- qs -c noctalia-shell")
+    hl.exec_cmd("uwsm app -- noctalia")
     hl.exec_cmd("hypridle")
 
 -- ### DESKTOP START ###

@@ -3,6 +3,7 @@ local vars  = require("variables")
 local home  = vars.home
 local super = vars.super
 local mod   = vars.mod
+local ipc   = vars.ipc
 
 -- === Application Launchers ===
 hl.bind(super .. "+" .. vars.enter, hl.dsp.exec_cmd("uwsm app -- " .. vars.terminal))
@@ -13,26 +14,27 @@ hl.bind(super .. "+ CTRL + 9", hl.dsp.exec_cmd("uwsm app -- " .. vars.helium))
 hl.bind(super .. "+ CTRL + 0", hl.dsp.exec_cmd("uwsm app -- " .. vars.slack))
 
 -- === Shell ===
-hl.bind(super .. "+ D", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call launcher toggle"))
-hl.bind(super .. "+ C", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call controlCenter toggle"))
-hl.bind(super .. "+ SHIFT + C", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call calendar toggle"))
-hl.bind(super .. "+ V", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call launcher clipboard"))
-hl.bind(super .. "+ B", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call bluetooth togglePanel"))
-hl.bind(super .. "+ period", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call launcher emoji"))
-hl.bind(super .. "+ N", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call notifications toggleHistory"))
-hl.bind(super .. "+ SHIFT + N", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call notifications toggleDND"))
-hl.bind(super .. "+ Y", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call wallpaper toggle"))
-hl.bind(super .. "+ TAB", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call settings toggle"))
+hl.bind(super .. "+ D", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(super .. "+ C", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind(super .. "+ SHIFT + C", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center calendar"))
+hl.bind(super .. "+ V", hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
+hl.bind(super .. "+ B", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center bluetooth"))
+hl.bind(super .. "+ period", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher /emo"))
+hl.bind(super .. "+ N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
+hl.bind(super .. "+ SHIFT + N", hl.dsp.exec_cmd(ipc .. "notification-dnd-toggle"))
+hl.bind(super .. "+ Y", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+hl.bind(super .. "+ SHIFT + Y", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/wallhaven:browser"))
+hl.bind(super .. "+ TAB", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 
 -- === Power ===
-hl.bind(super .. "+" .. mod .. "+ F12", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call lockScreen lock"))
+hl.bind(super .. "+" .. mod .. "+ F12", hl.dsp.exec_cmd(ipc .. "session lock"))
 hl.bind(super .. "+" .. mod .. "+ F11", hl.dsp.exec_cmd("reboot"))
 hl.bind(super .. "+" .. mod .. "+ F10", hl.dsp.exec_cmd("poweroff"))
 hl.bind(super .. "+ SHIFT + E", hl.dsp.exec_cmd("uwsm stop -r"))
 
 -- === Brightness Controls ===
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call brightness increase"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call brightness decrease"),
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"),
     { repeating = true })
 
 -- === Window Management ===

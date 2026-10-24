@@ -1,23 +1,25 @@
-config_version = 15
-
 [bar]
 order = [ "Main" ]
 
     [bar.Main]
     compositor_blur = false
-    concave_edge_corners = false
-    end = [ "media", "tray", "bluetooth", "input_volume", "volume", "battery", "recorder", "notifications" ]
+    concave_edge_corners = true
+    end = [ "active_window", "workspaces" ]
     font_family = "Hack Nerd Font Mono"
+    font_scale = 0.9499999862164259
     font_weight = 400
     hover_highlight = false
     margin_ends = 0
+    padding = 12
     panel_overlap = 0
+    position = "left"
     radius = 0
+    radius_bottom_right = 6
+    radius_top_right = 6
     scale = 0.90000000596046448
     shadow = false
-    start = [ "workspaces", "active_window" ]
+    start = [ "notifications", "recorder", "battery", "volume", "input_volume", "bluetooth", "tray", "media" ]
     thickness = 24
-    padding = 12
     widget_spacing = 8
 
 [calendar]
@@ -145,11 +147,12 @@ enabled = [ "noctalia/kaomoji", "noctalia/screen_recorder", "noctalia/wallhaven"
 avatar_path = "/home/dopeman/.dotfiles/noctalia/564048971_694026443739750_7900524044288229439_n.jpg"
 button_borders = false
 card_borders = false
-corner_radius_scale = 0.0
+corner_radius_scale = 0.40000000596046448
 date_format = "{:%a}, {:%b %d}"
 font_family = "Adwaita Sans"
 input_borders = false
 launch_apps_custom_command = "uwsm app -- $CMD"
+panel_anchor_bar = "Main"
 password_style = "random"
 popup_borders = false
 popup_shadows = false
@@ -167,7 +170,7 @@ time_format = "{:%-I:%M %p}"
 
     [shell.panel]
     floating_layer = "top"
-    shadow = false
+    shadow = true
 
     [shell.screen_corners]
     size = 1
@@ -226,6 +229,9 @@ transition_on_startup = true
     [wallpaper.last]
     path = "/home/dopeman/.dotfiles/wallpapers/cherry-blossom.png"
 
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/dopeman/.dotfiles/wallpapers/cherry-blossom.png"
+
 [widget.active_window]
 font_weight = 700
 show_tooltip = false
@@ -234,10 +240,10 @@ title_scroll = "on_hover"
 [widget.clock]
 anchor = true
 color = "primary"
-format = "{:%-I:%M %p | %a, %b %d}"
+format = "{:%I:%M %p | %a, %b %d}"
 interactive = false
 show_tooltip = false
-vertical_format = "{:%-I\\n%M\\n%p}"
+vertical_format = "{:%I\\n%M\\n%p\\n--\\n%a\\n%b\\n%d}"
 
 [widget.input_volume]
 font_scale = 0.90000000000000013

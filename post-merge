@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# post-merge hook to automatically comment/uncomment branch-specific configurations
-# Extended to handle noctalia/settings.json (avatar, wallpaper.directory, bar.monitors).
+# post-merge hook to automatically comment/uncomment branch-specific configurations.
+# Also rewrites /home/<user>/ paths in noctalia/settings.toml to the current user.
 
 # Get current branch (target branch)
 TARGET_BRANCH=$(git branch --show-current)
@@ -21,75 +21,38 @@ fi
 # Current user, used to rewrite /home/<user>/ paths dynamically
 CURRENT_USER="${USER:-$(whoami)}"
 
-# Check jq availability (needed for JSON edits)
-if command -v jq >/dev/null 2>&1; then
-    JQ_OK=1
-else
-    JQ_OK=0
-    echo "WARNING: 'jq' not found in PATH — JSON edits will be skipped."
-fi
-
-# List of files to process (same as in your .gitattributes)
+# Files with DESKTOP/LAPTOP comment blocks
 FILES=(
     ".zprofile"
     "i3/autostart.i3config"
-    "i3/audio.i3config"
     "hypr/hyprland.lua"
     "hypr/modules/workspaces.lua"
-    "hypr/modules/audio-controls.lua"
     "rofi/config.rasi"
-    "rofi/applications/spotify-polybar.desktop"
     "polybar/modules/tray.ini"
     "polybar/modules/volume.ini"
     "kitty/kitty.conf"
-    "noctalia/settings.json"
 )
 
-# Process each file
+# Files where only the /home/<user>/ path needs rewriting
+USER_PATH_FILES=(
+    "noctalia/settings.toml"
+    "rofi/applications/spotify-polybar.desktop"
+)
+
+# Rewrite usernames in home paths
+for file in "${USER_PATH_FILES[@]}"; do
+    [ -f "$file" ] || continue
+    echo "Setting home paths in $file to /home/$CURRENT_USER/"
+    sed -i -E "s#/home/[^/\"]+/#/home/${CURRENT_USER}/#g" "$file" \
+        || echo "  -> ERROR: failed to update $file"
+done
+
+# Process each comment-block file
 for file in "${FILES[@]}"; do
-    # Skip if file doesn't exist
     [ -f "$file" ] || continue
 
     echo "Processing $file for branch $TARGET_BRANCH"
 
-    # Special handling for noctalia/settings.json
-    if [[ "$file" == "noctalia/settings.json" ]]; then
-        if [[ $JQ_OK -ne 1 ]]; then
-            echo "  -> Skipping JSON edits for $file because jq is missing."
-            continue
-        fi
-
-        if [[ "$ACTION" == "enable_desktop" ]]; then
-            echo "  -> Applying desktop profile ($CURRENT_USER + HDMI-A-1, DVI-I-1, compact)"
-            jq --arg user "$CURRENT_USER" '
-              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
-              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
-              .bar.monitors = ["HDMI-A-1", "DVI-I-1"] |
-              .bar.density = "mini" |
-              .general.scaleRatio = 0.9 |
-              .ui.fontFixedScale = 1
-            ' "$file" > "$file.tmp" && mv "$file.tmp" "$file" || {
-                echo "  -> ERROR: failed to write $file"
-            }
-        else
-            echo "  -> Applying laptop profile ($CURRENT_USER + HDMI-A-1, eDP-1, default)"
-            jq --arg user "$CURRENT_USER" '
-              .general.avatarImage |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
-              .wallpaper.directory |= gsub("/home/[^/]+/"; "/home/" + $user + "/") |
-              .bar.monitors = ["HDMI-A-1", "eDP-1"] |
-              .bar.density = "compact" |
-              .general.scaleRatio = 0.95 |
-              .ui.fontFixedScale = 1.1
-            ' "$file" > "$file.tmp" && mv "$file.tmp" "$file" || {
-                echo "  -> ERROR: failed to write $file"
-            }
-        fi
-
-        # done with this file
-        continue
-    fi
-
-    # Determine comment character based on file extension (JSON already handled)
     case "$file" in
         *.rasi)        COMMENT="//" ;;
         *.kdl)         COMMENT="//" ;;
@@ -97,7 +60,6 @@ for file in "${FILES[@]}"; do
         *)             COMMENT="#"  ;;
     esac
 
-    # Process the file (comment/uncomment blocks)
     awk -v action="$ACTION" -v comment="$COMMENT" '
         /### DESKTOP START ###/ { in_desktop = 1; print; next }
         /### DESKTOP END ###/   { in_desktop = 0; print; next }
@@ -107,19 +69,15 @@ for file in "${FILES[@]}"; do
         {
             if (in_desktop) {
                 if (action == "enable_desktop") {
-                    # Uncomment desktop lines
                     sub("^" comment "[ ]?", "", $0)
                 } else {
-                    # Comment desktop lines
                     if ($0 !~ "^" comment) $0 = comment " " $0
                 }
             }
             else if (in_laptop) {
                 if (action == "enable_laptop") {
-                    # Uncomment laptop lines
                     sub("^" comment "[ ]?", "", $0)
                 } else {
-                    # Comment laptop lines
                     if ($0 !~ "^" comment) $0 = comment " " $0
                 }
             }

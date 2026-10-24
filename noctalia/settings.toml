@@ -17,6 +17,8 @@ order = [ "Main" ]
     shadow = false
     start = [ "workspaces", "active_window" ]
     thickness = 24
+    padding = 12
+    widget_spacing = 8
 
 [calendar]
 enabled = true
@@ -130,6 +132,7 @@ api_key = "u5YK0epHomK05ScobB88pRhj3G3Oe2jg"
 enabled = [ "noctalia/kaomoji", "noctalia/screen_recorder", "noctalia/wallhaven" ]
 
 [shell]
+avatar_path = "/home/dopeman/.dotfiles/noctalia/564048971_694026443739750_7900524044288229439_n.jpg"
 button_borders = false
 card_borders = false
 corner_radius_scale = 0.0

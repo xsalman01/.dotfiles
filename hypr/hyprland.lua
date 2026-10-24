@@ -43,6 +43,7 @@ hl.monitor({
     mode = "1600x900@59.01600",
     scale = 1,
 })
+-- ### DESKTOP END ###
 
 --[[
  ==================
@@ -57,13 +58,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- " .. vars.zen)
     hl.exec_cmd("uwsm app -- noctalia")
     hl.exec_cmd("hypridle")
-
--- ### DESKTOP START ###
-   -- hl.exec_cmd(vars.home .. "/.dotfiles/pipewire_scripts/create_virtual_sinks.sh")
-   -- hl.timer(function()
-   --     hl.exec_cmd("uwsm app -- " .. vars.discord)
-   -- end, { timeout = 3000, type = "oneshot" })
--- ### DESKTOP END ###
 end)
 
 require("modules.audio-controls")

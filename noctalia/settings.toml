@@ -99,15 +99,25 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-widget-00000000000
         show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 240.0
-    box_width = 448.0
+    box_height = 256.0
+    box_width = 464.0
     cx = 976.0
-    cy = 424.0
+    cy = 460.0
     output = "HDMI-A-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
     type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+        background_padding = 16
+        background_radius = 4
+        center_text = true
+        clock_style = "digital"
+        color = "primary"
+        format = "{:%I:%M %p\\n%a, %b %d}"
+        timezone = "Asia/Karachi"
 
 [osd]
 background_opacity = 0.87999998033046722

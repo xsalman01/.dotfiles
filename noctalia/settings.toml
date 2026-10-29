@@ -24,11 +24,12 @@ order = [ "Main" ]
     auto_hide = false
     auto_hide_delay_ms = 0
     background_opacity = 1.0
-    border = "outline"
+    border = "outline_variant"
     border_width = 0.0
     capsule = false
     capsule_border_width = 1.0
-    capsule_fill = "surface_variant"
+    capsule_fill = "surface_container_high"
+    capsule_foreground = "on_primary_container"
     capsule_group = []
     capsule_opacity = 1.0
     capsule_padding = 6.0
@@ -66,9 +67,14 @@ order = [ "Main" ]
     widget_spacing = 8
 
         [bar.Main.dead_zone]
+        click_through = false
 
 [battery]
 warning_threshold = 10
+
+[bluetooth]
+connect_when_enabled = false
+connection_notifications = true
 
 [brightness]
 enable_ddcutil = false
@@ -86,6 +92,8 @@ refresh_minutes = 15
 
     [calendar.account.personal_google]
     calendars = []
+    client_cert_file = ""
+    client_key_file = ""
     color = ""
     credential_source = "secret-service"
     name = "Personal"
@@ -103,7 +111,9 @@ refresh_minutes = 15
     use_event_reminders = true
 
 [control_center]
+circular_avatar = true
 hidden_tabs = []
+show_avatar_border = true
 show_session_button = true
 show_shortcut_labels = true
 sidebar = "compact"
@@ -111,8 +121,13 @@ sidebar_section = "compact"
 width = 900
 
     [control_center.calendar]
+    hide_past_events = false
+    past_events_threshold_minutes = 30
     show_events_card = false
     show_week_numbers = false
+
+    [control_center.media]
+    show_visualizer = true
 
     [[control_center.shortcuts]]
     type = "wifi"
@@ -147,7 +162,7 @@ active_opacity = 1.0
 active_scale = 1.0
 auto_hide = false
 background_opacity = 0.87999999523162842
-border = "outline"
+border = "outline_variant"
 border_width = 0.0
 concave_edge_corners = true
 cross_axis_padding = 8
@@ -306,7 +321,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-widget-00000000000
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -353,7 +368,7 @@ temperature_night = 4000
 [notification]
 background_opacity = 1.0
 border = true
-border_color = "outline"
+border_color = "outline_variant"
 border_width = 1.0
 collapse_on_dismiss = true
 enable_daemon = true
@@ -374,7 +389,7 @@ width = 360
 [osd]
 background_opacity = 0.87999999523162842
 border = true
-border_color = "outline"
+border_color = "outline_variant"
 border_width = 1.0
 enabled = true
 follow_focused_output = true
@@ -391,6 +406,7 @@ scale = 1.0
     bluetooth = true
     brightness = true
     caffeine = true
+    custom = true
     dnd = true
     keyboard_backlight = true
     keyboard_layout = true
@@ -407,9 +423,6 @@ scale = 1.0
 [plugin_settings."noctalia/screen_recorder"]
 color_range = "full"
 directory = "/home/dopeman/Videos/Captures"
-
-[plugin_settings."noctalia/wallhaven"]
-api_key = "u5YK0epHomK05ScobB88pRhj3G3Oe2jg"
 
 [plugins]
 auto_update = "all"
@@ -446,6 +459,7 @@ font_family = "Adwaita Sans"
 input_borders = false
 launch_apps_as_systemd_services = false
 launch_apps_custom_command = "uwsm app -- $CMD"
+niri_overview_close_on_launch_enabled = false
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
 panel_anchor_bar = "Main"
@@ -464,6 +478,8 @@ show_close_buttons = false
 show_location = true
 telemetry_enabled = false
 time_format = "{:%-I:%M %p}"
+umbriel_audio_provider_enabled = false
+umbriel_overview_close_on_launch_enabled = false
 umbriel_overview_type_to_launch_enabled = false
 
     [shell.animation]
@@ -483,6 +499,7 @@ umbriel_overview_type_to_launch_enabled = false
     compact = true
     default_view = "recent"
     fetch_exchange_rates = true
+    ignore_mouse = false
     layout = "simple"
     pinned = []
     provider_prefix = "/"
@@ -490,6 +507,7 @@ umbriel_overview_type_to_launch_enabled = false
     show_app_actions = false
     show_app_origin_indicator = true
     show_icons = true
+    show_navigation_labels = true
     show_session_button = true
     show_settings_button = true
     sort_by_usage = true
@@ -505,7 +523,7 @@ umbriel_overview_type_to_launch_enabled = false
     blacklist = [ "zen", "discord", "helium", "chrome", "mpv" ]
 
     [shell.panel]
-    border_color = "outline"
+    border_color = "outline_variant"
     border_width = 1.0
     borders = true
     clipboard_placement = "floating"
@@ -546,16 +564,23 @@ umbriel_overview_type_to_launch_enabled = false
     close_on_copy = true
     close_on_save = true
     confirm_region = false
+    copy_on_close = false
     copy_to_clipboard = true
     directory = ""
     filename_pattern = ""
+    format = "png"
     freeze_screen = true
     pipe_command = ""
     pipe_to_command = false
+    quality = 90
+    region_border_width = 2.0
+    region_dim_opacity = 0.64999997615814209
     region_modifier = "none"
     remember_last_region = false
     save_to_file = true
     show_cursor = false
+    show_region_dimensions = true
+    show_region_hint = true
     skip_annotate_on_copy_save = false
 
     [shell.session]
@@ -572,6 +597,7 @@ umbriel_overview_type_to_launch_enabled = false
         enabled = true
         glyph = ""
         label = ""
+        lockscreen_shortcut = ""
         shortcut = "1"
         variant = "default"
 
@@ -582,6 +608,7 @@ umbriel_overview_type_to_launch_enabled = false
         enabled = false
         glyph = ""
         label = ""
+        lockscreen_shortcut = ""
         shortcut = "2"
         variant = "default"
 
@@ -592,6 +619,7 @@ umbriel_overview_type_to_launch_enabled = false
         enabled = false
         glyph = ""
         label = ""
+        lockscreen_shortcut = ""
         shortcut = "3"
         variant = "default"
 
@@ -602,6 +630,7 @@ umbriel_overview_type_to_launch_enabled = false
         enabled = true
         glyph = ""
         label = ""
+        lockscreen_shortcut = ""
         shortcut = "4"
         variant = "default"
 
@@ -612,6 +641,7 @@ umbriel_overview_type_to_launch_enabled = false
         enabled = true
         glyph = ""
         label = ""
+        lockscreen_shortcut = ""
         shortcut = "5"
         variant = "destructive"
 
@@ -716,6 +746,7 @@ font_weight = 700
 icon_size = 14.0
 max_length = 260.0
 min_length = 80.0
+scale = 1.1000000000000001
 show_tooltip = true
 title_scroll = "on_hover"
 type = "active_window"

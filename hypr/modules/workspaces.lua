@@ -134,3 +134,33 @@ hl.window_rule({
     float = true,
     size = { 720, 960 },
 })
+
+-- ===========================
+-- BROWSERS EXTENSIONS
+-- ===========================
+hl.on("window.open", function(w)
+    if w.class ~= "zen" then return end
+    if w.initial_title ~= "Zen Browser" then return end
+
+    local ff_windows = hl.get_windows({ class = "zen" })
+    if #ff_windows <= 1 then return end
+
+    hl.dispatch(hl.dsp.window.float({ action = "set", window = w }))
+
+    local sub
+    sub = hl.on("window.title", function(tw)
+        if tw.address ~= w.address then return end
+        if tw.title == ""
+            or tw.title == "Zen Browser"
+            or tw.title == "about:blank"
+            or tw.title:match("^about:.*Zen Browser$") then return end
+
+        sub:remove()
+
+        if tw.title:match("^Extension:") then
+            hl.dispatch(hl.dsp.focus({ window = tw }))
+        else
+            hl.dispatch(hl.dsp.window.float({ action = "unset", window = tw }))
+        end
+    end)
+end)

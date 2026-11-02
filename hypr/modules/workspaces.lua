@@ -48,6 +48,16 @@ hl.window_rule({ name = "workspace-10", workspace = "10", tile = true, match = {
 --     match             = { class = ".*" },
 -- })
 
+-- Zen floating no-tile
+hl.window_rule({
+    name  = "zen-floating-notitle",
+    float = true,
+    match = {
+        class = "^zen$",
+        title = "^$",
+    },
+})
+
 -- Zen floating dialogs (PiP, file pickers, library etc.)
 hl.window_rule({
     name  = "zen-floating",
